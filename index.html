@@ -1,133 +1,168 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Toque · portales digitales para tu negocio</title>
-<meta name="description" content="Una tarjeta NFC y un QR que abren tu menú, pedidos, pagos y reseñas. Sin app.">
-<meta property="og:title" content="Toque · Tu negocio, a un toque"><meta property="og:description" content="Tarjeta NFC y QR con menú, pedidos por WhatsApp, pagos y reseñas.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%233b4d5c'/%3E%3Ccircle cx='50' cy='50' r='12' fill='%23fff'/%3E%3Ccircle cx='50' cy='50' r='28' fill='none' stroke='%235aa38a' stroke-width='6'/%3E%3C/svg%3E">
+<title>portalab · portales digitales con NFC</title>
+<meta name="description" content="Portales digitales que se abren con un toque NFC o un QR: para tu negocio, tu menú, tu salud, tu mascota y tus eventos. Sin app.">
+<meta property="og:type" content="website"><meta property="og:title" content="portalab · Acerca el teléfono. Listo."><meta property="og:description" content="Portales para negocios, menús digitales, fichas médicas, collares para mascotas e invitaciones. Con NFC y QR, sin app.">
+<meta name="theme-color" content="#171532">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Cpath d='M15 37V23a9 9 0 0 1 18 0v14' fill='none' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='26' r='3.2' fill='%23ff6b4a'/%3E%3Ccircle cx='36.5' cy='11.5' r='2.6' fill='%23b9b4ff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#eef2f4;--card:#fff;--ink:#1d2830;--mut:#5d6d7a;--line:#d7dfe4;--st:#3b4d5c;--st2:#222f3a;--bl:#1f4fd8;--gr:#5aa38a;--gd:#2b9e6e;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f181e;--card:#17232c;--ink:#e8eef2;--mut:#9fb0bc;--line:#283843;--bl:#3d6bf0;--gr:#6fbea4;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f181e;--card:#17232c;--ink:#e8eef2;--mut:#9fb0bc;--line:#283843;--bl:#3d6bf0;--gr:#6fbea4;color-scheme:dark}
+:root{--bg:#fff7ec;--card:#fff;--ink:#171532;--mut:#5f5c7a;--line:#eadfce;--st:#171532;--st2:#0d0b22;--gr:#d9482a;--co:#ff6b4a;--li:#b9b4ff;--gd:#1faa59;
+--tit:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--txt:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+box-sizing:border-box}
+@media (prefers-color-scheme:dark){:root{--bg:#100f22;--card:#1b1936;--ink:#f3f0ff;--mut:#a9a6c8;--line:#2c2a4d;--gr:#ff8f75;color-scheme:dark}}
 *{box-sizing:border-box}[hidden]{display:none!important}
-html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:96px}
+html{scroll-behavior:smooth;scroll-padding-top:12px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--txt);-webkit-font-smoothing:antialiased;padding:env(safe-area-inset-top,0) 0 calc(96px + env(safe-area-inset-bottom,0px))}
 button,a{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--gr);outline-offset:2px}
 .w{max-width:480px;margin:0 auto;padding:0 20px}
-.hero{background:radial-gradient(90% 70% at 88% 0,rgba(90,163,138,.42),transparent 62%),linear-gradient(160deg,var(--st),var(--st2));color:#f2f6f8;border-radius:0 0 38px 38px;padding:30px 0 52px;overflow:hidden}
-.br{display:flex;align-items:center;gap:12px}
-.mk{width:46px;height:46px;position:relative;flex:none}.mk i{position:absolute;inset:0;border:2px solid rgba(255,255,255,.6);border-radius:50%;animation:rip 2.7s infinite}
-.mk i:nth-child(2){animation-delay:.9s}.mk i:nth-child(3){animation-delay:1.8s}.mk b{position:absolute;inset:17px;border-radius:50%;background:#fff}
-.br strong{font-size:1.6rem;letter-spacing:-.03em;line-height:1}.br small{display:block;font:.68rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#a9c9bd;margin-top:3px}
-h1{font-size:clamp(2.5rem,12vw,3.2rem);line-height:1.02;letter-spacing:-.035em;margin:34px 0 14px}h1 em{font-style:normal;color:#8fd1b7}
-.lead{color:#cbd8df;margin:0 0 24px;max-width:34ch}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;text-decoration:none;font-weight:700;border:0;cursor:pointer;transition:transform .15s,filter .2s}
+.hero{background:radial-gradient(80% 60% at 100% 0,rgba(185,180,255,.38),transparent 62%),radial-gradient(60% 50% at 0 100%,rgba(255,107,74,.28),transparent 65%),var(--st);color:#fbf8ff;border-radius:0 0 38px 38px;padding:28px 0 46px;overflow:hidden;position:relative}
+.ondas{position:absolute;right:-70px;top:-70px;width:300px;height:300px;fill:none;stroke-width:2;pointer-events:none}.hero .w{position:relative}
+.br{display:flex;align-items:center;gap:11px}
+.br svg{width:46px;height:46px;flex:none}.br svg rect{fill:rgba(255,255,255,.12)}
+.br strong{font:800 1.7rem/1 var(--tit);letter-spacing:-.03em}.br strong em{font-style:normal;color:var(--li)}
+.br small{display:block;font:.66rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#c9c5ef;margin-top:4px}
+h1{font:800 clamp(2.6rem,12.5vw,3.4rem)/1 var(--tit);letter-spacing:-.035em;margin:34px 0 14px}h1 em{font-style:normal;color:var(--co)}
+.lead{color:#d9d6f2;margin:0 0 24px;max-width:36ch}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;text-decoration:none;font-weight:700;border:0;cursor:pointer;transition:transform .15s,filter .2s;padding:8px 20px;text-align:center}
 .btn:active{transform:scale(.97)}.btn:hover{filter:brightness(1.07)}
 .wa{background:var(--gd);color:#fff}.gh{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;margin-top:10px}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tags span{font-size:.8rem;padding:5px 12px;border:1px solid rgba(255,255,255,.22);border-radius:999px;color:#d6e2e8}
-.sec{margin-top:54px}.lab{font:.72rem ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--gr);font-weight:700}
-h2{font-size:1.75rem;letter-spacing:-.025em;line-height:1.15;margin:6px 0 8px}.sub{color:var(--mut);margin:0 0 20px}
+.ln+.ln{margin-top:8px}.ln{background:none;border:1.5px solid var(--ink);color:var(--ink);min-height:46px;font-size:.93rem;margin-top:14px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tags span{font-size:.8rem;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(185,180,255,.18);color:#e6e3ff}
+.nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:18px -20px 0;padding:0 20px 4px}.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;display:flex;align-items:center;gap:7px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.88rem}
+.nav svg{width:18px;height:18px}
+.sec{margin-top:52px}.lab{font:.72rem ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--gr);font-weight:700}
+h2{font:800 1.9rem/1.1 var(--tit);letter-spacing:-.025em;margin:6px 0 8px}.sub{color:var(--mut);margin:0 0 20px}
 .steps{display:grid;gap:12px}.st{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
-.st>b{flex:none;width:36px;height:36px;border-radius:50%;background:var(--st);color:#fff;display:grid;place-items:center}.st strong{display:block}.st span{color:var(--mut);font-size:.92rem}
-.seg{display:flex;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px}
-.seg button{flex:1;border:0;background:none;border-radius:999px;padding:9px 4px;font-weight:600;font-size:.9rem;cursor:pointer;color:var(--mut)}
-.seg button[aria-selected="true"]{background:var(--st);color:#fff}
-.ph{margin:18px auto 0;max-width:330px;border:9px solid var(--st2);border-radius:38px;background:var(--card);box-shadow:0 24px 40px -20px rgba(34,47,58,.55);overflow:hidden}
-.pt{background:var(--st);color:#fff;text-align:center;padding:14px 10px;font-weight:700;font-size:.95rem}.pt small{display:block;font-weight:400;opacity:.75;font-size:.72rem}
-.pb{padding:16px;min-height:330px}.pb h3{margin:0 0 10px;font-size:1rem}
-.it{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--line);gap:8px}.it span{font-weight:600}.it small{display:block;color:var(--mut);font-weight:400}
-.q{display:flex;align-items:center;gap:8px}.q button,.stars button{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:1.1rem;line-height:1}
-.q .p{background:var(--bl);border-color:var(--bl);color:#fff}
-.bub{margin-top:14px;background:#d9f7e4;color:#0f3d27;border-radius:14px 14px 14px 4px;padding:10px 12px;font-size:.84rem;white-space:pre-line}
-.bub.al{background:#ffe6e0;color:#5a1d12}.nt{font-size:.75rem;color:var(--mut);margin:10px 0 0}
-.row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px 0;border-top:1px solid var(--line)}.row small{display:block;color:var(--mut);font-size:.72rem}.row b{word-break:break-all;font-size:.9rem}
-.cp{flex:none;border:1px solid var(--bl);color:var(--bl);background:none;border-radius:10px;padding:6px 11px;font-weight:600;font-size:.82rem;cursor:pointer}.cp.ok{background:var(--bl);color:#fff}
-.stars{display:flex;justify-content:space-between;margin:6px 0}.stars button{width:20%;height:auto;aspect-ratio:1;border:0;background:none;font-size:1.9rem;color:var(--line);transition:transform .15s,color .15s}.stars button.on{color:#f0a500}.stars button:active{transform:scale(.88)}
-.pr{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px}
-.big{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1}.big small{font-size:.95rem;font-weight:600;color:var(--mut);letter-spacing:0}
-.ok{list-style:none;padding:0;margin:16px 0 0}.ok li{display:flex;gap:10px;padding:6px 0}.ok li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--gr) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 10.5l3 3 6-7'/%3E%3C/svg%3E") center/100% no-repeat}
-.ex{margin-top:14px;background:var(--card);border:1px dashed var(--mut);border-radius:20px;padding:18px}.ex strong{display:block;margin-bottom:6px}.ex ul{margin:0;padding-left:20px;color:var(--mut)}
-details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:12px;overflow:hidden}summary{cursor:pointer;padding:16px;font-weight:600;list-style:none}summary::-webkit-details-marker{display:none}
-details .row{padding:12px 16px}
+.st>b{flex:none;width:38px;height:38px;border-radius:12px;background:var(--co);color:#171532;font:800 1.1rem var(--tit);display:grid;place-items:center;transform:rotate(-4deg)}.st strong{display:block}.st span{color:var(--mut);font-size:.92rem}
+.ic{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sv{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:12px 12px 20px;margin-top:16px;scroll-margin-top:12px;box-shadow:0 14px 30px -22px rgba(23,21,50,.5)}
+.sv>*{margin-left:10px;margin-right:10px}.sv .il{display:block;width:100%;height:auto;margin:0 0 16px;border-radius:18px}
+.sv .top{display:flex;align-items:center;gap:14px}
+.sv h3{margin:0;font:800 1.45rem/1.12 var(--tit);letter-spacing:-.02em}.sv .pr{display:inline-block;margin-top:8px;font-size:.8rem;font-weight:700;color:#171532;background:#ffe3da;padding:3px 11px;border-radius:999px}
+.sv p{margin-top:12px;margin-bottom:0;color:var(--mut)}
+.ok{list-style:none;padding:0;margin:12px 0 0}.ok li{display:flex;gap:10px;padding:5px 0;font-size:.95rem}.ok li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--co) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23171532' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 10.5l3 3 6-7'/%3E%3C/svg%3E") center/100% no-repeat}
+.nota{margin-top:12px!important;font-size:.84rem;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.sv .btn.wa{margin-top:16px;min-height:50px}
+.caso{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:12px;text-decoration:none}
+.caso b{display:block}.caso span{color:var(--mut);font-size:.9rem}.caso div{flex:1}.caso i{font-style:normal;font-size:1.3rem;color:var(--gr)}.caso b{font:800 1.1rem var(--tit)}
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:10px;overflow:hidden}
+summary{cursor:pointer;padding:16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gr);font-weight:700;font-size:1.2rem;line-height:1.2}details[open] summary::after{content:"−"}
+details p{margin:0;padding:0 16px 16px;color:var(--mut)}
 .ft{text-align:center;color:var(--mut);font-size:.82rem;margin:46px 0 0}
 .fab{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));pointer-events:none;z-index:5;background:linear-gradient(transparent,var(--bg) 45%)}
-.fab a{pointer-events:auto;max-width:480px;margin:0 auto;box-shadow:0 14px 28px -10px rgba(43,158,110,.7)}
-@keyframes rip{from{transform:scale(.4);opacity:.9}to{transform:scale(1.3);opacity:0}}
+.fab a{pointer-events:auto;max-width:480px;margin:0 auto;box-shadow:0 14px 28px -10px rgba(31,170,89,.7)}
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .hero .w>*{animation:up .6s cubic-bezier(.2,.7,.2,1) backwards}.hero .w>:nth-child(2){animation-delay:.08s}.hero .w>:nth-child(3){animation-delay:.16s}.hero .w>:nth-child(4){animation-delay:.24s}.hero .w>:nth-child(5){animation-delay:.3s}.hero .w>:nth-child(6){animation-delay:.36s}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style></head>
 <body>
-<header class="hero"><div class="w">
-<div class="br"><div class="mk"><i></i><i></i><i></i><b></b></div><div><strong id="mc"></strong><small>portales digitales</small></div></div>
-<h1>Tu negocio,<br><em>a un toque.</em></h1>
-<p class="lead">Una tarjeta NFC y un código QR que abren tu menú, pedidos por WhatsApp, pagos y reseñas. Sin descargar nada.</p>
+<header class="hero"><svg class="ondas" viewBox="0 0 300 300" aria-hidden="true"><circle cx="150" cy="150" r="50" stroke="#ff6b4a"/><circle cx="150" cy="150" r="85" stroke="#b9b4ff" opacity=".7"/><circle cx="150" cy="150" r="120" stroke="#b9b4ff" opacity=".4"/><circle cx="150" cy="150" r="148" stroke="#b9b4ff" opacity=".2"/></svg><div class="w">
+<div class="br"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg>
+<div><strong>porta<em>lab</em></strong><small>portales digitales con NFC</small></div></div>
+<h1>Acerca el teléfono.<br><em>Listo.</em></h1>
+<p class="lead" id="lead"></p>
 <a class="btn wa" id="w1" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-<a class="btn gh" href="#demo">Pruébalo tú mismo</a>
+<a class="btn gh" href="#servicios">Ver servicios</a>
 <div class="tags"><span>Sin app</span><span>NFC + QR</span><span id="zn"></span></div>
 </div></header>
 
 <main class="w">
-<section class="sec"><div class="lab">Cómo funciona</div><h2>Tres pasos, cero fricción</h2><p class="sub">Tu cliente no instala nada. Acerca el teléfono o escanea, y listo.</p>
+<nav class="nav" id="nav" aria-label="Servicios"></nav>
+
+<section class="sec"><div class="lab">Cómo funciona</div><h2>Un toque y se abre</h2><p class="sub">Nadie instala nada. El chip NFC o el código QR abren una página hecha para ti.</p>
 <div class="steps">
-<div class="st"><b>1</b><div><strong>Toca o escanea</strong><span>Un exhibidor pequeño en la mesa o el mostrador, con chip NFC y QR para cualquier teléfono.</span></div></div>
-<div class="st"><b>2</b><div><strong>Se abre tu portal</strong><span>Con tu imagen, tus colores y todo lo que tu negocio ofrece.</span></div></div>
-<div class="st"><b>3</b><div><strong>Pide, paga y califica</strong><span>Pedidos por WhatsApp, transferencia con un toque para copiar y reseñas en Google.</span></div></div>
+<div class="st"><b>1</b><div><strong>Toca o escanea</strong><span>Un exhibidor, una pulsera o una placa con chip NFC y código QR, para cualquier teléfono.</span></div></div>
+<div class="st"><b>2</b><div><strong>Se abre tu portal</strong><span>Una página con tu imagen y justo la información que se necesita en ese momento.</span></div></div>
+<div class="st"><b>3</b><div><strong>Se actualiza cuando quieras</strong><span>Cambia precios, datos o teléfonos sin reimprimir ni cambiar el chip.</span></div></div>
 </div></section>
 
-<section class="sec" id="demo"><div class="lab">Demo en vivo</div><h2>Toca. Esto es lo que ve tu cliente.</h2><p class="sub">Es un café de ejemplo. Prueba cada función.</p>
-<div class="seg" role="tablist"><button role="tab" aria-selected="true" data-p="a">Pedido</button><button role="tab" aria-selected="false" data-p="b">Pago</button><button role="tab" aria-selected="false" data-p="c">Mesa</button></div>
-<div class="ph"><div class="pt">Café Ejemplo<small>Mesa 4</small></div>
-<div class="pb" id="pa"><h3>Arma tu pedido</h3><div id="its"></div><div class="bub" id="bu">Agrega algo y mira cómo le llega el pedido al dueño por WhatsApp.</div></div>
-<div class="pb" id="pb" hidden><h3>Pagar por transferencia</h3>
-<div class="row"><div><small>Banco</small><b>Banco Ejemplo</b></div></div><div class="row"><div><small>Titular</small><b>Café Ejemplo S.A.</b></div></div>
-<div class="row"><div><small>CLABE</small><b>000000000000000000</b></div><button class="cp" data-c="000000000000000000">Copiar</button></div>
-<p class="nt">Sin comisión de terminal. El cliente copia la CLABE con un toque.</p></div>
-<div class="pb" id="pc" hidden><h3>¿Cómo va tu visita?</h3><div class="stars" id="sts"></div><div class="bub" id="bm">Califica del 1 al 5 y mira qué pasa.</div></div>
-</div></section>
+<section class="sec" id="servicios"><div class="lab">Servicios</div><h2>Qué hacemos</h2><p class="sub">Elige el que necesitas y cuéntame tu caso por WhatsApp.</p>
+<div id="svs"></div></section>
 
-<section class="sec"><div class="lab">Precio</div><h2>Empieza por lo básico</h2><p class="sub">Precio de lanzamiento por exhibidor.</p>
-<div class="pr"><div class="big">$<span id="pc2"></span> <small>MXN por exhibidor</small></div>
-<ul class="ok"><li>Portal con tu imagen y tus colores</li><li>Exhibidor A6 impreso con chip NFC y QR</li><li>Menú, WhatsApp, pago por transferencia, mapa, reseñas e Instagram</li><li>Configuración y prueba en tu negocio</li></ul></div>
-<div class="ex"><strong>Extras, a cotizar</strong><ul><li>Pedidos con total por WhatsApp</li><li>Calificación por mesa con aviso al encargado</li><li>Dulce del día</li><li>Tarjeta de sellos</li></ul></div></section>
+<section class="sec" id="casos"><div class="lab">Ya funcionando</div><h2>Míralo en un negocio real</h2><p class="sub">Portales que hoy usan clientes en sus mesas.</p><div id="cs"></div></section>
 
-<section class="sec"><div class="lab">Hablemos</div><h2>¿Lo quieres para tu negocio?</h2><p class="sub" id="zn2"></p>
+<section class="sec"><div class="lab">Preguntas</div><h2>Lo que más me preguntan</h2><div id="faq"></div></section>
+
+<section class="sec"><div class="lab">Hablemos</div><h2>¿Lo quieres para ti?</h2><p class="sub" id="zn2"></p>
 <a class="btn wa" id="w2" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-<details id="ap"><summary>Apartar con transferencia</summary>
-<div class="row"><div><small>Banco</small><b id="bk"></b></div></div><div class="row"><div><small>Titular</small><b id="ti"></b></div></div><div class="row"><div><small>CLABE</small><b id="cl"></b></div><button class="cp" id="cc">Copiar</button></div></details>
 <p class="ft" id="ft"></p></section>
 </main>
 <div class="fab"><a class="btn wa" id="w3" target="_blank" rel="noopener">Escríbeme por WhatsApp</a></div>
 
 <script>
 // ============ CONFIGURACIÓN ============
-const CONFIG={marca:"toque",whatsapp:"525533497852",zona:"Naucalpan, Estado de México",precio:350,
- banco:"BBVA Bancomer",titular:"Edgar Ruiz",clabe:"012180015679754088"};
+const CONFIG={
+ marca:"portalab", whatsapp:"525533497852", zona:"Naucalpan, Estado de México",
+ lead:"Hacemos portales digitales que se abren con un toque NFC o un código QR: para tu negocio, tu salud, tu mascota y tus eventos.",
+ servicios:[   // icono: portal, menu, salud, mascota, sobre.  precio: texto libre ("" = no se muestra).  demo: enlace ("" = sin botón)
+  {id:"portales", icono:"portal", nombre:"Portales para negocios", precio:"Desde $350 MXN por exhibidor",
+   texto:"Un exhibidor en la mesa o el mostrador que abre todo lo de tu negocio en una sola página.",
+   puntos:["Pedidos por WhatsApp desde la mesa","Pago por transferencia con un toque para copiar","Ubicación, reseñas en Google y redes","Tarjeta de lealtad y opiniones por mesa"],
+   nota:"", demo:"", mensaje:"Hola, me interesa un portal digital para mi negocio."},
+  {id:"menu", icono:"menu", nombre:"Menú digital con NFC", precio:"A cotizar",
+   texto:"Tu menú siempre al día. El cliente acerca el teléfono y lo ve al instante, con fotos y horarios.",
+   puntos:["Cambia precios y platillos sin reimprimir","Secciones por horario: desayunos, comidas, bebidas","Funciona con NFC y con QR","Se ve bien aun con poca señal"],
+   nota:"", demo:"", mensaje:"Hola, me interesa un menú digital con NFC."},
+  {id:"salud", icono:"salud", nombre:"Ficha médica en pulsera NFC", precio:"A cotizar",
+   texto:"Una pulsera que, al acercar un teléfono, muestra los datos que importan en una emergencia.",
+   puntos:["Tipo de sangre, alergias y padecimientos","Medicamentos que tomas","Contactos de emergencia con botón para llamar","Tú actualizas la ficha cuando algo cambia"],
+   nota:"Tú decides qué datos mostrar: cualquier persona que acerque su teléfono a la pulsera puede ver la ficha.",
+   demo:"", mensaje:"Hola, me interesa una pulsera NFC con ficha médica."},
+  {id:"mascotas", icono:"mascota", nombre:"Collar para mascotas con localizador y NFC", precio:"A cotizar",
+   texto:"Si tu perro se pierde, quien lo encuentre acerca su teléfono a la placa y te contacta en segundos.",
+   puntos:["Placa NFC con el nombre de tu mascota y tus teléfonos","Botón para llamarte o escribirte por WhatsApp","Datos de salud: vacunas, alergias, veterinario","Localizador tipo tag para ubicarlo desde tu teléfono"],
+   nota:"", demo:"", mensaje:"Hola, me interesa un collar con localizador y NFC para mi mascota."},
+  {id:"invitaciones", icono:"sobre", nombre:"Invitaciones digitales", precio:"A cotizar",
+   texto:"Invitaciones para bodas, XV años y fiestas infantiles que se mandan por WhatsApp.",
+   puntos:["Enlace personalizado con el nombre de cada invitado","Confirmación de asistencia por WhatsApp","Cuenta regresiva, mapa y agregar al calendario","Diseños para boda y fiestas infantiles"],
+   nota:"", demos:[["Ver demo: boda","boda/"],["Ver demo: cuento de hadas","cuento/"],["Ver demo: juguetes","juguetes/"],["Ver demo: selva","selva/"]], mensaje:"Hola, me interesa una invitación digital."}
+ ],
+ casos:[      // [] = oculta la sección
+  ["Endorfina espresso","Cafetería · menú, pedidos y pagos","https://edrualmaxfatylu-blip.github.io/Endorfinas-cafe/"],
+  ["Endorfina Casa Maestra","Chocolatería y café","https://edrualmaxfatylu-blip.github.io/endorfina-casa-maestra/"]
+ ],
+ preguntas:[
+  ["¿Hay que descargar una app?","No. El portal es una página web: se abre sola al acercar el teléfono al chip o al escanear el código QR."],
+  ["¿Funciona en iPhone y Android?","Sí. La mayoría de los teléfonos recientes leen NFC; para los que no, cada producto lleva también un código QR."],
+  ["¿Puedo cambiar la información después?","Sí. El chip solo guarda la dirección de tu portal, así que el contenido se actualiza sin tocar el chip ni reimprimir nada."],
+  ["¿Quién puede ver mi ficha médica o los datos de mi mascota?","Cualquier persona que acerque su teléfono a la pulsera o a la placa, porque para eso sirven en una emergencia. Por eso solo se pone lo necesario y tú eliges qué aparece."],
+  ["¿Dónde trabajas?","En Naucalpan y alrededores para la instalación en negocios. Pulseras, placas e invitaciones se pueden coordinar por WhatsApp."]
+ ]
+};
 // =======================================
 (function(){
-const C=CONFIG,$=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
-$("#mc").textContent=C.marca;$("#zn").textContent=C.zona.split(",")[0];$("#zn2").textContent="Trabajo en "+C.zona+" y alrededores. Cuéntame de tu negocio y te muestro cómo quedaría.";
-$("#pc2").textContent=C.precio;$("#bk").textContent=C.banco;$("#ti").textContent=C.titular;$("#cl").textContent=C.clabe;
-$("#ft").textContent="© "+C.marca+" · portales digitales · "+C.zona;
-const wa="https://wa.me/"+C.whatsapp+"?text="+encodeURIComponent("Hola, me interesa un portal digital para mi negocio.");
-["#w1","#w2","#w3"].forEach(s=>$(s).href=wa);
-function cp(b,v){const ok=()=>{const t=b.textContent;b.textContent="Copiado";b.classList.add("ok");setTimeout(()=>{b.textContent="Copiar";b.classList.remove("ok")},1500)};
- if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(v).then(ok,()=>{});else{const a=document.createElement("textarea");a.value=v;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();ok()}}
-$("#cc").onclick=function(){cp(this,C.clabe)};
-$$("[data-c]").forEach(b=>b.onclick=()=>cp(b,b.dataset.c));
-// pestañas
-$$(".seg button").forEach(b=>b.onclick=()=>{$$(".seg button").forEach(x=>x.setAttribute("aria-selected",x===b));["a","b","c"].forEach(k=>$("#p"+k).hidden=k!==b.dataset.p)});
-// demo pedido
-const M=[["Capuchino",55,"Espuma sedosa"],["Concha",28,"Del horno"],["Chocolate caliente",52,"Con canela"]],cart=[0,0,0];
-function dp(){$("#its").innerHTML=M.map((x,i)=>`<div class="it"><span>${x[0]}<small>$${x[1]}</small></span><div class="q">${cart[i]?`<button data-i="${i}" data-d="-1" aria-label="Quitar">−</button><b>${cart[i]}</b>`:""}<button class="p" data-i="${i}" data-d="1" aria-label="Agregar ${x[0]}">+</button></div></div>`).join("");
- const L=M.map((x,i)=>cart[i]?`• ${cart[i]}× ${x[0]} ($${cart[i]*x[1]})`:"").filter(Boolean),t=M.reduce((s,x,i)=>s+cart[i]*x[1],0);
- $("#bu").textContent=L.length?"Hola, soy de la mesa 4. Quiero pedir:\n"+L.join("\n")+"\nTotal: $"+t:"Agrega algo y mira cómo le llega el pedido al dueño por WhatsApp."}
-$("#its").onclick=e=>{const b=e.target.closest("button");if(!b)return;const i=+b.dataset.i;cart[i]=Math.max(0,cart[i]+ +b.dataset.d);dp()};dp();
-// demo mesa
-const S=$("#sts");for(let n=1;n<=5;n++){const b=document.createElement("button");b.textContent="★";b.setAttribute("aria-label",n+" de 5");b.onclick=()=>{
- $$("#sts button").forEach((x,j)=>x.classList.toggle("on",j<n));const m=$("#bm");m.classList.toggle("al",n<=3);
- m.textContent=n>=4?"¡Gracias! Se invita al cliente a dejar su reseña en Google.":"Aviso al encargado por WhatsApp:\nMesa 4 · "+n+"/5. Hay que atenderla ahora."};S.appendChild(b)}
+const C=CONFIG,$=s=>document.querySelector(s);
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+const wa=m=>"https://wa.me/"+C.whatsapp+"?text="+encodeURIComponent(m);
+const IC={portal:'<path d="M6 21V11a6 6 0 0 1 12 0v10M3 21h18"/><circle cx="12" cy="13" r="1.4"/>',
+ menu:'<path d="M5 4a2 2 0 0 1 2-2h12v17H7a2 2 0 0 0-2 2zM5 4v17M9 7h6M9 11h6"/>',
+ salud:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 9v5M9.5 11.5h5"/>',
+ mascota:'<circle cx="7" cy="9" r="1.8"/><circle cx="17" cy="9" r="1.8"/><circle cx="10" cy="5" r="1.8"/><circle cx="14" cy="5" r="1.8"/><path d="M12 11c-3 0-5 2.6-5 5a2.6 2.6 0 0 0 5 1 2.6 2.6 0 0 0 5-1c0-2.4-2-5-5-5z"/>',
+ sobre:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>'};
+const IL={"portal": "<rect width=\"320\" height=\"170\" fill=\"#e9e7ff\"/><rect y=\"140\" width=\"320\" height=\"30\" fill=\"#d6d2ff\"/><rect x=\"70\" y=\"132\" width=\"70\" height=\"9\" rx=\"3\" fill=\"#171532\"/><rect x=\"78\" y=\"50\" width=\"54\" height=\"84\" rx=\"7\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"90\" y=\"62\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#171532\"/><g fill=\"#fff\"><rect x=\"94\" y=\"66\" width=\"8\" height=\"8\" rx=\"1.5\"/><rect x=\"108\" y=\"66\" width=\"8\" height=\"8\" rx=\"1.5\"/><rect x=\"94\" y=\"80\" width=\"8\" height=\"8\" rx=\"1.5\"/></g><rect x=\"108\" y=\"80\" width=\"8\" height=\"8\" rx=\"1.5\" fill=\"#ff6b4a\"/><rect x=\"88\" y=\"102\" width=\"34\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><rect x=\"94\" y=\"114\" width=\"22\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M148 80q9 12 0 24M159 71q15 21 0 42M170 62q21 30 0 60\"/></g><g transform=\"rotate(12 225 88)\"><rect x=\"192\" y=\"26\" width=\"66\" height=\"124\" rx=\"13\" fill=\"#171532\"/><rect x=\"197\" y=\"32\" width=\"56\" height=\"112\" rx=\"9\" fill=\"#fff\"/><circle cx=\"225\" cy=\"58\" r=\"13\" fill=\"#ff6b4a\"/><rect x=\"207\" y=\"80\" width=\"36\" height=\"5\" rx=\"2.5\" fill=\"#171532\"/><rect x=\"211\" y=\"91\" width=\"28\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><rect x=\"205\" y=\"112\" width=\"40\" height=\"16\" rx=\"8\" fill=\"#1faa59\"/></g>", "menu": "<rect width=\"320\" height=\"170\" fill=\"#ffe3da\"/><circle cx=\"60\" cy=\"98\" r=\"36\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"98\" r=\"21\" fill=\"#ffefc2\" stroke=\"#171532\" stroke-width=\"2\"/><rect x=\"125\" y=\"14\" width=\"70\" height=\"142\" rx=\"13\" fill=\"#171532\"/><rect x=\"130\" y=\"20\" width=\"60\" height=\"130\" rx=\"9\" fill=\"#fff\"/><path d=\"M130 29a9 9 0 0 1 9-9h42a9 9 0 0 1 9 9v17h-60z\" fill=\"#ff6b4a\"/><rect x=\"146\" y=\"30\" width=\"28\" height=\"5\" rx=\"2.5\" fill=\"#fff\"/><g stroke=\"#171532\" stroke-width=\"2\" fill=\"#ffefc2\"><circle cx=\"143\" cy=\"64\" r=\"7\"/><circle cx=\"143\" cy=\"90\" r=\"7\"/><circle cx=\"143\" cy=\"116\" r=\"7\"/></g><g fill=\"#171532\"><rect x=\"155\" y=\"58\" width=\"28\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"84\" width=\"28\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"110\" width=\"28\" height=\"4\" rx=\"2\"/></g><g fill=\"#b9b4ff\"><rect x=\"155\" y=\"66\" width=\"18\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"92\" width=\"18\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"118\" width=\"18\" height=\"4\" rx=\"2\"/></g><rect x=\"236\" y=\"86\" width=\"42\" height=\"36\" rx=\"9\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M278 94h5a8 8 0 0 1 0 16h-5\" fill=\"none\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M250 76q-5-7 0-14M264 76q-5-7 0-14\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>", "salud": "<rect width=\"320\" height=\"170\" fill=\"#e9e7ff\"/><ellipse cx=\"160\" cy=\"96\" rx=\"92\" ry=\"46\" fill=\"none\" stroke=\"#171532\" stroke-width=\"20\"/><ellipse cx=\"160\" cy=\"96\" rx=\"92\" ry=\"46\" fill=\"none\" stroke=\"#b9b4ff\" stroke-width=\"3\" stroke-dasharray=\"2 9\" stroke-linecap=\"round\"/><rect x=\"116\" y=\"24\" width=\"88\" height=\"56\" rx=\"15\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"152\" y=\"36\" width=\"16\" height=\"32\" rx=\"3\" fill=\"#ff6b4a\"/><rect x=\"144\" y=\"44\" width=\"32\" height=\"16\" rx=\"3\" fill=\"#ff6b4a\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M222 40q9 12 0 24M234 31q15 21 0 42\"/></g><path d=\"M112 98h26l8-14 12 28 10-20 6 6h34\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>", "mascota": "<rect width=\"320\" height=\"170\" fill=\"#ffefc2\"/><path d=\"M114 52q-30-8-26 38 16 16 30-4zM206 52q30-8 26 38-16 16-30-4z\" fill=\"#171532\"/><ellipse cx=\"160\" cy=\"74\" rx=\"50\" ry=\"46\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><circle cx=\"143\" cy=\"68\" r=\"5\" fill=\"#171532\"/><circle cx=\"177\" cy=\"68\" r=\"5\" fill=\"#171532\"/><ellipse cx=\"160\" cy=\"92\" rx=\"19\" ry=\"14\" fill=\"#ffe3da\"/><ellipse cx=\"160\" cy=\"86\" rx=\"7.5\" ry=\"5.5\" fill=\"#171532\"/><path d=\"M160 92v6M160 98q-6 6-11 1M160 98q6 6 11 1\" fill=\"none\" stroke=\"#171532\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M120 110q40 24 80 0\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"13\" stroke-linecap=\"round\"/><circle cx=\"160\" cy=\"142\" r=\"16\" fill=\"#b9b4ff\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M154 147v-6a6 6 0 0 1 12 0v6\" fill=\"none\" stroke=\"#171532\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M186 132q8 10 0 20M197 125q13 17 0 34\"/></g><path d=\"M268 96s-19-17-19-32a19 19 0 0 1 38 0c0 15-19 32-19 32z\" fill=\"#ff6b4a\"/><circle cx=\"268\" cy=\"64\" r=\"7\" fill=\"#fff\"/><path d=\"M52 60l4 9 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z\" fill=\"#ff6b4a\" opacity=\".0\"/>", "sobre": "<rect width=\"320\" height=\"170\" fill=\"#ffe3da\"/><rect x=\"95\" y=\"72\" width=\"130\" height=\"84\" rx=\"11\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"112\" y=\"22\" width=\"96\" height=\"96\" rx=\"9\" fill=\"#fff7ec\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M160 60c-5-9-18-6-18 4 0 8 10 14 18 20 8-6 18-12 18-20 0-10-13-13-18-4z\" fill=\"#ff6b4a\"/><rect x=\"138\" y=\"92\" width=\"44\" height=\"4\" rx=\"2\" fill=\"#171532\"/><path d=\"M95 86l65 42 65-42v59a11 11 0 0 1-11 11H106a11 11 0 0 1-11-11z\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\" stroke-linejoin=\"round\"/><g fill=\"#ff6b4a\"><circle cx=\"58\" cy=\"48\" r=\"6\"/><rect x=\"254\" y=\"104\" width=\"12\" height=\"12\" rx=\"3\" transform=\"rotate(20 260 110)\"/></g><g fill=\"#b9b4ff\"><circle cx=\"262\" cy=\"46\" r=\"8\"/><rect x=\"48\" y=\"104\" width=\"13\" height=\"13\" rx=\"3\" transform=\"rotate(-18 54 110)\"/></g><g fill=\"#171532\"><circle cx=\"240\" cy=\"74\" r=\"4\"/><circle cx=\"76\" cy=\"80\" r=\"4\"/></g>"};
+const svg=k=>'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+(IC[k]||IC.portal)+'</svg>';
+$("#lead").textContent=C.lead;$("#zn").textContent=C.zona.split(",")[0];
+$("#zn2").textContent="Trabajo en "+C.zona+" y alrededores. Cuéntame qué necesitas y te digo cómo quedaría.";
+$("#ft").textContent="© "+new Date().getFullYear()+" "+C.marca+" · portales digitales · "+C.zona;
+["#w1","#w2","#w3"].forEach(s=>$(s).href=wa("Hola, me interesan los servicios de "+C.marca+"."));
+C.servicios.forEach(s=>{
+ const a=el("a");a.href="#"+s.id;a.innerHTML=svg(s.icono);a.appendChild(el("span","",s.nombre.split(" ")[0]==="Portales"?"Negocios":s.nombre.split(" con ")[0].replace("Ficha médica en pulsera NFC","Ficha médica").replace("Collar para mascotas","Mascotas").replace("Invitaciones digitales","Invitaciones")));$("#nav").appendChild(a);
+ const c=el("article","sv");c.id=s.id;
+ c.innerHTML='<svg class="il" viewBox="0 0 320 170" role="img" aria-label="Ilustración: '+s.nombre+'">'+(IL[s.icono]||IL.portal)+"</svg>";const h=el("div");h.appendChild(el("h3","",s.nombre));if(s.precio)h.appendChild(el("span","pr",s.precio));c.appendChild(h);
+ c.appendChild(el("p","",s.texto));
+ const u=el("ul","ok");s.puntos.forEach(p=>u.appendChild(el("li","",p)));c.appendChild(u);
+ if(s.nota)c.appendChild(el("p","nota",s.nota));
+ (s.demos||(s.demo?[["Ver demostración",s.demo]]:[])).forEach(x=>{const d=el("a","btn ln",x[0]);d.href=x[1];d.target="_blank";d.rel="noopener";c.appendChild(d)});
+ const b=el("a","btn wa","Lo quiero");b.href=wa(s.mensaje);b.target="_blank";b.rel="noopener";c.appendChild(b);
+ $("#svs").appendChild(c)});
+if(!(C.casos||[]).length)$("#casos").hidden=true;
+(C.casos||[]).forEach(k=>{const a=el("a","caso"),d=el("div");a.href=k[2];a.target="_blank";a.rel="noopener";d.appendChild(el("b","",k[0]));d.appendChild(el("span","",k[1]));a.appendChild(d);a.appendChild(el("i","","→"));$("#cs").appendChild(a)});
+C.preguntas.forEach(q=>{const d=el("details");d.appendChild(el("summary","",q[0]));d.appendChild(el("p","",q[1]));$("#faq").appendChild(d)});
 })();
 </script>
 </body></html>
