@@ -1,0 +1,6 @@
+# GitHub Pages: lo que NO se publica en el sitio.
+# La fábrica solo se usa desde tu cuenta de Claude; aquí no queda pública.
+exclude:
+  - fabrica
+  - arma/fuente.html
+  - README.md
