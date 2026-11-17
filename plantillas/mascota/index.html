@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Placa de mascota</title>
+<meta name="theme-color" content="#1d4e89">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Ccircle cx='24' cy='29' r='7' fill='%23ff6b4a'/%3E%3Ccircle cx='15' cy='20' r='3.5' fill='%23fff'/%3E%3Ccircle cx='33' cy='20' r='3.5' fill='%23fff'/%3E%3Ccircle cx='20' cy='13' r='3.5' fill='%23fff'/%3E%3Ccircle cx='28' cy='13' r='3.5' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c:#1d4e89;--a:#ffb84d;--bg:var(--fondo,#fff7ec);--card:#fff;--ink:#171532;--mut:#5f5c7a;--line:#eadfce;--gd:#1faa59;
+--lab:color-mix(in srgb,var(--a) 55%,#000);
+--tit:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--txt:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#100f22;--card:#1b1936;--ink:#f3f0ff;--mut:#a9a6c8;--line:#2c2a4d;--lab:color-mix(in srgb,var(--a) 75%,#fff);color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--txt);-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+a,button{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--lab);outline-offset:2px}
+.w{max-width:480px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.hero{background:radial-gradient(70% 60% at 100% 0,rgba(255,255,255,.16),transparent 62%),radial-gradient(60% 50% at 0 100%,color-mix(in srgb,var(--a) 38%,transparent),transparent 65%),var(--c);color:#fff;border-radius:0 0 38px 38px;padding:calc(24px + env(safe-area-inset-top,0px)) 0 28px;text-align:center;position:relative;overflow:hidden}
+.ondas{position:absolute;left:50%;top:-10px;width:420px;height:420px;transform:translateX(-50%);fill:none;stroke-width:2;pointer-events:none}
+.hero .w{position:relative}
+.demo{display:inline-block;margin-bottom:14px;background:#ffefc2;color:#171532;font:700 .68rem ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+.foto{width:168px;height:168px;margin:0 auto;border-radius:50%;background:rgba(255,255,255,.16) center/cover;border:6px solid #fff;box-shadow:0 0 0 6px var(--a),0 20px 34px -14px rgba(0,0,0,.55);display:grid;place-items:center}
+.foto svg{width:76px;height:76px;fill:#fff;opacity:.8}
+.hola{display:inline-block;margin-top:20px;background:var(--a);color:#171532;font:800 .78rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;padding:6px 14px;border-radius:999px;transform:rotate(-2deg)}
+h1{margin:10px 0 0;font:800 clamp(2.6rem,13vw,3.4rem)/1 var(--tit);letter-spacing:-.04em}
+.esp{color:rgba(255,255,255,.8);margin-top:6px}
+.msg{margin:16px auto 0;max-width:34ch;font-size:1.05rem;color:#fff}
+.recomp{display:inline-block;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:14px;padding:8px 14px;font-weight:700}
+.acc{display:grid;gap:10px;margin-top:22px;text-align:left}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:999px;text-decoration:none;font-weight:800;border:0;cursor:pointer;padding:8px 20px;text-align:center;width:100%;transition:transform .15s}
+.btn:active{transform:scale(.97)}.btn svg{width:22px;height:22px;flex:none}.btn:disabled{opacity:.6}
+.wa{background:var(--gd);color:#fff}.blanco{background:#fff;color:#171532}.am{background:var(--a);color:#171532}
+.ln{background:none;border:1.5px solid var(--ink);color:var(--ink);min-height:46px;font-weight:700}
+.estado{font-size:.88rem;color:rgba(255,255,255,.85);text-align:center;margin:2px 0 0;min-height:1.2em}
+.sec{margin-top:30px}
+.lab{font:700 .72rem ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--lab)}
+h2{font:800 1.45rem/1.1 var(--tit);letter-spacing:-.02em;margin:6px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
+.ctc{display:grid;gap:10px}.ctc .card{display:flex;align-items:center;gap:12px}.ctc .card div{flex:1;min-width:0}.ctc b{display:block;font:800 1.1rem var(--tit)}.ctc span{color:var(--mut);font-size:.9rem;font-variant-numeric:tabular-nums}
+.ctc .btn{width:auto;min-height:46px;padding:0 18px}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.kv:last-child{border:0;padding-bottom:0}.kv:first-child{padding-top:0}.kv span{color:var(--mut)}.kv b{text-align:right}
+.nota{margin:0;white-space:pre-line}
+footer{text-align:center;color:var(--mut);font-size:.84rem;margin:36px 0 32px;display:grid;gap:8px;justify-items:center}
+.credito{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mut)}.credito svg{width:24px;height:24px}.credito strong{font:800 1rem var(--tit);letter-spacing:-.02em;color:var(--ink)}.credito em{font-style:normal;color:#ff6b4a}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .w>*{animation:up .6s cubic-bezier(.2,.7,.2,1) backwards}.hero .w>:nth-child(2){animation-delay:.08s}.hero .w>:nth-child(3){animation-delay:.14s}.hero .w>:nth-child(4){animation-delay:.2s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head>
+<body>
+<header class="hero"><svg class="ondas" viewBox="0 0 420 420" aria-hidden="true"><circle cx="210" cy="130" r="110" stroke="#fff" opacity=".22"/><circle cx="210" cy="130" r="150" stroke="#fff" opacity=".12"/></svg>
+<div class="w">
+<div class="demo" id="demo" hidden>Demostración</div>
+<div class="foto" id="foto" role="img"><svg viewBox="0 0 24 24" id="fotoV"><circle cx="12" cy="15" r="4.2"/><circle cx="6" cy="10" r="2.1"/><circle cx="18" cy="10" r="2.1"/><circle cx="9" cy="5.5" r="2.1"/><circle cx="15" cy="5.5" r="2.1"/></svg></div>
+<div><span class="hola">¡Hola! Soy</span><h1 id="nombre"></h1><div class="esp" id="esp"></div></div>
+<p class="msg" id="msg"></p>
+<div id="rc" hidden><span class="recomp" id="recomp"></span></div>
+<div class="acc" id="acc"></div>
+</div></header>
+<main class="w">
+<section class="sec" id="sCtc"><div class="lab">Mi familia</div><h2>Llama a mis dueños</h2><div class="ctc" id="ctc"></div></section>
+<section class="sec" id="sSal"><div class="lab">Salud</div><h2>Lo que debes saber</h2><div class="card" id="sal"></div></section>
+<section class="sec" id="sCar"><div class="lab">Mi carácter</div><h2>Cómo tratarme</h2><div class="card"><p class="nota" id="car"></p></div></section>
+<footer><a class="credito" href="https://edrualmaxfatylu-blip.github.io/Portal-/" target="_blank" rel="noopener"><span id="pie"></span><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><strong>porta<em>lab</em></strong></a></footer>
+</main>
+<script>
+// ============ CONFIGURACIÓN: lo único que se edita por mascota ============
+// Cualquiera que acerque su teléfono a la placa ve esta página.
+const CONFIG={
+ nombre:"Firulais",
+ especie:"Perro · Mestizo",                 // vacío = no se muestra
+ foto:"",                                   // foto de la mascota. Vacío = huella
+ mensaje:"Si me encontraste es que me perdí. Ayúdame a volver a casa: avísale a mi familia.",
+ whatsapp:"525500000000",                   // a dónde llegan el aviso y la ubicación
+ contactos:[["Contacto Ejemplo","5500000000"]],   // [nombre, teléfono de 10 dígitos]
+ recompensa:"",                             // ej. "Se ofrece recompensa". Vacío = oculta
+ zona:"Colonia Ejemplo, Naucalpan",         // dónde vive (sin dirección exacta). Vacío = oculta
+ salud:[["Vacunas","Al corriente"],["Esterilizado","Sí"],["Alergias","Ninguna"]],   // [dato, valor]. [] = oculta
+ veterinario:{nombre:"Veterinaria Ejemplo", telefono:"5500000000"},   // {} = oculta
+ caracter:"Es amigable, pero se asusta con los ruidos fuertes. Le encantan las croquetas.",   // vacío = oculta
+ color:"#1d4e89", acento:"#ffb84d", fondo:"#fff7ec",
+ pie:"Placa digital hecha por",
+ demo:true                                  // true = muestra "demostración"; ponlo en false al entregar
+};
+// ==========================================================================
+(function(){
+var C=CONFIG,$=function(s){return document.querySelector(s)},R=document.documentElement.style;
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+R.setProperty("--c",C.color||"#1d4e89");R.setProperty("--a",C.acento||"#ffb84d");if(C.fondo)R.setProperty("--fondo",C.fondo);
+document.querySelector("meta[name=theme-color]").content=C.color||"#1d4e89";
+document.title=C.nombre+" · Ayúdame a volver a casa";$("#demo").hidden=!C.demo;
+var TEL='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+var WA='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
+var PIN='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>';
+function num(t){return String(t||"").replace(/[^\d]/g,"")}
+function wa(t){return "https://wa.me/"+C.whatsapp+"?text="+encodeURIComponent(t)}
+function boton(tag,clase,ic,txt){var a=el(tag,"btn "+clase);a.innerHTML=ic;a.appendChild(document.createTextNode(txt));return a}
+$("#nombre").textContent=C.nombre;$("#esp").textContent=C.especie||"";$("#msg").textContent=C.mensaje||"";$("#msg").hidden=!C.mensaje;
+var f=$("#foto");f.setAttribute("aria-label","Foto de "+C.nombre);if(C.foto){f.style.backgroundImage='url("'+C.foto+'")';$("#fotoV").remove()}
+if(C.recompensa){$("#recomp").textContent=C.recompensa;$("#rc").hidden=false}
+// ---- Acciones ----
+if(C.whatsapp){
+ var a=boton("a","wa",WA,"Avisar que encontré a "+C.nombre);a.href=wa("¡Hola! Encontré a "+C.nombre+". Vi tu número en su placa.");a.target="_blank";a.rel="noopener";$("#acc").appendChild(a);
+ var u=boton("button","am",PIN,"Mandar mi ubicación");u.type="button";$("#acc").appendChild(u);var est=el("p","estado");$("#acc").appendChild(est);
+ u.onclick=function(){if(!navigator.geolocation){est.textContent="Tu teléfono no comparte ubicación. Usa el botón de WhatsApp.";return}
+  u.disabled=true;est.textContent="Buscando tu ubicación…";
+  navigator.geolocation.getCurrentPosition(function(p){u.disabled=false;est.textContent="";var l=p.coords.latitude.toFixed(6)+","+p.coords.longitude.toFixed(6);
+   location.href=wa("¡Hola! Encontré a "+C.nombre+". Estoy aquí: https://maps.google.com/?q="+l)},
+   function(){u.disabled=false;est.textContent="No se pudo obtener la ubicación. Revisa que el permiso esté activado o escribe por WhatsApp."},{enableHighAccuracy:true,timeout:15000})}}
+var K=(C.contactos||[]).filter(function(c){return c&&c[1]});
+if(K[0]){var t=boton("a","blanco",TEL,"Llamar a "+K[0][0]);t.href="tel:"+num(K[0][1]);$("#acc").appendChild(t)}
+$("#acc").hidden=!$("#acc").children.length;
+// ---- Contactos ----
+K.forEach(function(c){var d=el("div","card"),i=el("div");i.appendChild(el("b","",c[0]));i.appendChild(el("span","",c[1]));d.appendChild(i);var b=boton("a","ln",TEL,"Llamar");b.href="tel:"+num(c[1]);d.appendChild(b);$("#ctc").appendChild(d)});
+if(C.zona){var z=el("div","card");var zi=el("div");zi.appendChild(el("b","","Vivo en"));zi.appendChild(el("span","",C.zona));z.appendChild(zi);$("#ctc").appendChild(z)}
+$("#sCtc").hidden=!$("#ctc").children.length;
+// ---- Salud ----
+var S=(C.salud||[]).filter(function(s){return s&&s[0]&&s[1]}),V=C.veterinario||{};
+S.forEach(function(s){var d=el("div","kv");d.appendChild(el("span","",s[0]));d.appendChild(el("b","",s[1]));$("#sal").appendChild(d)});
+if(V.nombre){var d=el("div","kv");d.appendChild(el("span","","Veterinario"));d.appendChild(el("b","",V.nombre));$("#sal").appendChild(d)}
+if(V.telefono){var vb=boton("a","ln",TEL,"Llamar al veterinario");vb.href="tel:"+num(V.telefono);vb.style.marginTop="12px";$("#sal").appendChild(vb)}
+$("#sSal").hidden=!$("#sal").children.length;
+$("#car").textContent=C.caracter||"";$("#sCar").hidden=!C.caracter;
+$("#pie").textContent=C.pie||"Placa digital hecha por";
+})();
+</script>
+</body></html>
