@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ficha médica</title>
+<meta name="theme-color" content="#171532">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Cpath d='M20 12h8v8h8v8h-8v8h-8v-8h-8v-8h8z' fill='%23ff6b4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c:#171532;--a:#ff6b4a;--sos:#d92d20;--bg:var(--fondo,#fff7ec);--card:#fff;--ink:#171532;--mut:#5f5c7a;--line:#eadfce;--gd:#1faa59;--alr:#fde7e4;--alrT:#a3170e;
+--lab:color-mix(in srgb,var(--a) 72%,#000);
+--tit:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--txt:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#100f22;--card:#1b1936;--ink:#f3f0ff;--mut:#a9a6c8;--line:#2c2a4d;--alr:#3d1b1f;--alrT:#ffb4ab;--lab:color-mix(in srgb,var(--a) 70%,#fff);color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.5 var(--txt);-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+a,button{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--lab);outline-offset:2px}
+.w{max-width:480px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.sos{background:var(--sos);color:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 0 10px;text-align:center;font:800 .78rem ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase}
+.sos span{display:inline-flex;align-items:center;gap:8px}.sos svg{width:16px;height:16px}
+.hero{background:radial-gradient(70% 60% at 100% 0,rgba(255,255,255,.14),transparent 62%),radial-gradient(60% 50% at 0 100%,color-mix(in srgb,var(--a) 30%,transparent),transparent 65%),var(--c);color:#fbf8ff;border-radius:0 0 34px 34px;padding:22px 0 26px}
+.demo{display:inline-block;margin-bottom:14px;background:#ffefc2;color:#171532;font:700 .68rem ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+.yo{display:flex;align-items:center;gap:16px}
+.foto{width:84px;height:84px;flex:none;border-radius:26px;background:rgba(255,255,255,.14) center/cover;border:2px solid rgba(255,255,255,.3);display:grid;place-items:center;font:800 1.8rem var(--tit);color:#fff}
+h1{margin:0;font:800 clamp(1.8rem,8.5vw,2.3rem)/1.05 var(--tit);letter-spacing:-.03em;text-wrap:balance}
+.edad{color:rgba(255,255,255,.78);margin-top:4px}
+.claves{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;margin-top:22px}
+.sangre{background:#fff;color:var(--sos);border-radius:22px;padding:12px 18px;text-align:center;min-width:104px}
+.sangre small{display:block;font:700 .62rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#5f5c7a}
+.sangre b{display:block;font:800 2.6rem/1 var(--tit);letter-spacing:-.03em;margin-top:4px}
+.alerg{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:22px;padding:12px 14px;min-width:0}
+.alerg small{display:block;font:700 .62rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips span{background:#fff;color:var(--sos);font-weight:800;font-size:.9rem;padding:4px 11px;border-radius:999px}
+.ninguna{color:#fff;font-weight:700;margin-top:6px;display:block}
+.acc{display:grid;gap:10px;margin-top:20px}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:999px;text-decoration:none;font-weight:800;border:0;cursor:pointer;padding:8px 20px;text-align:center;width:100%;transition:transform .15s}
+.btn:active{transform:scale(.97)}.btn svg{width:22px;height:22px;flex:none}
+.rojo{background:var(--sos);color:#fff}.blanco{background:#fff;color:#171532}
+.wa{background:var(--gd);color:#fff}.ln{background:none;border:1.5px solid var(--ink);color:var(--ink);min-height:46px;font-weight:700}
+.sec{margin-top:30px}
+.lab{font:700 .72rem ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--lab)}
+h2{font:800 1.45rem/1.1 var(--tit);letter-spacing:-.02em;margin:6px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
+.lista{list-style:none;margin:0}.lista li{padding:10px 0;border-bottom:1px solid var(--line)}.lista li:last-child{border:0;padding-bottom:0}.lista li:first-child{padding-top:0}
+.lista b{display:block}.lista span{color:var(--mut);font-size:.92rem}
+.ctc{display:grid;gap:10px}
+.ctc .card{display:grid;gap:10px}
+.ctc .nm b{display:block;font:800 1.15rem var(--tit)}.ctc .nm span{color:var(--mut);font-size:.9rem}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dos .btn{min-height:48px;font-size:.95rem}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.kv:last-child{border:0;padding-bottom:0}.kv:first-child{padding-top:0}.kv span{color:var(--mut)}.kv b{text-align:right;word-break:break-word}
+.nota{margin:0;white-space:pre-line}
+.priv{margin:30px 0 0;font-size:.84rem;color:var(--mut);background:var(--card);border:1px dashed var(--line);border-radius:16px;padding:12px 14px}
+footer{text-align:center;color:var(--mut);font-size:.84rem;margin:28px 0 32px;display:grid;gap:8px;justify-items:center}
+.credito{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mut)}.credito svg{width:24px;height:24px}.credito strong{font:800 1rem var(--tit);letter-spacing:-.02em;color:var(--ink)}.credito em{font-style:normal;color:#ff6b4a}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+<div class="sos"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg>Información médica de emergencia</span></div>
+<header class="hero"><div class="w">
+<div class="demo" id="demo" hidden>Demostración</div>
+<div class="yo"><div class="foto" id="foto" role="img"></div><div><h1 id="nombre"></h1><div class="edad" id="edad"></div></div></div>
+<div class="claves"><div class="sangre" id="bSangre"><small>Sangre</small><b id="sangre"></b></div><div class="alerg"><small>Alergias</small><div class="chips" id="alergias"></div></div></div>
+<div class="acc" id="acc"></div>
+</div></header>
+<main class="w">
+<section class="sec" id="sPad"><div class="lab">Padecimientos</div><h2>Condiciones médicas</h2><ul class="card lista" id="pad"></ul></section>
+<section class="sec" id="sMed"><div class="lab">Medicamentos</div><h2>Lo que toma</h2><ul class="card lista" id="med"></ul></section>
+<section class="sec" id="sCtc"><div class="lab">Contactos</div><h2>Avisa a su familia</h2><div class="ctc" id="ctc"></div></section>
+<section class="sec" id="sDoc"><div class="lab">Médico y seguro</div><h2>Atención médica</h2><div class="card" id="doc"></div></section>
+<section class="sec" id="sNot"><div class="lab">Notas</div><h2>Para quien me ayude</h2><div class="card"><p class="nota" id="notas"></p></div></section>
+<p class="priv">Esta ficha la puede ver cualquier persona que acerque su teléfono a la pulsera, para poder ayudar en una emergencia.</p>
+<footer><a class="credito" href="https://edrualmaxfatylu-blip.github.io/Portal-/" target="_blank" rel="noopener"><span id="pie"></span><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><strong>porta<em>lab</em></strong></a></footer>
+</main>
+<script>
+// ============ CONFIGURACIÓN: lo único que se edita por persona ============
+// Pon solo lo necesario: cualquiera que acerque su teléfono a la pulsera ve esta ficha.
+const CONFIG={
+ nombre:"Nombre Ejemplo",
+ edad:"34 años",                            // vacío = no se muestra
+ foto:"",                                   // foto de la cara. Vacío = iniciales
+ sangre:"O+",                               // vacío = oculta
+ alergias:["Penicilina","Mariscos"],        // [] = "Ninguna conocida"
+ padecimientos:[["Asma","Usa inhalador en crisis"]],          // [condición, nota]. [] = oculta
+ medicamentos:[["Salbutamol","Inhalador, 2 disparos en crisis"]],   // [nombre, dosis]. [] = oculta
+ contactos:[["Contacto Ejemplo","Mamá","5500000000"]],         // [nombre, parentesco, teléfono de 10 dígitos]
+ llamar911:true,                            // muestra el botón para llamar al 911
+ medico:{nombre:"Dr. Ejemplo", telefono:"5500000000"},        // {} = oculta
+ seguro:{aseguradora:"", poliza:""},        // vacío = oculta
+ notas:"Usa lentes de contacto.",           // vacío = oculta
+ color:"#171532", acento:"#ff6b4a", fondo:"#fff7ec",
+ pie:"Ficha médica hecha por",
+ demo:true                                  // true = muestra "demostración"; ponlo en false al entregar
+};
+// ==========================================================================
+(function(){
+var C=CONFIG,$=function(s){return document.querySelector(s)},R=document.documentElement.style;
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+R.setProperty("--c",C.color||"#171532");R.setProperty("--a",C.acento||"#ff6b4a");if(C.fondo)R.setProperty("--fondo",C.fondo);
+document.title="Ficha médica · "+C.nombre;$("#demo").hidden=!C.demo;
+var TEL='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg>';
+var WA='<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>';
+function num(t){return String(t||"").replace(/[^\d+]/g,"")}
+function boton(clase,ic,txt,href){var a=el("a","btn "+clase);a.innerHTML=ic;a.appendChild(document.createTextNode(txt));a.href=href;if(/^https/.test(href)){a.target="_blank";a.rel="noopener"}return a}
+$("#nombre").textContent=C.nombre;$("#edad").textContent=C.edad||"";
+var f=$("#foto");f.setAttribute("aria-label","Foto de "+C.nombre);if(C.foto)f.style.backgroundImage='url("'+C.foto+'")';else f.textContent=(C.nombre||"").split(/\s+/).slice(0,2).map(function(p){return p.charAt(0)}).join("").toUpperCase();
+$("#sangre").textContent=C.sangre||"";$("#bSangre").hidden=!C.sangre;if(!C.sangre)$(".claves").style.gridTemplateColumns="1fr";
+var A=(C.alergias||[]).filter(Boolean);if(A.length)A.forEach(function(x){$("#alergias").appendChild(el("span","",x))});else $("#alergias").appendChild(el("span","ninguna","Ninguna conocida"));
+var K=(C.contactos||[]).filter(function(c){return c&&c[2]});
+if(K[0])$("#acc").appendChild(boton("blanco",TEL,"Llamar a "+K[0][0]+(K[0][1]?" ("+K[0][1]+")":""),"tel:"+num(K[0][2])));
+if(C.llamar911)$("#acc").appendChild(boton("rojo",TEL,"Llamar al 911","tel:911"));
+$("#acc").hidden=!$("#acc").children.length;
+function lista(id,sec,arr){arr=(arr||[]).filter(function(x){return x&&x[0]});arr.forEach(function(x){var li=el("li");li.appendChild(el("b","",x[0]));if(x[1])li.appendChild(el("span","",x[1]));$(id).appendChild(li)});$(sec).hidden=!arr.length}
+lista("#pad","#sPad",C.padecimientos);lista("#med","#sMed",C.medicamentos);
+K.forEach(function(c){var d=el("div","card"),n=el("div","nm");n.appendChild(el("b","",c[0]));n.appendChild(el("span","",[c[1],c[2]].filter(Boolean).join(" · ")));d.appendChild(n);
+ var dd=el("div","dos");dd.appendChild(boton("ln",TEL,"Llamar","tel:"+num(c[2])));
+ var w=num(c[2]).replace(/^\+/,"");if(w.length===10)w="52"+w;dd.appendChild(boton("wa",WA,"WhatsApp","https://wa.me/"+w+"?text="+encodeURIComponent("Hola, encontré a "+C.nombre+" y necesita ayuda. Vi tu contacto en su pulsera.")));
+ d.appendChild(dd);$("#ctc").appendChild(d)});$("#sCtc").hidden=!K.length;
+var M=C.medico||{},S=C.seguro||{},filas=[["Médico",M.nombre],["Teléfono del médico",M.telefono],["Aseguradora",S.aseguradora],["Póliza",S.poliza]].filter(function(r){return r[1]});
+filas.forEach(function(r){var d=el("div","kv");d.appendChild(el("span","",r[0]));d.appendChild(el("b","",r[1]));$("#doc").appendChild(d)});
+if(M.telefono){var b=boton("ln",TEL,"Llamar al médico","tel:"+num(M.telefono));b.style.marginTop="12px";$("#doc").appendChild(b)}
+$("#sDoc").hidden=!filas.length;
+$("#notas").textContent=C.notas||"";$("#sNot").hidden=!C.notas;
+$("#pie").textContent=C.pie||"Ficha médica hecha por";
+})();
+</script>
+</body></html>

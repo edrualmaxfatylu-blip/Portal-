@@ -4,15 +4,21 @@
 //       Vuelve a armar fabrica/index.html con las plantillas actuales
 //       (córrelo cada vez que cambies una plantilla).
 //
-//   node fabrica/generar.js portal datos.json
+//   node fabrica/generar.js portal datos.json [carpeta-de-fotos]
 //       datos.json = {"plantilla":"negocio","slug":"estetica-lupita","config":{...}}
-//       Escribe clientes/<slug>/index.html con las fotos ya incrustadas.
+//       (el config puede venir como texto JSON, tal como lo guarda la fábrica).
+//       Las fotos guardadas en la cuenta vienen como "asset:<id>": se buscan en
+//       carpeta-de-fotos/<id>.jpg|png|webp y se incrustan en el archivo.
+//       Escribe clientes/<slug>/index.html.
 
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const RAIZ = path.join(__dirname, "..");
 
 const PLANTILLAS = {
   negocio:  { nombre: "Portal de negocio",  tipo: "negocio",    ruta: "plantillas/negocio/index.html" },
+  menu:     { nombre: "Menú digital",       tipo: "negocio",    ruta: "plantillas/menu/index.html" },
+  salud:    { nombre: "Ficha médica",       tipo: "personal",   ruta: "plantillas/salud/index.html" },
+  mascota:  { nombre: "Placa de mascota",   tipo: "personal",   ruta: "plantillas/mascota/index.html" },
   boda:     { nombre: "Boda o XV años",     tipo: "invitacion", ruta: "boda/index.html" },
   cuento:   { nombre: "Cuento de hadas",    tipo: "invitacion", ruta: "cuento/index.html" },
   juguetes: { nombre: "Juguetes",           tipo: "invitacion", ruta: "juguetes/index.html" },
@@ -56,8 +62,24 @@ function construir() {
   console.log("fabrica/index.html listo (" + Math.round(salida.length / 1024) + " KB)");
 }
 
-function portal(archivo) {
+function incrustar(o, dir) {
+  if (Array.isArray(o)) return o.map(x => incrustar(x, dir));
+  if (o && typeof o === "object") { const r = {}; for (const k in o) r[k] = incrustar(o[k], dir); return r; }
+  if (typeof o === "string" && o.startsWith("asset:")) {
+    const id = o.slice(6), tipos = { jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp" };
+    for (const ext of Object.keys(tipos)) {
+      const f = dir && path.join(dir, id + "." + ext);
+      if (f && fs.existsSync(f)) return "data:" + tipos[ext] + ";base64," + fs.readFileSync(f).toString("base64");
+    }
+    throw new Error("Falta la foto " + id + " en " + dir);
+  }
+  return o;
+}
+
+function portal(archivo, fotos) {
   const d = JSON.parse(fs.readFileSync(archivo, "utf8"));
+  if (typeof d.config === "string") d.config = JSON.parse(d.config);
+  d.config = incrustar(d.config, fotos);
   const p = PLANTILLAS[d.plantilla];
   if (!p) throw new Error("Plantilla desconocida: " + d.plantilla);
   if (!/^[a-z0-9-]+$/.test(d.slug || "")) throw new Error("slug inválido: " + d.slug);
@@ -68,9 +90,9 @@ function portal(archivo) {
 }
 
 if (require.main === module) {
-  const [cmd, arg] = process.argv.slice(2);
+  const [cmd, arg, arg2] = process.argv.slice(2);
   if (cmd === "construir") construir();
-  else if (cmd === "portal" && arg) portal(arg);
-  else console.log("Uso: node fabrica/generar.js construir | portal datos.json");
+  else if (cmd === "portal" && arg) portal(arg, arg2);
+  else console.log("Uso: node fabrica/generar.js construir | portal datos.json [fotos]");
 }
 module.exports = { generar, bloque, PLANTILLAS };

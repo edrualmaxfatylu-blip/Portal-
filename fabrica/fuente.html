@@ -114,7 +114,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--co)}
 .pr .dot{width:12px;height:40px;border-radius:6px;flex:none}
 .pr .tx{flex:1;min-width:0}.pr .tx b{display:block;font:800 1rem/1.2 var(--tit);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pr .tx span{font-size:.8rem;color:var(--mut)}
-.pr .bs{display:flex;gap:6px;flex:none}
+.pr .bs{display:flex;gap:6px;flex:none;flex-wrap:wrap;justify-content:flex-end}
 .est{display:inline-block;font:700 .62rem var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-right:6px;vertical-align:1px}
 .est.borrador{background:var(--lil);color:var(--ink)}.est.subir{background:var(--yel);color:var(--ink)}.est.publicado{background:var(--ok);color:#fff}
 .vacio{background:var(--card);border:1.5px dashed var(--line);border-radius:18px;padding:18px;color:var(--mut);font-size:.92rem}
@@ -126,6 +126,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--co)}
 ol.pasos{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--mut);font-size:.92rem}ol.pasos b{color:var(--ink)}
 .msg{font:.88rem var(--mono);background:var(--lil);border-radius:14px;padding:12px 14px;word-break:break-word}
 .fila{display:flex;gap:8px;flex-wrap:wrap}
+.qr{background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;display:grid;place-items:center}.qr canvas{width:100%;max-width:260px;height:auto;display:block}
 .aviso{font-size:.84rem;background:var(--yel);border-radius:14px;padding:10px 12px}
 
 /* ---- Avisos flotantes ---- */
@@ -172,6 +173,14 @@ ol.pasos{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--mut);font-s
   <div class="campo"><label for="estado">Estado</label><select id="estado"><option value="borrador">Borrador</option><option value="subir">Listo para subir</option><option value="publicado">Publicado</option></select></div>
   <p class="aviso" id="avDemo" hidden>Aún tiene la etiqueta «Demostración». Quítala en <b>Entrega</b> antes de dárselo al cliente.</p>
  </div>
+ <div class="tarj" id="tQR">
+  <div class="lab">Código QR</div>
+  <h3>Para el exhibidor, la pulsera o la placa</h3>
+  <div class="campo" id="cMesa" hidden><label for="mesa">Número de mesa</label><input type="text" id="mesa" inputmode="numeric" placeholder="Vacío = sin mesa"><span class="ay">Graba un chip o imprime un QR por mesa: el pedido llega diciendo de dónde viene.</span></div>
+  <div class="qr"><canvas id="qrC" width="600" height="690" aria-label="Código QR del portal"></canvas></div>
+  <p class="ay" id="qrUrl" style="font:.8rem var(--mono);word-break:break-all;margin:0"></p>
+  <div class="fila"><button class="b ln" type="button" id="bQR">Descargar QR</button><button class="b ghost sm" type="button" id="cpNfc">Copiar dirección para el chip</button></div>
+ </div>
  <div class="tarj" id="tClaude">
   <div class="lab">Opción 1 · La más fácil</div>
   <h3>Que Claude lo suba a GitHub</h3>
@@ -201,6 +210,7 @@ ol.pasos{margin:0;padding-left:20px;display:grid;gap:6px;color:var(--mut);font-s
 
 <div class="toast" id="toast" role="status" hidden></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script type="application/json" id="plantillasJSON">/*PLANTILLAS*/</script>
 <script>
 (function(){
@@ -237,7 +247,44 @@ const INV=[
  ["Confirmación",[["confirmar.whatsapp","WhatsApp para confirmar","tel","52 + 10 dígitos."],["confirmar.limite","Fecha límite","text","Ej.: 1 de marzo"],["confirmar.nota","Nota","area"]]],
  ["Entrega",[["pie","Texto del crédito"],["demo","Mostrar la etiqueta «Demostración»","check"]]]
 ];
-const ESQ=id=>T[id].tipo==="negocio"?NEG:INV;
+const COL=[["color","Principal","color"],["acento","Acento","color"],["fondo","Fondo","color"]];
+const ENT=["Entrega",[["pie","Texto del crédito"],["demo","Mostrar la etiqueta «Demostración»","check"]]];
+const MENU=[
+ ["Negocio",[["nombre","Nombre del negocio"],["giro","Giro y zona"],["descripcion","Descripción","area"],["logo","Logo","foto","",{max:500}],["portada","Foto de portada","foto","",{max:1400}]],1],
+ ["Colores",COL,1],
+ ["Pedidos",[["whatsapp","WhatsApp donde llegan los pedidos","tel","52 + 10 dígitos."],["pedidos","El cliente puede armar su pedido y mandarlo por WhatsApp","check"],["textoMesa","Cómo le llamas a la mesa","text","Ej.: Mesa, Barra, Cuarto. Cada exhibidor lleva su número en el enlace."],["etiquetas","Etiquetas","csv","Separadas por comas. Ej.: Wifi gratis, Pet friendly"]]],
+ ["Menú",[["categorias","Categoría","lista",[["nombre","Nombre de la categoría"],["platillos","Platillo","lista",[["nombre","Nombre"],["precio","Precio","number","En pesos. 0 = no se muestra ni se puede pedir."],["descripcion","Descripción","area"],["etiqueta","Etiqueta","text","Ej.: Nuevo, Picante, El favorito"],["foto","Foto","foto","",{max:900}]]]]]],1],
+ ["Horario",[["horario","Horario","lista",[[0,"Días"],[1,"Horas"]]]]],
+ ["Ubicación",[["direccion","Dirección","area"],["mapa","Enlace de Google Maps","url"]]],
+ ["Pagos",[["pagos.aceptamos","Aceptamos"],["pagos.banco","Banco"],["pagos.titular","Titular"],["pagos.cuentaEtiqueta","Tipo de cuenta"],["pagos.cuenta","Número","text","Vacío = no se muestran datos de transferencia."]]],
+ ["Redes",[["redes","Enlace","lista",[[0,"Texto del botón"],[1,"Dirección","url"]]]]],
+ ENT
+];
+const SALUD=[
+ ["Persona",[["nombre","Nombre"],["edad","Edad"],["foto","Foto de la cara","foto","Ayuda a que la reconozcan.",{max:600}],["sangre","Tipo de sangre","text","Ej.: O+, A−"],["alergias","Alergias","csv","Separadas por comas. Vacío = «Ninguna conocida»."]],1],
+ ["Condiciones y medicamentos",[["padecimientos","Padecimiento","lista",[[0,"Condición"],[1,"Nota"]]],["medicamentos","Medicamento","lista",[[0,"Medicamento"],[1,"Dosis o cuándo"]]]],1],
+ ["Contactos de emergencia",[["contactos","Contacto","lista",[[0,"Nombre"],[1,"Parentesco"],[2,"Teléfono","tel","10 dígitos."]]],["llamar911","Mostrar el botón «Llamar al 911»","check"]],1],
+ ["Médico y seguro",[["medico.nombre","Médico"],["medico.telefono","Teléfono del médico","tel"],["seguro.aseguradora","Aseguradora"],["seguro.poliza","Póliza"]]],
+ ["Notas",[["notas","Notas para quien ayude","area"]]],
+ ["Colores",COL],
+ ["Entrega",[["pie","Texto del crédito"],["demo","Mostrar la etiqueta «Demostración»","check"]]]
+];
+const MASC=[
+ ["Mascota",[["nombre","Nombre"],["especie","Especie y raza"],["foto","Foto","foto","",{max:700}],["mensaje","Mensaje para quien la encuentre","area"],["recompensa","Recompensa","text","Vacío = no se muestra."],["zona","Zona donde vive","text","Solo colonia y municipio, sin dirección exacta."]],1],
+ ["Contacto",[["whatsapp","WhatsApp del dueño","tel","Aquí llegan el aviso y la ubicación de quien la encuentre."],["contactos","Contacto","lista",[[0,"Nombre"],[1,"Teléfono","tel","10 dígitos."]]]],1],
+ ["Salud",[["salud","Dato de salud","lista",[[0,"Dato"],[1,"Valor"]]],["veterinario.nombre","Veterinario"],["veterinario.telefono","Teléfono del veterinario","tel"]]],
+ ["Carácter",[["caracter","Cómo tratarla","area"]]],
+ ["Colores",COL],
+ ENT
+];
+const ESQ=id=>({negocio:NEG,menu:MENU,salud:SALUD,mascota:MASC})[id]||INV;
+const TIPOS={negocio:"Para negocio",personal:"NFC personal",invitacion:"Invitación digital"};
+const INTRO={
+ salud:["Llena la ficha médica","Pon solo lo necesario: cualquiera que acerque su teléfono a la pulsera ve esta ficha."],
+ mascota:["Llena la placa de la mascota","Sin dirección exacta: cualquiera que acerque su teléfono a la placa ve esta página."],
+ menu:["Arma el menú del cliente","Agrega categorías y platillos. Con el número de mesa en el enlace, cada pedido llega diciendo de qué mesa es."],
+ invitacion:["Llena los datos del evento","Cada cambio se ve al instante. Al publicar, sacas un enlace para cada invitado con sus pases."]
+};
 
 // ============ Utilidades de datos ============
 function obt(o,r){return String(r).split(".").reduce((a,k)=>a==null?undefined:a[k],o)}
@@ -298,10 +345,10 @@ async function borrarProyecto(id){if(db){await db.collection("proyectos").doc(id
 let P=null,sucio=false;
 function nuevo(plantilla){const t=T[plantilla];const c=clon(t.base);
  return {id:nid(),plantilla,config:c,slug:slugde(c.nombre||(c.nombres||[]).join("-")),estado:"borrador",nuevo:true}}
-function abrirProyecto(p){P=p;sucio=!!p.nuevo;armarForm();cabecera();vistaPrevia(true)}
+function abrirProyecto(p){P=p;sucio=false;const it=INTRO[p.plantilla]||INTRO[T[p.plantilla].tipo]||["Llena los datos del cliente","Cada cambio se ve al instante en el teléfono. Lo que dejes vacío no aparece en el portal."];$("#iTit").textContent=it[0];$("#iTx").textContent=it[1];armarForm();cabecera();vistaPrevia(true)}
 function cambio(){sucio=true;if(P.nuevo&&!P.slugManual)P.slug=slugde(nombreDe(P));cabecera();vistaPrevia()}
 function cabecera(){$("#pNom").textContent=nombreDe(P)+" · "+T[P.plantilla].nombre;
- const e=$("#pEst");e.className="pill"+(sucio?" sucio":"");e.textContent=sucio?(P.nuevo?"Sin guardar":"Cambios sin guardar"):({borrador:"Borrador",subir:"Listo para subir",publicado:"Publicado"}[P.estado]||"Guardado");
+ const e=$("#pEst");e.className="pill"+(sucio?" sucio":"");e.textContent=P.nuevo?"Sin guardar":sucio?"Cambios sin guardar":({borrador:"Borrador",subir:"Listo para subir",publicado:"Publicado"}[P.estado]||"Guardado");
  $("#bSobre").hidden=T[P.plantilla].tipo!=="invitacion"}
 
 // ============ Formulario ============
@@ -352,7 +399,7 @@ function lista(def,obj){const [k,et,,campos]=def;const w=el("div","campo");const
    cab.append(up,dn,x);c.appendChild(cab);
    campos.forEach(cd=>c.appendChild(campo(cd,it)));caja.appendChild(c)});
   const mas=el("button","b sm ln mas","+ Agregar "+et.toLowerCase());mas.type="button";
-  mas.onclick=()=>{let a=obt(obj,k);if(!Array.isArray(a)){a=[];pon(obj,k,a)}a.push(tupla?campos.map(()=>""):Object.fromEntries(campos.map(c=>[c[0],""])));pinta();cambio();
+  mas.onclick=()=>{let a=obt(obj,k);if(!Array.isArray(a)){a=[];pon(obj,k,a)}const v0=c=>c[2]==="number"?0:c[2]==="lista"?[]:c[2]==="check"?false:"";a.push(tupla?campos.map(v0):Object.fromEntries(campos.map(c=>[c[0],v0(c)])));pinta();cambio();
    const ult=caja.querySelectorAll(".item");const u=ult[ult.length-1];if(u){const i=u.querySelector("input,textarea");if(i)i.focus()}};
   caja.appendChild(mas)}
  pinta();w.appendChild(caja);return w}
@@ -379,7 +426,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrarCapas()});
 function pintarPlantillas(){const w=$("#plantillas");w.replaceChildren();
  Object.entries(T).forEach(([id,t])=>{const b=el("button");b.type="button";const sw=el("div","sw");
   [t.base.color,t.base.color2||t.base.color,t.base.acento,t.base.fondo].forEach(c=>{const i=el("i");i.style.background=c;sw.appendChild(i)});
-  b.append(sw,el("b","",t.nombre),el("small","",t.tipo==="negocio"?"Portal para negocio":"Invitación digital"));
+  b.append(sw,el("b","",t.nombre),el("small","",TIPOS[t.tipo]||""));
   b.onclick=()=>{if(sucio&&!confirmarSalir(b))return;cerrarCapas();abrirProyecto(nuevo(id));aviso("Plantilla lista: cambia los datos de ejemplo")};w.appendChild(b)})}
 let pendiente=null;
 function confirmarSalir(b){if(pendiente===b){pendiente=null;return true}pendiente=b;aviso("Tienes cambios sin guardar. Toca otra vez para descartarlos.");setTimeout(()=>{if(pendiente===b)pendiente=null},4000);return false}
@@ -394,6 +441,7 @@ function pintarLista(){const w=$("#prs");w.replaceChildren();
   du.onclick=()=>{if(sucio&&!confirmarSalir(du))return;const c=clon(d.config);const p={id:nid(),plantilla:d.plantilla,config:c,slug:d.slug+"-2",estado:"borrador",nuevo:true};cerrarCapas();abrirProyecto(p);aviso("Copia lista: cambia el nombre y guarda")};
   let seg=false;bo.onclick=async()=>{if(!seg){seg=true;bo.textContent="¿Seguro?";bo.classList.replace("ghost","co");setTimeout(()=>{seg=false;bo.textContent="Borrar";bo.classList.replace("co","ghost")},3500);return}
    try{await borrarProyecto(d.id);aviso("Portal borrado");if(P&&P.id===d.id){P.nuevo=true;sucio=true;cabecera()}}catch(e){aviso("No se pudo borrar. Intenta de nuevo.")}};
+  if(d.estado==="publicado"&&d.slug){const v=el("a","b sm ln","Ver");v.href=SITIO+"clientes/"+d.slug+"/";v.target="_blank";v.rel="noopener";bs.prepend(v)}
   bs.append(ab,du,bo);r.append(dot,tx,bs);w.appendChild(r)})}
 $("#bLista").onclick=()=>{pintarLista();abrirCapa("#cLista")};
 
@@ -408,9 +456,14 @@ document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLower
 
 // ============ Publicar ============
 function pintarPub(){$("#slug").value=P.slug||"";$("#estado").value=P.estado||"borrador";actualizaUrl();
- $("#avDemo").hidden=!P.config.demo;$("#tInv").hidden=T[P.plantilla].tipo!=="invitacion";$("#tClaude").hidden=usaLocal;$("#lOp2").textContent=usaLocal?"Súbelo tú":"Opción 2 · Tú mismo"}
+ $("#cMesa").hidden=P.plantilla!=="menu";$("#avDemo").hidden=!P.config.demo;$("#tInv").hidden=T[P.plantilla].tipo!=="invitacion";$("#tClaude").hidden=usaLocal;$("#lOp2").textContent=usaLocal?"Súbelo tú":"Opción 2 · Tú mismo"}
+function urlQR(){const m=($("#mesa").value||"").replace(/[^\w-]/g,"").slice(0,12);return SITIO+"clientes/"+(P.slug||"portal")+"/"+(m&&P.plantilla==="menu"?"#mesa="+m:"")}
+function pintarQR(){const u=urlQR();$("#qrUrl").textContent=u;const cv=$("#qrC"),x=cv.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,600,690);
+ if(!window.QRCode){x.fillStyle="#5f5c7a";x.font="600 26px system-ui";x.textAlign="center";x.fillText("No se pudo cargar el generador de QR",300,330);return}
+ const tmp=document.createElement("div");new QRCode(tmp,{text:u,width:520,height:520,colorDark:"#171532",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});const src=tmp.querySelector("canvas");if(src)x.drawImage(src,40,40,520,520);
+ x.fillStyle="#171532";x.textAlign="center";x.font="800 34px \"Bricolage Grotesque\",system-ui";x.fillText(nombreDe(P).slice(0,30),300,610);const m=$("#mesa").value.trim();x.fillStyle="#d9482a";x.font="700 22px ui-monospace,Menlo,monospace";x.fillText(m&&P.plantilla==="menu"?((P.config.textoMesa||"Mesa")+" "+m).toUpperCase():"ACERCA TU TELÉFONO O ESCANEA",300,652)}
 function actualizaUrl(){const s=P.slug||"portal";$("#urlF").textContent=SITIO+"clientes/"+s+"/";$("#rutaF").textContent="clientes/"+s+"/index.html";$("#urlE").textContent=SITIO+"clientes/"+s+"/#enlaces";
- $("#msgC").textContent="Claude, sube a GitHub el portal «"+s+"» que dejé listo en la fábrica."}
+ $("#msgC").textContent="Claude, sube a GitHub el portal «"+s+"» que dejé listo en la fábrica.";pintarQR()}
 $("#slug").oninput=()=>{const v=slugde($("#slug").value);P.slug=v;P.slugManual=true;actualizaUrl();cambio()};
 $("#slug").onblur=()=>{$("#slug").value=P.slug};
 $("#estado").onchange=()=>{P.estado=$("#estado").value;cambio()};
@@ -418,6 +471,13 @@ $("#bPub").onclick=()=>{pintarPub();abrirCapa("#cPub")};
 function copiar(t,b){const o=b.textContent;const ok=()=>{b.textContent="Copiado";setTimeout(()=>b.textContent=o,1600)};
  const fb=()=>{const a=el("textarea");a.value=t;document.body.appendChild(a);a.select();let r=false;try{r=document.execCommand("copy")}catch(e){}a.remove();r?ok():aviso("No pude copiar. Selecciona el texto y cópialo a mano.")};
  try{navigator.clipboard.writeText(t).then(ok,fb)}catch(e){fb()}}
+$("#mesa").oninput=pintarQR;
+$("#cpNfc").onclick=e=>copiar(urlQR(),e.currentTarget);
+$("#bQR").onclick=()=>{const cv=$("#qrC");const n="qr-"+(P.slug||"portal")+($("#mesa").value.trim()&&P.plantilla==="menu"?"-mesa-"+$("#mesa").value.trim():"")+".png";
+ cv.toBlob(async b=>{if(!b){aviso("No se pudo crear la imagen");return}
+  if(downloads){try{await downloads.save({filename:n,data:b});aviso("QR descargado")}catch(e){if(e&&e.code!=="declined")aviso("No se pudo descargar el QR.")}return}
+  if(window.claude){aviso("La descarga no está disponible aquí.");return}
+  const a=el("a");a.href=URL.createObjectURL(b);a.download=n;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},2000)},"image/png")};
 $("#cpUrl").onclick=e=>copiar($("#urlF").textContent,e.currentTarget);
 $("#cpE").onclick=e=>copiar($("#urlE").textContent,e.currentTarget);
 $("#cpMsg").onclick=e=>copiar($("#msgC").textContent,e.currentTarget);
@@ -435,7 +495,7 @@ $("#tDatos").onclick=()=>vista("datos");$("#tVista").onclick=()=>vista("vista");
 
 // ============ Avisos ============
 let tA=0;function aviso(t){const a=$("#toast");a.textContent=t;a.hidden=false;clearTimeout(tA);tA=setTimeout(()=>a.hidden=true,3200)}
-addEventListener("beforeunload",e=>{if(sucio&&!P.nuevo){e.preventDefault();e.returnValue=""}});
+addEventListener("beforeunload",e=>{if(sucio){e.preventDefault();e.returnValue=""}});
 
 // ============ Arranque ============
 const hdr=$(".top");const alto=()=>document.documentElement.style.setProperty("--alto",hdr.offsetHeight+"px");alto();try{new ResizeObserver(alto).observe(hdr)}catch(e){addEventListener("resize",alto)}
