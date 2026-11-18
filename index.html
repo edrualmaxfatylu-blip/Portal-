@@ -54,6 +54,8 @@ h2{font:800 1.9rem/1.1 var(--tit);letter-spacing:-.025em;margin:6px 0 8px}.sub{c
 .sv .btn.wa{margin-top:16px;min-height:50px}
 .caso{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:12px;text-decoration:none}
 .caso b{display:block}.caso span{color:var(--mut);font-size:.9rem}.caso div{flex:1}.caso i{font-style:normal;font-size:1.3rem;color:var(--gr)}.caso b{font:800 1.1rem var(--tit)}
+.promo{display:flex;align-items:center;gap:14px;margin-top:18px;padding:16px;border-radius:22px;text-decoration:none;color:#fff;background:radial-gradient(70% 80% at 100% 0,rgba(233,185,73,.35),transparent 70%),linear-gradient(160deg,#9b1c31,#5c0f1d);box-shadow:0 14px 30px -18px rgba(92,15,29,.8)}
+.promo svg{width:54px;height:54px;flex:none}.promo b{display:block;font:800 1.15rem/1.15 var(--tit);letter-spacing:-.02em}.promo span{display:block;font-size:.88rem;opacity:.92;margin-top:3px}.promo i{font-style:normal;font-weight:800;color:#e9b949}
 details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:10px;overflow:hidden}
 summary{cursor:pointer;padding:16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--gr);font-weight:700;font-size:1.2rem;line-height:1.2}details[open] summary::after{content:"−"}
@@ -77,6 +79,8 @@ details p{margin:0;padding:0 16px 16px;color:var(--mut)}
 </div></header>
 
 <main class="w">
+<!-- Promoción de temporada: borra este enlace cuando termine -->
+<a class="promo" href="arma/#navidad"><svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 5l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#e9b949"/><path d="M27 18l11 14h-6l11 13H11l11-13h-6z" fill="#2f6d4f" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="30" r="2.4" fill="#e9b949"/><circle cx="31" cy="38" r="2.4" fill="#fff"/><circle cx="21" cy="41" r="2.4" fill="#ff6b4a"/></svg><div><b>Tarjetas e invitaciones de Navidad: <i>$99</i></b><span>Con botón de WhatsApp, ubicación y redes. Ármala y mírala en tu celular →</span></div></a>
 <nav class="nav" id="nav" aria-label="Servicios"></nav>
 
 <section class="sec"><div class="lab">Cómo funciona</div><h2>Un toque y se abre</h2><p class="sub">Nadie instala nada. El chip NFC o el código QR abren una página hecha para ti.</p>
@@ -122,10 +126,10 @@ const CONFIG={
    texto:"Si tu perro se pierde, quien lo encuentre acerca su teléfono a la placa y te contacta en segundos.",
    puntos:["Placa NFC con el nombre de tu mascota y tus teléfonos","Botón para llamarte o escribirte por WhatsApp","Datos de salud: vacunas, alergias, veterinario","Localizador tipo tag para ubicarlo desde tu teléfono"],
    nota:"", demo:"plantillas/mascota/", mensaje:"Hola, me interesa un collar con localizador y NFC para mi mascota."},
-  {id:"invitaciones", icono:"sobre", nombre:"Invitaciones digitales", precio:"A cotizar",
-   texto:"Invitaciones para bodas, XV años y fiestas infantiles que se mandan por WhatsApp.",
-   puntos:["Enlace personalizado con el nombre de cada invitado","Confirmación de asistencia por WhatsApp","Cuenta regresiva, mapa y agregar al calendario","Diseños para boda y fiestas infantiles"],
-   nota:"", demos:[["Arma tu invitación gratis","arma/#invitacion"],["Ver demo: boda","boda/"],["Ver demo: cuento de hadas","cuento/"],["Ver demo: juguetes","juguetes/"],["Ver demo: selva","selva/"]], mensaje:"Hola, me interesa una invitación digital."}
+  {id:"invitaciones", icono:"sobre", nombre:"Invitaciones y tarjetas digitales", precio:"Navidad y posadas: $99 MXN",
+   texto:"Tarjetas navideñas e invitaciones para posadas, bodas, XV años y fiestas infantiles que se mandan por WhatsApp.",
+   puntos:["Botón de WhatsApp, ubicación y tus redes","Confirmación de asistencia por WhatsApp","Enlace personalizado con el nombre de cada invitado","Impresa con QR y NFC: $150 más, con envío"],
+   nota:"Bodas, XV años y fiestas infantiles: a cotizar.", demos:[["Arma tu tarjeta de Navidad","arma/#navidad"],["Ver demo: posada","navidad/"],["Arma tu invitación gratis","arma/#boda"],["Ver demo: boda","boda/"],["Ver demo: cuento de hadas","cuento/"],["Ver demo: juguetes","juguetes/"],["Ver demo: selva","selva/"]], mensaje:"Hola, me interesa una invitación digital."}
  ],
  casos:[      // [] = oculta la sección
   ["Endorfina espresso","Cafetería · menú, pedidos y pagos","https://portalab.com.mx/endorfina/"],

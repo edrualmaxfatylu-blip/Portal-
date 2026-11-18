@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Feliz Navidad</title><meta name="theme-color" content="#5c0f1d">
+<meta name="description" content="Abre para ver tu tarjeta o invitación de Navidad.">
+<meta property="og:type" content="website"><meta property="og:title" content="¡Tienes una tarjeta de Navidad!"><meta property="og:description" content="Ábrela para verla.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8E%84%3C/text%3E%3C/svg%3E">
+<style>
+:root{--c:#9b1c31;--c2:#5c0f1d;--oro:#e9b949;--pino:#2f6d4f;--bg:#fbf6ef;--card:#fff;--ink:#2a1a1d;--mut:#6f5a5e;--line:#eedfd2;
+ --red:ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold","Nunito","Varela Round",system-ui,sans-serif;--ser:Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--red);-webkit-font-smoothing:antialiased;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+body.cerrado{overflow:hidden}
+main{max-width:480px;margin:0 auto;padding:0 18px 40px}
+a,button,input,textarea{font:inherit;-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--oro);outline-offset:2px}
+/* ---- Noche con nieve (sobre y portada) ---- */
+.noche{background:radial-gradient(70% 45% at 50% 0,rgba(233,185,73,.28),transparent 70%),linear-gradient(170deg,var(--c),var(--c2));color:#fff;position:relative;overflow:hidden}
+.noche>*{position:relative;z-index:1}
+.nieve{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.nieve i{position:absolute;top:-12px;width:7px;height:7px;border-radius:50%;background:#fff;opacity:.75;animation:cae linear infinite}
+@keyframes cae{to{transform:translate3d(18px,110vh,0)}}
+/* ---- Sobre ---- */
+.sobre{position:fixed;inset:0;z-index:30;display:grid;place-items:center;text-align:center;padding:28px;transition:transform .9s cubic-bezier(.7,0,.2,1),opacity .9s}
+.sobre.abre{transform:translateY(-100%);opacity:.4}.sobre .in{max-width:330px}
+.pinata{width:118px;height:118px;margin:0 auto 16px;display:block;filter:drop-shadow(0 10px 14px rgba(0,0,0,.35));animation:mece 3.2s ease-in-out infinite;transform-origin:50% 0}
+@keyframes mece{50%{transform:rotate(7deg)}}
+.sobre small{display:block;font-weight:800;font-size:1.1rem;color:var(--oro)}
+.sobre h2{font:700 2.45rem/1.1 var(--ser);margin:8px 0;color:#fff;text-wrap:balance}
+.sobre p{margin:12px 0 0;opacity:.95}.sobre p b{display:block;font-size:1.25rem}
+.abrir{margin-top:26px;min-height:56px;padding:0 34px;border-radius:999px;border:0;background:var(--oro);color:var(--c2);font-weight:800;font-size:1.05rem;cursor:pointer;box-shadow:0 6px 0 rgba(0,0,0,.25)}.abrir:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+/* ---- Portada ---- */
+.hero{margin:0 -18px;padding:44px 24px 0;text-align:center;border-radius:0 0 34px 34px}
+.tipo{font-weight:800;font-size:1.1rem;color:var(--oro)}
+.foto{width:184px;height:184px;margin:16px auto 0;border-radius:50%;border:6px solid #fff;box-shadow:0 0 0 6px var(--oro),0 18px 30px -10px rgba(0,0,0,.55);background:#f3e3d3 center/cover}
+.arbol{width:150px;height:auto;display:block;margin:12px auto 0}
+h1{font:700 clamp(2.6rem,13vw,3.6rem)/1.02 var(--ser);margin:16px 0 8px;color:#fff;text-wrap:balance}
+.de{font-weight:700;font-size:1.1rem;margin:0}.de span{opacity:.8;font-weight:600}
+.fecha{display:inline-block;margin:16px 0 0;background:var(--oro);color:var(--c2);font-weight:800;padding:6px 18px;border-radius:999px}
+.frase{margin:14px auto 0;max-width:30ch;opacity:.94;font-size:1rem}
+.demo{display:inline-block;margin-top:12px;padding:3px 12px;border:1px solid rgba(255,255,255,.6);border-radius:999px;font-size:.76rem;font-weight:600}
+.lomas{display:block;width:calc(100% + 48px);margin:14px -24px 0;height:auto}
+/* ---- Cuenta regresiva ---- */
+.ctaT{text-align:center;margin:22px 0 0;font-weight:800;color:var(--c)}
+.cta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 6px 0}
+.cta div{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:12px 4px;text-align:center;box-shadow:0 5px 0 var(--line)}
+.cta b{display:block;font-weight:800;font-size:1.7rem;line-height:1;color:var(--c)}.cta span{font-size:.7rem;color:var(--mut);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.hoy{margin:18px 6px 0;background:var(--card);border:2px solid var(--line);border-radius:18px;padding:14px;text-align:center;font-weight:800;font-size:1.2rem;color:var(--c)}
+/* ---- Pase ---- */
+.ticket{position:relative;margin:22px 4px 0;background:var(--card);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 24px rgba(42,26,29,.12)}
+.ticket::before,.ticket::after{content:"";position:absolute;left:96px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.ticket::before{top:-10px}.ticket::after{bottom:-10px}
+.num{width:64px;flex:none;text-align:center;padding-right:16px;border-right:2px dashed var(--line);margin-right:4px}
+.num b{display:block;font-weight:800;font-size:2.3rem;line-height:1;color:var(--c)}.num span{font-size:.76rem;color:var(--mut)}
+.ticket small{color:var(--mut);font-size:.8rem}.ticket strong{display:block;font-size:1.2rem;line-height:1.2}
+/* ---- Secciones ---- */
+.sec{margin-top:42px;text-align:center}
+.lab{display:inline-block;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;font-weight:800;background:var(--pino);padding:3px 14px;border-radius:999px}
+h2{font:700 1.8rem/1.15 var(--ser);margin:10px 0 8px;color:var(--c)}.sub{color:var(--mut);margin:0 auto 16px;max-width:34ch}
+.card{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:20px;margin-top:12px;box-shadow:0 6px 0 var(--line)}
+.card h3{font-weight:800;font-size:1.2rem;margin:6px 0 2px}.card .hr{font-weight:800;color:var(--pino)}.card p{margin:4px 0 0;color:var(--mut);font-size:.93rem}
+.ic{width:28px;height:28px;fill:none;stroke:var(--c);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;min-height:54px;width:100%;border-radius:999px;border:0;margin-top:14px;padding:8px 18px;color:#fff;background:var(--c);box-shadow:0 5px 0 var(--c2);text-decoration:none;font-weight:800;cursor:pointer;transition:transform .12s,box-shadow .12s,filter .2s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--c2)}.btn:hover{filter:brightness(1.07)}.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn svg{width:22px;height:22px;flex:none}
+.btn.wa{background:#22ab57;box-shadow:0 5px 0 #14753a}.btn.wa:active{box-shadow:0 1px 0 #14753a}
+.btn.alt{background:var(--card);color:var(--c);border:2px solid var(--c);box-shadow:0 4px 0 var(--line)}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:10px}.dos .btn{font-size:.9rem;min-height:46px}
+.act{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.act div{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:16px 8px;box-shadow:0 5px 0 var(--line)}
+.act i{display:block;font-style:normal;font-size:2rem;line-height:1.1}.act b{display:block;margin-top:6px}.act span{font-size:.84rem;color:var(--mut)}
+.redes{display:grid;gap:10px;margin-top:12px}.redes .btn{margin-top:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);text-align:left}
+.row span{display:block;font-size:.8rem;color:var(--mut)}.row b{font-weight:700;word-break:break-all}
+.copy{flex:none;border:2px solid var(--c);color:var(--c);background:none;border-radius:12px;padding:6px 12px;font-weight:700;font-size:.85rem;cursor:pointer}.copy.ok{background:var(--c);color:#fff}
+.seg{display:flex;gap:6px;background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:5px}
+.seg button{flex:1;border:0;background:none;border-radius:999px;padding:10px 4px;font-weight:800;font-size:.92rem;cursor:pointer;color:var(--mut)}
+.seg button[aria-pressed="true"]{background:var(--c);color:#fff}
+.q{display:flex;align-items:center;justify-content:space-between;margin-top:14px;text-align:left;font-weight:700}
+.q div{display:flex;align-items:center;gap:14px}.q button{width:42px;height:42px;border-radius:50%;border:2px solid var(--line);background:var(--card);font-size:1.3rem;font-weight:800;line-height:1;cursor:pointer;color:var(--c)}
+.q b{font-weight:800;font-size:1.4rem;min-width:1.4ch;text-align:center}
+input[type=text],input[type=number],textarea{width:100%;border:2px solid var(--line);border-radius:16px;background:transparent;color:var(--ink);padding:12px;margin-top:12px}
+textarea{min-height:76px;resize:vertical}
+.lim{font-size:.84rem;color:var(--mut);margin:12px 0 0}
+footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:44px}footer b{display:block;font:700 1.25rem var(--ser);color:var(--c);margin-bottom:4px}
+.marca{display:inline-flex;align-items:center;gap:7px;margin-top:10px;color:var(--ink);text-decoration:none;font:800 1.05rem/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:-.03em}.marca svg{width:24px;height:24px}.marca em{font-style:normal;color:#ff6b4a}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+body:not(.cerrado) .hero>*{animation:up .7s cubic-bezier(.2,.7,.2,1) backwards}
+body:not(.cerrado) .hero>h1{animation-delay:.2s}body:not(.cerrado) .hero>.de{animation-delay:.3s}body:not(.cerrado) .hero>.fecha{animation-delay:.4s}body:not(.cerrado) .hero>.frase{animation-delay:.5s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}.nieve{display:none}}
+</style></head>
+<body class="cerrado">
+
+<div class="sobre noche" id="sobre"><div class="nieve" aria-hidden="true"></div><div class="in">
+<!-- Piñata de picos: dibujo propio, genérico -->
+<svg class="pinata" viewBox="-60 -60 120 120" aria-hidden="true"><path d="M0 -60V-30" stroke="#fff" stroke-width="2.5"/><g stroke="#2a1a1d" stroke-width="2.5" stroke-linejoin="round"><path d="M-8 -22L0 -52 8 -22Z" fill="#e9b949"/><path d="M14 -16L42 -34 22 -4Z" fill="#2f6d4f"/><path d="M24 6L54 12 24 22Z" fill="#e9b949"/><path d="M14 26L30 52 2 30Z" fill="#ff6b4a"/><path d="M-2 30L-30 52 -14 26Z" fill="#2f6d4f"/><path d="M-24 22L-54 12 -24 6Z" fill="#ff6b4a"/><path d="M-22 -4L-42 -34 -14 -16Z" fill="#e9b949"/><circle r="28" fill="#fff"/></g><circle r="20" fill="#e9b949"/><circle r="10" fill="#9b1c31"/></svg>
+<small id="sTipo"></small><h2 id="sTit"></h2>
+<p id="sPara" hidden><span id="sParaT">Para</span><b id="sInv"></b></p>
+<button class="abrir" id="abrir"></button>
+</div></div>
+
+<main>
+<header class="hero noche" id="hero"><div class="nieve" aria-hidden="true"></div>
+<div class="tipo" id="tipo"></div>
+<div class="foto" id="foto" role="img" aria-label="Foto" hidden></div>
+<!-- Árbol: dibujo propio -->
+<svg class="arbol" id="arbol" viewBox="0 0 150 170" aria-hidden="true"><path d="M75 8l7 14 15 2-11 10 3 15-14-8-14 8 3-15-11-10 15-2z" fill="#e9b949"/><path d="M75 40l30 38H90l30 36H100l34 40H16l34-40H30l30-36H45z" fill="#2f6d4f" stroke="#1d4a35" stroke-width="3" stroke-linejoin="round"/><rect x="65" y="154" width="20" height="14" rx="3" fill="#8a4b2a"/><circle cx="66" cy="74" r="6" fill="#e9b949"/><circle cx="88" cy="96" r="6" fill="#ff6b4a"/><circle cx="58" cy="112" r="6" fill="#fff"/><circle cx="96" cy="132" r="6" fill="#e9b949"/><circle cx="50" cy="140" r="6" fill="#ff6b4a"/><circle cx="76" cy="124" r="5" fill="#fff"/></svg>
+<h1 id="tit"></h1>
+<p class="de" id="de"></p>
+<span class="fecha" id="fecha" hidden></span>
+<p class="frase" id="frase"></p>
+<span class="demo" id="demo" hidden>Tarjeta de demostración</span>
+<svg class="lomas" viewBox="0 0 390 70" aria-hidden="true"><path d="M0 70V34q90-26 195-4t195-12v52z" fill="#fff" fill-opacity=".22"/><g fill="#1d4a35"><path d="M58 40l12 18H46z"/><path d="M58 30l9 14H49z"/><path d="M332 34l12 18h-24z"/><path d="M332 24l9 14h-18z"/></g><path d="M0 70V50q100-20 195-4t195-8v32z" fill="#fff" fill-opacity=".9"/></svg>
+</header>
+
+<p class="ctaT" id="ctaT"></p>
+<div class="cta" id="cta"><div><b id="cD">0</b><span>días</span></div><div><b id="cH">0</b><span>horas</span></div><div><b id="cM">0</b><span>min</span></div><div><b id="cS">0</b><span>seg</span></div></div>
+<div class="hoy" id="hoy" hidden></div>
+
+<section class="ticket" id="ticket" hidden><div class="num"><b id="pN"></b><span id="pT"></span></div><div><small>Invitación especial para</small><strong id="inv"></strong></div></section>
+
+<section class="sec" id="sWa" hidden><span class="lab">Escríbenos</span><h2 id="waT"></h2><p class="sub" id="waN"></p>
+<a class="btn wa" id="waB" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg><span id="waL"></span></a></section>
+
+<section class="sec" id="sDonde"><span class="lab" id="dLab">Dónde y cuándo</span><h2 id="dTit">¡Te esperamos!</h2><div id="evs"></div>
+<div class="dos" id="cal"><a class="btn alt" id="gcal" target="_blank" rel="noopener">Google Calendar</a><a class="btn alt" id="ics" download="posada.ics">Apple / Outlook</a></div></section>
+
+<section class="sec" id="sAct"><span class="lab">Programa</span><h2 id="actT"></h2><div class="act" id="act"></div></section>
+
+<section class="sec" id="sTraer"><span class="lab">Para compartir</span><h2 id="trT"></h2><p class="sub" id="trN"></p></section>
+
+<section class="sec" id="sRedes" hidden><span class="lab">Síguenos</span><h2 id="rdT"></h2><div class="redes" id="redes"></div></section>
+
+<section class="sec" id="sConf"><span class="lab">Confirmación</span><h2>¿Nos acompañas?</h2><p class="sub" id="confN"></p>
+<div class="card" style="text-align:left">
+<div class="seg"><button id="si" aria-pressed="false">¡Sí vamos!</button><button id="no" aria-pressed="false">No podremos</button></div>
+<input type="text" id="rNom" placeholder="Nombre del invitado o familia" autocomplete="name" hidden>
+<div id="rQ" hidden>
+<div class="q"><span>Niños</span><div><button data-k="ni" data-d="-1" aria-label="Un niño menos">−</button><b id="rNi">0</b><button data-k="ni" data-d="1" aria-label="Un niño más">+</button></div></div>
+<div class="q"><span>Adultos</span><div><button data-k="ad" data-d="-1" aria-label="Un adulto menos">−</button><b id="rAd">1</b><button data-k="ad" data-d="1" aria-label="Un adulto más">+</button></div></div>
+</div>
+<textarea id="rMsg" placeholder="¿Llevas algo para compartir o algo que debamos saber? (opcional)"></textarea>
+<button class="btn wa" id="enviar" disabled>Confirmar por WhatsApp</button>
+<p class="lim" id="lim"></p></div></section>
+
+<!-- Generador de enlaces por invitado: se abre agregando #enlaces al final de la dirección -->
+<section class="sec" id="sAdm" hidden><span class="lab">Solo para ti</span><h2>Enlaces por invitado</h2><p class="sub">Cada invitado recibe su enlace con su nombre y sus pases.</p>
+<div class="card" style="text-align:left"><input type="text" id="aNom" placeholder="Nombre (ej. Familia López)"><input type="number" id="aPas" placeholder="Pases (solo en posadas)" min="1" max="20" inputmode="numeric">
+<div class="row" style="margin-top:12px"><div><span>Enlace</span><b id="aUrl"></b></div><button class="copy" id="aCp">Copiar</button></div>
+<a class="btn wa" id="aWa" target="_blank" rel="noopener">Enviar por WhatsApp</a></div></section>
+
+<footer><b id="pieN"></b><span id="pie"></span><br><span class="marca" aria-label="portalab"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><span>porta<em>lab</em></span></span></footer>
+</main>
+
+<script>
+// ============ CONFIGURACIÓN: lo único que se edita por tarjeta o posada ============
+const CONFIG={
+ modo:"posada",                             // "posada" = invitación con fecha, lugar y confirmación · "tarjeta" = tarjeta navideña (sin confirmación)
+ tipo:"¡Te invitamos a nuestra posada!",    // texto pequeño arriba
+ titulo:"Posada navideña",                  // título grande (en tarjeta, p. ej. "¡Feliz Navidad!")
+ de:"Familia Ejemplo",                      // quién invita o felicita
+ foto:"",                                   // foto familiar o logo, cuadrada (600x600). Vacío = árbol dibujado
+ frase:"Ven a pedir posada con nosotros: habrá piñata, ponche, tamales y mucha alegría.",
+ abrir:"Abrir invitación",                  // texto del botón del sobre
+ fecha:"2026-12-19T19:00:00",               // inicio (hora local). En tarjeta: vacío = cuenta regresiva a Nochebuena
+ duracionHoras:5,                           // para el calendario
+ color:"#9b1c31", color2:"#5c0f1d", acento:"#e9b949", acento2:"#2f6d4f", fondo:"#fbf6ef",
+ eventos:[                                  // en tarjeta: deja la dirección vacía para ocultar la ubicación
+  {nombre:"Casa de la Familia Ejemplo", hora:"7:00 pm", lugar:"", direccion:"Calle Ejemplo 123, Naucalpan, Estado de México", mapa:"https://maps.google.com/?q=Naucalpan+Estado+de+Mexico"}
+ ],
+ actividadesTitulo:"Lo que habrá",
+ actividades:[["🕯️","Letanía","7:30 pm"],["🪅","Piñata","8:30 pm"],["🍲","Cena y ponche","9:00 pm"],["🎁","Intercambio","10:00 pm"]],   // [] = oculta
+ traer:{titulo:"Trae algo para compartir", nota:"Unos tamales, un postre o tu mejor ánimo. Si hay intercambio, el regalo es de $200."},   // {} = oculta
+ whatsapp:{numero:"", titulo:"¿Dudas?", nota:"", texto:"Escríbenos por WhatsApp", mensaje:"Hola, vi la invitación de la posada."},   // número vacío = oculta el botón
+ redesTitulo:"Síguenos en redes",
+ redes:[{nombre:"Facebook", enlace:""},{nombre:"Instagram", enlace:""},{nombre:"TikTok", enlace:""}],   // enlace vacío = no se muestra
+ confirmar:{whatsapp:"525500000000", limite:"15 de diciembre", nota:"Avísanos cuántos vienen para que alcancen el ponche y los aguinaldos."},   // número vacío = oculta (en tarjeta no se muestra)
+ pasesTexto:["pase","pases"],
+ pie:"Hecha por",
+ demo:true                                  // true = muestra "demostración"; ponlo en false al entregar
+};
+// ==========================================================================
+// Enlace por invitado:  .../#para=Familia+López&pases=4     Generador de enlaces:  .../#enlaces
+(function(){
+var C=CONFIG,$=function(s){return document.querySelector(s)},R=document.documentElement.style,TAR=C.modo==="tarjeta";
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+R.setProperty("--c",C.color);R.setProperty("--c2",C.color2||C.color);R.setProperty("--oro",C.acento);R.setProperty("--pino",C.acento2||C.color2);R.setProperty("--bg",C.fondo);
+document.querySelector("meta[name=theme-color]").content=C.color2||C.color;
+var tit=C.titulo||(TAR?"¡Feliz Navidad!":"Posada navideña");
+document.title=TAR?tit+(C.de?" · "+C.de:""):tit+(C.de?" · "+C.de:"");
+
+// ---- Nieve ----
+[].forEach.call(document.querySelectorAll(".nieve"),function(n){for(var k=0;k<26;k++){var i=document.createElement("i"),s=3+Math.random()*6;
+ i.style.left=Math.random()*100+"%";i.style.width=i.style.height=s+"px";i.style.opacity=(.35+Math.random()*.55).toFixed(2);
+ i.style.animationDuration=(7+Math.random()*9).toFixed(1)+"s";i.style.animationDelay=(-Math.random()*14).toFixed(1)+"s";n.appendChild(i)}});
+
+// ---- Textos ----
+$("#sTipo").textContent=C.tipo;$("#sTit").textContent=tit;$("#abrir").textContent=C.abrir||(TAR?"Abrir tarjeta":"Abrir invitación");
+$("#tipo").textContent=C.tipo;$("#tit").textContent=tit;
+if(C.de){$("#de").appendChild(el("span","",TAR?"Con cariño, ":"Te invita: "));$("#de").appendChild(document.createTextNode(C.de))}else $("#de").hidden=true;
+$("#frase").textContent=C.frase||"";
+if(C.foto){$("#foto").style.backgroundImage='url("'+C.foto+'")';$("#foto").hidden=false;$("#arbol").remove()}
+$("#pieN").textContent=TAR?"¡Feliz Navidad!":tit;$("#pie").textContent=C.pie||"";$("#demo").hidden=!C.demo;
+if(TAR)$("#demo").textContent="Tarjeta de demostración";else $("#demo").textContent="Invitación de demostración";
+
+// ---- Fecha ----
+var F;
+if(C.fecha)F=new Date(C.fecha);else{var h=new Date(),y=h.getFullYear();F=new Date(y,11,24,20,0,0);if(h>new Date(y,11,26))F=new Date(y+1,11,24,20,0,0)}
+if(!TAR&&C.fecha){var fT=F.toLocaleDateString("es-MX",{weekday:"long",day:"numeric",month:"long"})+" · "+F.toLocaleTimeString("es-MX",{hour:"numeric",minute:"2-digit"});$("#fecha").textContent=fT.charAt(0).toUpperCase()+fT.slice(1);$("#fecha").hidden=false}
+$("#ctaT").textContent=TAR?(C.fecha?"Faltan":"Faltan para Nochebuena"):"Faltan para la posada";
+
+// ---- Invitado (viene en el enlace) ----
+var hp=new URLSearchParams((location.hash||"").slice(1)),para=(hp.get("para")||"").slice(0,60).trim(),pases=TAR?0:Math.min(20,Math.max(0,parseInt(hp.get("pases"),10)||0));
+if(para){$("#sInv").textContent=para;$("#sPara").hidden=false;
+ if(!TAR){$("#sParaT").textContent="Invitación para";$("#inv").textContent=para;$("#ticket").hidden=false;if(pases){$("#pN").textContent=pases;$("#pT").textContent=C.pasesTexto[pases>1?1:0]}else $(".num").hidden=true}}
+
+// ---- Sobre ----
+function abrir(){$("#sobre").classList.add("abre");document.body.classList.remove("cerrado");setTimeout(function(){$("#sobre").hidden=true},900)}
+$("#abrir").onclick=abrir;
+
+// ---- Cuenta regresiva ----
+function tic(){var d=F-new Date();if(d<=0){$("#cta").hidden=true;$("#ctaT").hidden=true;$("#hoy").hidden=false;$("#hoy").textContent=TAR?"¡Feliz Navidad!":(d>-864e5?"¡Hoy es la posada!":"¡Gracias por venir!");return}
+ var s=Math.floor(d/1e3);$("#cD").textContent=Math.floor(s/86400);$("#cH").textContent=Math.floor(s%86400/3600);$("#cM").textContent=Math.floor(s%3600/60);$("#cS").textContent=s%60;setTimeout(tic,1e3)}
+tic();
+
+// ---- Dónde y cuándo ----
+var E=(C.eventos||[]).filter(function(e){return e&&(e.direccion||e.nombre)&&(!TAR||e.direccion)});
+if(!E.length)$("#sDonde").hidden=true;
+if(TAR){$("#dLab").textContent="Ubicación";$("#dTit").textContent="Visítanos";$("#cal").hidden=true}
+var PIN='<svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+E.forEach(function(e){var c=el("div","card");c.innerHTML=PIN;if(e.nombre)c.appendChild(el("h3","",e.nombre));if(e.hora&&!TAR)c.appendChild(el("div","hr",e.hora));
+ var p=el("p");if(e.lugar){p.appendChild(el("b","",e.lugar));p.appendChild(el("br"))}p.appendChild(document.createTextNode(e.direccion||""));c.appendChild(p);
+ var m=e.mapa||(e.direccion?"https://maps.google.com/?q="+encodeURIComponent(e.direccion):"");
+ if(m){var a=el("a","btn","Cómo llegar");a.href=m;a.target="_blank";a.rel="noopener";c.appendChild(a)}$("#evs").appendChild(c)});
+function z(n){return(n<10?"0":"")+n}
+function st(d){return d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+"T"+z(d.getHours())+z(d.getMinutes())+"00"}
+var F2=new Date(F.getTime()+(C.duracionHoras||5)*36e5),e0=E[0]||{},lug=[e0.nombre,e0.direccion].filter(Boolean).join(", ");
+$("#gcal").href="https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(tit)+"&dates="+st(F)+"/"+st(F2)+"&location="+encodeURIComponent(lug);
+$("#ics").href="data:text/calendar;charset=utf-8,"+encodeURIComponent(["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//portalab//navidad//ES","BEGIN:VEVENT","UID:"+st(F)+"@navidad","DTSTAMP:"+st(new Date()),"DTSTART:"+st(F),"DTEND:"+st(F2),"SUMMARY:"+tit,"LOCATION:"+lug.replace(/,/g,"\\,"),"END:VEVENT","END:VCALENDAR"].join("\r\n"));
+
+// ---- Programa y qué traer (solo posada) ----
+var A=TAR?[]:(C.actividades||[]);if(!A.length)$("#sAct").hidden=true;$("#actT").textContent=C.actividadesTitulo||"Lo que habrá";
+A.forEach(function(x){var d=el("div");d.appendChild(el("i","",x[0]));d.appendChild(el("b","",x[1]));if(x[2])d.appendChild(el("span","",x[2]));$("#act").appendChild(d)});
+var T=C.traer||{};if(!TAR&&T.titulo){$("#trT").textContent=T.titulo;$("#trN").textContent=T.nota||""}else $("#sTraer").hidden=true;
+
+// ---- Botón de WhatsApp ----
+var W=C.whatsapp||{};
+if(W.numero){$("#sWa").hidden=false;$("#waT").textContent=W.titulo||(TAR?"¡Mándanos un saludo!":"¿Dudas?");$("#waN").textContent=W.nota||"";if(!W.nota)$("#waN").hidden=true;
+ $("#waL").textContent=W.texto||"Escríbenos por WhatsApp";$("#waB").href="https://wa.me/"+String(W.numero).replace(/\D/g,"")+"?text="+encodeURIComponent(W.mensaje||(TAR?"¡Feliz Navidad para ti también!":"Hola, vi la invitación."))}
+
+// ---- Redes ----
+var RD=(C.redes||[]).filter(function(r){return r&&/^https?:\/\//i.test(r.enlace||"")});
+if(RD.length){$("#sRedes").hidden=false;$("#rdT").textContent=C.redesTitulo||"Síguenos";
+ RD.forEach(function(r){var a=el("a","btn alt");a.href=r.enlace;a.target="_blank";a.rel="noopener";a.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>';a.appendChild(el("span","",r.nombre||"Ver"));$("#redes").appendChild(a)})}
+
+// ---- Copiar ----
+function copy(t,k){function ok(){k.textContent="Copiado";k.classList.add("ok");setTimeout(function(){k.textContent="Copiar";k.classList.remove("ok")},1600)}
+ function fb(){var a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{document.execCommand("copy")}catch(e){}a.remove();ok()}
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok,fb);else fb()}
+
+// ---- Confirmación por WhatsApp (solo posada; no guarda nada) ----
+var K=C.confirmar||{},va=null,max=pases||15,n={ni:0,ad:1};
+if(TAR||!K.whatsapp)$("#sConf").hidden=true;
+$("#confN").textContent=K.nota||"";if(K.limite)$("#lim").textContent="Por favor confirma antes del "+K.limite+".";
+$("#rNom").hidden=!!para;
+function pinta(){$("#si").setAttribute("aria-pressed",va===true);$("#no").setAttribute("aria-pressed",va===false);$("#rQ").hidden=va!==true;$("#rNi").textContent=n.ni;$("#rAd").textContent=n.ad;
+ $("#enviar").disabled=va===null||(!para&&!$("#rNom").value.trim())||(va&&n.ni+n.ad<1)}
+$("#si").onclick=function(){va=true;pinta()};$("#no").onclick=function(){va=false;pinta()};$("#rNom").oninput=pinta;
+$("#rQ").onclick=function(e){var b=e.target.closest("button");if(!b)return;var k=b.dataset.k,v=n[k]+ +b.dataset.d;if(v<0||n.ni+n.ad+ +b.dataset.d>max)return;n[k]=v;pinta()};
+function pl(c,s,p){return c+" "+(c===1?s:p)}
+$("#enviar").onclick=function(){var q=para||$("#rNom").value.trim(),m=$("#rMsg").value.trim(),ev="«"+tit+"»";
+ var qs=[n.ad?pl(n.ad,"adulto","adultos"):"",n.ni?pl(n.ni,"niño","niños"):""].filter(Boolean).join(" y ");
+ var t="Hola, soy "+q+". "+(va?"Confirmo asistencia a "+ev+(C.de?" de "+C.de:"")+": "+qs+".":"Lamentablemente no podremos ir a "+ev+(C.de?" de "+C.de:"")+".")+(m?" Nota: "+m:"");
+ window.open("https://wa.me/"+String(K.whatsapp).replace(/\D/g,"")+"?text="+encodeURIComponent(t),"_blank","noopener")};
+pinta();
+
+// ---- Generador de enlaces (#enlaces) ----
+if(location.hash==="#enlaces"){$("#sAdm").hidden=false;abrir();var base=location.href.split("#")[0];if(TAR)$("#aPas").hidden=true;
+ var gen=function(){var a=$("#aNom").value.trim(),p=TAR?0:parseInt($("#aPas").value,10)||0,u=base+(a?"#para="+encodeURIComponent(a).replace(/%20/g,"+")+(p?"&pases="+p:""):"");
+  $("#aUrl").textContent=u;$("#aWa").href="https://wa.me/?text="+encodeURIComponent((a?a+", ":"")+(TAR?"¡te mandamos una tarjeta de Navidad! ":"¡están invitados a nuestra posada! ")+u);return u};
+ $("#aNom").oninput=$("#aPas").oninput=gen;$("#aCp").onclick=function(){copy(gen(),this)};gen();
+ setTimeout(function(){$("#sAdm").scrollIntoView()},950)}
+window.addEventListener("hashchange",function(){location.reload()});
+})();
+</script>
+<script>
+// Demostración: los botones de WhatsApp con el número de muestra (55 0000 0000)
+// llevan al WhatsApp de portalab. En un portal entregado (demo:false) no hace nada.
+(function(){
+ if(typeof CONFIG==="undefined"||!CONFIG||!CONFIG.demo)return;
+ var RE=/^https:\/\/wa\.me\/(?:52)?5500000000(?=[?\/#]|$)/;
+ function fix(u){return typeof u==="string"&&RE.test(u)?"https://wa.me/525533497852?text="+encodeURIComponent("Hola, vi la demostración «"+document.title+"» en portalab.com.mx y quiero una así."):u}
+ var abrir=window.open;window.open=function(u){var a=[].slice.call(arguments);a[0]=fix(u);return abrir.apply(window,a)};
+ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a){var n=fix(a.href);if(n!==a.href)a.href=n}},true);
+})();
+</script>
+</body></html>
