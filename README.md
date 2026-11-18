@@ -32,7 +32,7 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 
 - `arma/`: el visitante arma su invitación o el portal de su negocio, lo ve con marca de agua y lo pide por WhatsApp con «La quiero». No cobra nada en la página.
   - `arma/#invitacion`, `arma/#portal` y `arma/#menu` abren cada pestaña (útil para los anuncios).
-  - `arma/#navidad` abre la tarjeta o posada de Navidad con el precio de $99; `arma/#boda`, `#cuento`, `#juguetes` y `#selva` abren ese diseño.
+  - `arma/` (sin nada) y `arma/#navidad` abren el botón «Tarjetas navideñas interactivas» con el precio de $99; `arma/#boda`, `#cuento`, `#juguetes` y `#selva` abren ese diseño.
   - La promoción de Navidad sale en la portada (`index.html`, bloque «Promoción de temporada») y en el texto de `arma/`; quítala en enero.
   - `index.html` se arma con `node fabrica/generar.js construir`; se edita `fuente.html`.
 
