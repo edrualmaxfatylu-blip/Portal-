@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Arma la tuya · portalab</title>
+<meta name="description" content="Arma gratis tu invitación digital o el portal de tu negocio y mira cómo queda en tu celular. Nosotros la terminamos.">
+<meta property="og:title" content="Arma la tuya gratis · portalab"><meta property="og:description" content="Invitaciones digitales y portales para negocio con NFC y QR. Pruébalo en tu celular antes de pagar.">
+<meta name="theme-color" content="#171532">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Cpath d='M15 37V23a9 9 0 0 1 18 0v14' fill='none' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='26' r='3.2' fill='%23ff6b4a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Simulador público: el visitante arma su invitación o portal, lo ve en un teléfono y lo pide por WhatsApp. */
+:root{--bg:#fff7ec;--card:#fff;--field:#fffdf9;--ink:#171532;--mut:#5f5c7a;--line:#eadfce;--co:#ff6b4a;--cot:#d9482a;--li:#b9b4ff;--st:#171532;--gd:#1faa59;--tint:#ffe3da;--lil:#e9e7ff;
+--tit:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--txt:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root{--bg:#100f22;--card:#1b1936;--field:#15132c;--ink:#f3f0ff;--mut:#a9a6c8;--line:#2c2a4d;--cot:#ff8f75;--tint:#3a2230;--lil:#25224a;color-scheme:dark}}
+*{box-sizing:border-box}[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--txt);-webkit-font-smoothing:antialiased;padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))}
+button,a,input,select,textarea{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--co);outline-offset:2px}
+.w{max-width:1120px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.lab{font:700 .72rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--cot)}
+/* ---- Portada ---- */
+.hero{background:radial-gradient(70% 60% at 100% 0,rgba(185,180,255,.36),transparent 62%),radial-gradient(60% 50% at 0 100%,rgba(255,107,74,.26),transparent 65%),var(--st);color:#fbf8ff;border-radius:0 0 38px 38px;padding:calc(20px + env(safe-area-inset-top,0px)) 0 38px;position:relative;overflow:hidden}
+.ondas{position:absolute;right:-90px;top:-90px;width:320px;height:320px;fill:none;stroke-width:2;pointer-events:none}
+.hero .w{position:relative}
+.br{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#fff}.br svg{width:40px;height:40px}.br svg rect{fill:rgba(255,255,255,.12)}
+.br strong{font:800 1.4rem/1 var(--tit);letter-spacing:-.03em}.br strong em{font-style:normal;color:var(--co)}
+h1{font:800 clamp(2.3rem,9vw,4rem)/1 var(--tit);letter-spacing:-.035em;margin:28px 0 12px;max-width:16ch;text-wrap:balance}h1 em{font-style:normal;color:var(--co)}
+.lead{color:#d9d6f2;margin:0;max-width:46ch;font-size:1.05rem}
+.pasos{display:flex;flex-wrap:wrap;gap:8px 18px;margin:22px 0 0;padding:0;list-style:none}
+.pasos li{display:flex;align-items:center;gap:9px;font-weight:600;font-size:.94rem}
+.pasos b{width:28px;height:28px;border-radius:9px;background:var(--co);color:#171532;display:grid;place-items:center;font:800 .95rem var(--tit);transform:rotate(-4deg)}
+/* ---- Mesa ---- */
+.mesa{display:grid;gap:28px;margin-top:26px}
+@media (min-width:940px){.mesa{grid-template-columns:minmax(0,1fr) 400px;align-items:start}}
+.panel{display:grid;gap:14px;min-width:0}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tab{display:flex;align-items:center;gap:12px;text-align:left;border:1.5px solid var(--line);background:var(--card);border-radius:20px;padding:14px;cursor:pointer;min-height:76px}
+.tab svg{width:40px;height:40px;flex:none}
+.tab b{display:block;font:800 1.05rem/1.15 var(--tit)}.tab small{display:block;color:var(--mut);font-size:.82rem;line-height:1.3;margin-top:3px}
+@media (max-width:520px){.tab{flex-direction:column;align-items:flex-start;gap:8px}.tab svg{width:34px;height:34px}.qx{display:none}}
+.tab[aria-pressed="true"]{border-color:var(--co);box-shadow:0 0 0 3px var(--tint)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:14px}
+.card h2{margin:0;font:800 1.3rem/1.15 var(--tit);letter-spacing:-.02em}
+.dis{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:2px 18px 4px}.dis::-webkit-scrollbar{display:none}
+.dz{flex:none;width:118px;border:1.5px solid var(--line);background:var(--field);border-radius:16px;padding:8px;cursor:pointer;text-align:left}
+.dz i{display:flex;height:54px;border-radius:10px;overflow:hidden;margin-bottom:8px}.dz i span{flex:1}
+.dz b{font-weight:700;font-size:.9rem}
+.dz[aria-pressed="true"]{border-color:var(--co);box-shadow:0 0 0 3px var(--tint)}
+.pal{display:flex;flex-wrap:wrap;gap:10px}
+.pc{width:44px;height:44px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1.5px var(--line);cursor:pointer;padding:0;overflow:hidden;display:flex}
+.pc span{flex:1}.pc[aria-pressed="true"]{box-shadow:0 0 0 3px var(--co)}
+.campo{display:grid;gap:6px;min-width:0}.campo label{font-weight:600;font-size:.9rem}
+.campo .ay{font-size:.8rem;color:var(--mut)}
+input,select,textarea{width:100%;min-height:48px;border:1.5px solid var(--line);border-radius:14px;background:var(--field);padding:10px 13px;outline:none}
+textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus{border-color:var(--co)}
+.dos{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.fila{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:8px}
+.foto{display:flex;align-items:center;gap:12px}
+.mini{width:64px;height:64px;border-radius:16px;border:1.5px dashed var(--line);background:var(--bg) center/cover;flex:none}
+.foto input{position:absolute;width:1px;height:1px;opacity:0}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:0 18px;border-radius:999px;border:1.5px solid var(--ink);background:none;font-weight:700;cursor:pointer;text-decoration:none}
+.b.sm{min-height:38px;padding:0 14px;font-size:.88rem}
+.honesto{display:flex;gap:12px;align-items:flex-start;background:var(--lil);border-radius:18px;padding:14px 16px;font-size:.92rem}
+.honesto b{font-weight:700}
+.honesto svg{width:24px;height:24px;flex:none;margin-top:1px}
+/* ---- Teléfono ---- */
+.vista{min-width:0;scroll-margin-top:12px}
+@media (min-width:940px){.vista{position:sticky;top:16px}}
+.vbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.tel{width:100%;max-width:380px;margin:0 auto;border:9px solid var(--st);border-radius:44px;overflow:hidden;background:var(--st);box-shadow:0 30px 60px -30px rgba(23,21,50,.6)}
+.tel iframe{display:block;width:100%;height:min(720px,calc(100vh - 120px));min-height:560px;border:0;background:#fff}
+.vnota{text-align:center;color:var(--mut);font-size:.82rem;margin:10px 0 0}
+footer{text-align:center;color:var(--mut);font-size:.86rem;margin:48px 0 0}footer a{color:inherit}
+/* ---- Barra fija ---- */
+.barra{position:fixed;left:0;right:0;bottom:0;z-index:10;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:linear-gradient(transparent,var(--bg) 40%)}
+.barra .in{max-width:620px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:10px}
+.ver{min-height:54px;border-radius:999px;border:1.5px solid var(--ink);background:var(--card);font-weight:700;padding:0 18px;cursor:pointer}
+@media (min-width:940px){.ver{display:none}.barra .in{grid-template-columns:1fr}}
+.quiero{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;background:var(--gd);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 14px 28px -10px rgba(31,170,89,.7)}
+.quiero svg{width:22px;height:22px}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero .w>*{animation:up .6s cubic-bezier(.2,.7,.2,1) backwards}.hero .w>:nth-child(2){animation-delay:.08s}.hero .w>:nth-child(3){animation-delay:.16s}.hero .w>:nth-child(4){animation-delay:.24s}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style></head>
+<body>
+<header class="hero"><svg class="ondas" viewBox="0 0 300 300" aria-hidden="true"><circle cx="150" cy="150" r="50" stroke="#ff6b4a"/><circle cx="150" cy="150" r="85" stroke="#b9b4ff" opacity=".7"/><circle cx="150" cy="150" r="120" stroke="#b9b4ff" opacity=".4"/></svg>
+<div class="w">
+<a class="br" href="../"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><strong>porta<em>lab</em></strong></a>
+<h1 id="h1">Arma la tuya. <em>Nosotros la terminamos.</em></h1>
+<p class="lead" id="lead">Escribe tus datos y mira al instante cómo queda en tu celular. Es gratis probar: si te gusta, nos escribes y la dejamos lista.</p>
+<ol class="pasos"><li><b>1</b>Elige el diseño</li><li><b>2</b>Escribe tus datos</li><li><b>3</b>Toca «La quiero»</li></ol>
+</div></header>
+
+<main class="w">
+<div class="mesa">
+<section class="panel" aria-label="Tus datos">
+ <div class="tabs" role="group" aria-label="Qué quieres armar">
+  <button class="tab" type="button" id="tInv" aria-pressed="true"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="9" width="34" height="24" rx="5" fill="#ffe3da" stroke="#171532" stroke-width="2.4"/><path d="M4 11l16 12 16-12" fill="none" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="23" r="4" fill="#ff6b4a"/></svg><span><b>Invitación</b><small>Boda, XV años, fiestas</small></span></button>
+  <button class="tab" type="button" id="tPor" aria-pressed="false"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="15" width="30" height="20" rx="4" fill="#e9e7ff" stroke="#171532" stroke-width="2.4"/><path d="M3 15l4-9h26l4 9z" fill="#ff6b4a" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><rect x="16" y="24" width="8" height="11" fill="#fff" stroke="#171532" stroke-width="2.2"/></svg><span><b>Portal de negocio</b><small>Menú, servicios, pedidos</small></span></button>
+ </div>
+ <div class="card"><div><div class="lab">Paso 1</div><h2>Elige el diseño</h2></div><div class="dis" id="dis"></div>
+  <div><div class="campo"><label id="lPal">Colores</label></div><div class="pal" id="pal" role="group" aria-labelledby="lPal" style="margin-top:8px"></div></div></div>
+ <div class="card"><div><div class="lab">Paso 2</div><h2 id="h2d">Escribe tus datos</h2></div><div id="form" style="display:grid;gap:14px"></div></div>
+ <div class="honesto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><div><b>Así funciona:</b> probar es gratis y no guardamos nada aquí. Al tocar «La quiero» nos mandas por WhatsApp lo que escribiste; te decimos el precio y la terminamos con todos sus botones. Tus fotos se quedan en tu celular: nos las mandas por WhatsApp.</div></div>
+</section>
+<section class="vista" id="vista" aria-label="Vista previa">
+ <div class="vbar"><span class="lab">Así se ve en tu celular</span><button class="b sm" type="button" id="bSobre">Ver el sobre</button></div>
+ <div class="tel"><iframe id="prev" title="Vista previa"></iframe></div>
+ <p class="vnota">Vista previa con marca de agua. Ya terminada, todos los botones funcionan.</p>
+</section>
+</div>
+<footer>Hecho en Naucalpan por <a href="../">portalab</a> · Portales digitales con NFC y QR</footer>
+</main>
+<div class="barra"><div class="in"><button class="ver" type="button" id="bVer">Ver cómo queda</button><a class="quiero" id="quiero" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg><span id="qT">La quiero</span></a></div></div>
+
+<script type="application/json" id="plantillasJSON">/*PLANTILLAS*/</script>
+<script>
+(function(){
+"use strict";
+// ============ CONFIGURACIÓN DEL SIMULADOR ============
+const WHATSAPP="525533497852";   // a dónde llegan los pedidos de «La quiero»
+// =====================================================
+const T=JSON.parse(document.getElementById("plantillasJSON").textContent);
+const $=s=>document.querySelector(s);
+function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+const clon=o=>JSON.parse(JSON.stringify(o));
+
+const DIS={inv:[["boda","Boda o XV"],["cuento","Cuento de hadas"],["juguetes","Juguetes"],["selva","Selva"]],por:[["negocio","Negocio"],["menu","Menú con pedidos"]]};
+const PAL_INV=[["Del diseño",null],["Rosa",["#b0476b","#7a2a47","#e8b04b","#ffb3c7","#fff4f6"]],["Azul",["#2f5d9e","#1b3a66","#f2c14e","#7fd1ff","#f3f7ff"]],["Olivo",["#4c5a45","#333d2e","#b08d57","#d9c9a3","#f6f1e7"]],["Lila",["#6b4fa0","#3f2a6b","#f5c451","#c9b6ff","#f8f4ff"]],["Negro y oro",["#1f1f24","#0e0e12","#c9a45c","#e8d9b0","#f7f3ea"]]];
+const PAL_POR=[["Del diseño",null],["Medianoche",["#171532","#171532","#ff6b4a","#ff6b4a","#fff7ec"]],["Café",["#2b1d16","#2b1d16","#ff9f43","#ff9f43","#fbf3ea"]],["Verde",["#14532d","#14532d","#facc15","#facc15","#f3faf4"]],["Azul",["#1e3a8a","#1e3a8a","#38bdf8","#38bdf8","#f2f6ff"]],["Vino",["#7f1d1d","#7f1d1d","#fbbf24","#fbbf24","#fff6f2"]],["Rosa",["#831843","#831843","#f9a8d4","#f9a8d4","#fff4f8"]]];
+const TIPOS=["Nuestra boda","Mis XV años","Bautizo","Primera comunión","Aniversario"];
+
+// ---- Estado ----
+let modo="inv",dis="boda",pal=0,foto="",D={};
+function inicial(){const b=T[dis].base;
+ if(dis==="boda")D={tipo:b.tipo,n1:b.nombres[0]||"",n2:b.nombres[1]||"",fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[1]?b.eventos[1].lugar:b.eventos[0].lugar,dir:(b.eventos[1]||b.eventos[0]).direccion,frase:b.frase};
+ else if(T[dis].tipo==="invitacion")D={nombre:b.nombre,edad:(b.edad.match(/\d+/)||[""])[0],fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:b.eventos[0].direccion,frase:b.frase};
+ else if(dis==="negocio")D={nombre:b.nombre,giro:b.giro,eslogan:b.eslogan,desc:b.descripcion,s:b.servicios.map(s=>[s.nombre,s.precio]),dir:b.direccion};
+ else D={nombre:b.nombre,giro:b.giro,cat:b.categorias[0].nombre,s:b.categorias[0].platillos.map(p=>[p.nombre,String(p.precio)]).concat([["",""]]).slice(0,4),dir:b.direccion}}
+
+// ---- Formulario ----
+let n=0;
+function campo(et,k,tipo,ay,op){const w=el("div","campo"),id="c"+(++n),l=el("label","",et);l.htmlFor=id;w.appendChild(l);let i;
+ if(tipo==="area"){i=el("textarea")}else if(tipo==="select"){i=el("select");op.forEach(o=>{const x=el("option","",o);x.value=o;i.appendChild(x)});if(!op.includes(D[k])){const x=el("option","",D[k]);x.value=D[k];i.prepend(x)}}
+ else{i=el("input");i.type=tipo||"text";if(tipo==="number"){i.inputMode="numeric";i.min=1;i.max=99}}
+ i.id=id;i.value=D[k]==null?"":D[k];i.addEventListener("input",()=>{D[k]=i.value;cambio()});w.appendChild(i);if(ay)w.appendChild(el("span","ay",ay));return w}
+function dos(a,b){const d=el("div","dos");d.append(a,b);return d}
+function campoFoto(et){const w=el("div","campo"),id="c"+(++n);const l=el("label","",et);l.htmlFor=id;
+ const f=el("div","foto"),m=el("div","mini"),i=el("input"),b=el("label","b sm","Elegir foto"),q=el("button","b sm","Quitar");i.type="file";i.accept="image/*";i.id=id;b.htmlFor=id;q.type="button";
+ const pinta=()=>{m.style.backgroundImage=foto?'url("'+foto+'")':"";q.hidden=!foto};
+ i.onchange=()=>{const fl=i.files[0];if(!fl)return;const u=URL.createObjectURL(fl),im=new Image();im.onload=()=>{const k=Math.min(1,1000/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(im,0,0,c.width,c.height);foto=c.toDataURL("image/jpeg",.8);URL.revokeObjectURL(u);pinta();cambio()};im.src=u;i.value=""};
+ q.onclick=()=>{foto="";pinta();cambio()};f.append(m,i,b,q);w.append(l,f,el("span","ay","Solo para ver cómo queda: no se sube a ningún lado."));pinta();return w}
+function lista(et,ph){const w=el("div","campo");w.appendChild(el("label","",et));D.s.forEach((s,j)=>{const f=el("div","fila");
+ [0,1].forEach(c=>{const i=el("input");i.value=s[c]||"";i.placeholder=c?"Precio":ph+" "+(j+1);i.setAttribute("aria-label",(c?"Precio de ":"")+ph+" "+(j+1));if(c)i.inputMode=dis==="menu"?"numeric":"text";i.addEventListener("input",()=>{s[c]=i.value;cambio()});f.appendChild(i)});w.appendChild(f)});return w}
+function armar(){const f=$("#form");f.replaceChildren();n=0;
+ if(dis==="boda"){f.append(campo("Tipo de evento","tipo","select","",TIPOS),dos(campo("Nombre","n1"),campo("Segundo nombre (opcional)","n2")))}
+ else if(T[dis].tipo==="invitacion"){f.append(dos(campo("Nombre del festejado","nombre"),campo("Años que cumple","edad","number")))}
+ if(T[dis].tipo==="invitacion"){f.append(dos(campo("Fecha","fecha","date"),campo("Hora","hora","time")),campo(dis==="boda"?"Lugar de la recepción":"Salón o lugar","lugar"),campo("Dirección","dir","text","La usamos para el botón «Cómo llegar»."),campo("Frase de la invitación","frase","area"));
+  if(dis==="boda"||dis==="selva")f.appendChild(campoFoto(dis==="boda"?"Foto de portada":"Foto del festejado"))}
+ else{f.append(campo("Nombre del negocio","nombre"),campo("Giro y zona","giro","text","Ej.: Taquería · Naucalpan"));
+  if(dis==="negocio")f.append(campo("Frase grande","eslogan","text","La última palabra sale en color."),campo("Descripción corta","desc","area"),lista("Tus servicios","Servicio"));
+  else f.append(campo("Categoría del menú","cat","text","Ej.: Tacos, Café, Desayunos"),lista("Platillos","Platillo"));
+  f.append(campo("Dirección","dir"),campoFoto("Tu logo"))}}
+function pintarDis(){const w=$("#dis");w.replaceChildren();DIS[modo].forEach(([id,nm])=>{const b=T[id].base,x=el("button","dz");x.type="button";x.setAttribute("aria-pressed",id===dis);
+ const i=el("i");[b.color,b.color2||b.color,b.acento,b.acento2||b.fondo,b.fondo].forEach(c=>{const s=el("span");s.style.background=c;i.appendChild(s)});x.append(i,el("b","",nm));
+ x.onclick=()=>{dis=id;pal=0;foto="";inicial();pintarDis();pintarPal();armar();cambio(true)};w.appendChild(x)})}
+function pintarPal(){const w=$("#pal");w.replaceChildren();const P=modo==="inv"?PAL_INV:PAL_POR,b=T[dis].base;
+ P.forEach(([nm,c],j)=>{const cs=c||[b.color,b.color2||b.color,b.acento,b.acento2||b.acento,b.fondo];const x=el("button","pc");x.type="button";x.title=nm;x.setAttribute("aria-label","Colores "+nm);x.setAttribute("aria-pressed",j===pal);
+  [cs[0],cs[2]].forEach(v=>{const s=el("span");s.style.background=v;x.appendChild(s)});x.onclick=()=>{pal=j;pintarPal();cambio()};w.appendChild(x)})}
+
+// ---- Del formulario a la plantilla ----
+const mapa=d=>d?"https://maps.google.com/?q="+encodeURIComponent(d):"";
+function hora12(h){if(!h)return "";const [a,b]=h.split(":").map(Number);return (a%12||12)+":"+String(b).padStart(2,"0")+" "+(a<12?"am":"pm")}
+function config(){const c=clon(T[dis].base);c.demo=true;
+ const P=(modo==="inv"?PAL_INV:PAL_POR)[pal][1];if(P){c.color=P[0];if("color2" in c)c.color2=P[1];c.acento=P[2];if("acento2" in c)c.acento2=P[3];c.fondo=P[4]}
+ if(T[dis].tipo==="invitacion"){c.fecha=(D.fecha||c.fecha.slice(0,10))+"T"+(D.hora||"17:00")+":00";c.frase=D.frase;
+  if(dis==="boda"){c.tipo=D.tipo;c.nombres=[D.n1,D.n2].filter(s=>s&&s.trim());c.eventos=[{nombre:"Recepción",hora:hora12(D.hora),lugar:D.lugar,direccion:D.dir,mapa:mapa(D.dir)}];c.itinerario=[];if(foto)c.foto=foto}
+  else{c.nombre=D.nombre;c.edad=D.edad?"¡cumple "+D.edad+" años!":"";c.eventos=[{nombre:D.lugar,hora:hora12(D.hora),lugar:"",direccion:D.dir,mapa:mapa(D.dir)}];if(dis==="selva"&&foto)c.foto=foto}
+  c.confirmar.whatsapp="525500000000"}
+ else{c.nombre=D.nombre;c.giro=D.giro;c.direccion=D.dir;c.mapa=mapa(D.dir);if(foto)c.logo=foto;
+  if(dis==="negocio"){c.eslogan=D.eslogan;c.descripcion=D.desc;c.servicios=D.s.filter(s=>s[0]).map((s,j)=>({nombre:s[0],precio:s[1],descripcion:(c.servicios[j]||{}).descripcion||"",foto:""}))}
+  else{c.categorias=[{nombre:D.cat||"Menú",platillos:D.s.filter(s=>s[0]).map(s=>({nombre:s[0],precio:Number(String(s[1]).replace(/[^\d.]/g,""))||0,descripcion:"",foto:"",etiqueta:""}))}]}}
+ return c}
+function generar(html,cfg){const i=html.indexOf("const CONFIG={"),j=html.indexOf("\n};",i);
+ const json=JSON.stringify(cfg).replace(/</g,"\\u003c").replace(/\u2028/g,"\\u2028").replace(/\u2029/g,"\\u2029");
+ return html.slice(0,i)+"const CONFIG="+json+";"+html.slice(j+3)}
+
+// ---- Vista previa con marca de agua ----
+let t=0,sobre=false;
+function cambio(ya){clearTimeout(t);t=setTimeout(pintar,ya?0:350);mensaje()}
+function pintar(){const fr=$("#prev");let y=0;try{y=fr.contentWindow.scrollY||0}catch(e){}
+ let h=generar(T[dis].html,config());
+ const marca='<div aria-hidden="true" style="position:fixed;inset:0;z-index:2147483647;pointer-events:none;overflow:hidden"><div style="position:absolute;inset:-50%;display:flex;flex-wrap:wrap;align-content:center;gap:70px 50px;transform:rotate(-28deg);font:800 22px/1 system-ui,sans-serif;letter-spacing:.14em;color:rgba(128,124,150,.24)">'+Array(60).fill("<span>VISTA PREVIA · portalab</span>").join("")+'</div></div>';
+ const js="<script>(function(){try{"+(sobre?"":"var b=document.getElementById('abrir');if(b)b.click();")+"window.open=function(){return null};document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a)return;var h=a.getAttribute('href');e.preventDefault();if(h.charAt(0)==='#'){var x=document.querySelector(h);if(x)x.scrollIntoView({behavior:'smooth'})}},true);if("+y+")setTimeout(function(){scrollTo(0,"+y+")},"+(sobre?0:950)+")}catch(e){}})()<\/script>";
+ const k=h.lastIndexOf("</body>");h=h.slice(0,k)+marca+js+h.slice(k);fr.srcdoc=h}
+$("#bSobre").onclick=()=>{sobre=true;pintar();sobre=false};
+
+// ---- Mensaje de WhatsApp ----
+const FMT=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo==="inv"?PAL_INV:PAL_POR)[pal][0];
+ if(modo==="inv"){L.push("Hola portalab, armé mi invitación en su página y la quiero.","","• Diseño: "+nm+" · colores "+pn.toLowerCase());
+  if(dis==="boda"){L.push("• Evento: "+D.tipo,"• Nombres: "+[D.n1,D.n2].filter(Boolean).join(" y "))}else L.push("• Festejado: "+D.nombre+(D.edad?", cumple "+D.edad+" años":""));
+  let f="";try{f=D.fecha?FMT.format(new Date(D.fecha+"T12:00:00")):""}catch(e){}
+  L.push("• Fecha: "+f+(D.hora?", "+hora12(D.hora):""),"• Lugar: "+[D.lugar,D.dir].filter(Boolean).join(", "));if(D.frase)L.push("• Frase: "+D.frase)}
+ else{L.push("Hola portalab, armé el portal de mi negocio en su página y lo quiero.","","• Tipo: "+nm+" · colores "+pn.toLowerCase(),"• Negocio: "+D.nombre+(D.giro?" ("+D.giro+")":""));
+  const s=D.s.filter(x=>x[0]).map(x=>x[0]+(x[1]?" "+(dis==="menu"?"$"+String(x[1]).replace(/[^\d.]/g,""):x[1]):""));if(s.length)L.push("• "+(dis==="menu"?"Platillos":"Servicios")+": "+s.join(", "));if(D.dir)L.push("• Dirección: "+D.dir)}
+ if(foto)L.push("","Te mando "+(modo==="inv"?"mis fotos":"mi logo")+" por aquí.");
+ $("#quiero").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(L.join("\n"));
+ $("#qT").replaceChildren(document.createTextNode(modo==="inv"?"La quiero":"Lo quiero"),el("span","qx",modo==="inv"?" · pedirla por WhatsApp":" · pedirlo por WhatsApp"))}
+
+// ---- Pestañas ----
+function ponModo(m,desdeHash){modo=m;dis=DIS[m][0][0];pal=0;foto="";
+ $("#tInv").setAttribute("aria-pressed",m==="inv");$("#tPor").setAttribute("aria-pressed",m==="por");
+ $("#h1").replaceChildren(document.createTextNode(m==="inv"?"Arma tu invitación. ":"Arma el portal de tu negocio. "),el("em","",m==="inv"?"Nosotros la terminamos.":"Nosotros lo terminamos."));
+ $("#lead").textContent=m==="inv"?"Escribe tus datos y mira al instante cómo queda en tu celular. Es gratis probar: si te gusta, nos escribes y la dejamos lista, con confirmación por WhatsApp y un enlace para cada invitado.":"No te quedes con una tarjeta que solo abre tus reseñas o tu Instagram. Arma tu portal con menú, pedidos, pagos y ubicación, y míralo en tu celular antes de pagar.";
+ $("#bSobre").hidden=m!=="inv";
+ if(!desdeHash)history.replaceState(null,"","#"+(m==="inv"?"invitacion":"portal"));
+ inicial();pintarDis();pintarPal();armar();cambio(true)}
+$("#tInv").onclick=()=>ponModo("inv");$("#tPor").onclick=()=>ponModo("por");
+$("#bVer").onclick=()=>$("#vista").scrollIntoView({behavior:"smooth"});
+function deHash(){const h=location.hash.slice(1);ponModo(h==="portal"||h==="menu"?"por":"inv",true);if(h==="menu"){dis="menu";inicial();pintarDis();pintarPal();armar();cambio(true)}}
+addEventListener("hashchange",deHash);deHash();
+})();
+</script>
+</body></html>

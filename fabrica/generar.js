@@ -2,6 +2,7 @@
 //
 //   node fabrica/generar.js construir [copia-para-claude.html]
 //       Vuelve a armar fabrica/index.html con las plantillas actuales
+//       y el simulador público arma/index.html con las plantillas actuales
 //       (córrelo cada vez que cambies una plantilla).
 //
 //   node fabrica/generar.js portal datos.json [carpeta-de-fotos]
@@ -60,6 +61,16 @@ function construir() {
   fs.writeFileSync(path.join(RAIZ, "fabrica/index.html"), salida);
   if (process.argv[3]) fs.writeFileSync(process.argv[3], cuerpo);   // copia sin <head> para publicarla en claude.ai
   console.log("fabrica/index.html listo (" + Math.round(salida.length / 1024) + " KB)");
+
+  // Simulador público (arma/): solo las plantillas que el visitante puede armar.
+  const pub = {};
+  for (const id of ["boda", "cuento", "juguetes", "selva", "negocio", "menu"]) {
+    const { nombre, tipo, base, html } = datos[id];
+    pub[id] = { nombre, tipo, base, html };
+  }
+  const sim = leer("arma/fuente.html").replace("/*PLANTILLAS*/", () => JSON.stringify(pub).replace(/</g, "\\u003c"));
+  fs.writeFileSync(path.join(RAIZ, "arma/index.html"), sim);
+  console.log("arma/index.html listo (" + Math.round(sim.length / 1024) + " KB)");
 }
 
 function incrustar(o, dir) {
