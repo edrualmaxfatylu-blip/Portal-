@@ -194,7 +194,7 @@ function pintarPal(){const w=$("#pal");w.replaceChildren();const P=modo!=="por"?
   [cs[0],cs[2]].forEach(v=>{const s=el("span");s.style.background=v;x.appendChild(s)});x.onclick=()=>{pal=j;pintarPal();cambio()};w.appendChild(x)})}
 
 // ---- Del formulario a la plantilla ----
-const mapa=d=>d?"https://maps.google.com/?q="+encodeURIComponent(d):"";
+const mapa=d=>d?"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(d):"";
 function hora12(h){if(!h)return "";const [a,b]=h.split(":").map(Number);return (a%12||12)+":"+String(b).padStart(2,"0")+" "+(a<12?"am":"pm")}
 function red(v,dom){v=(v||"").trim();if(!v)return "";if(/^https?:\/\//i.test(v))return v;v=v.replace(/^@/,"").replace(/^(www\.)?(facebook|instagram)\.com\//i,"");return "https://"+dom+"/"+encodeURIComponent(v)}
 function config(){const c=clon(T[dis].base);c.demo=true;
