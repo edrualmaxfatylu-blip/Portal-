@@ -1,4 +1,4 @@
-const CACHE = "portal-v1";
+const CACHE = "portal-v2";
 const BASE = ["./", "portada.webp"];
 const ESPERA = 3500;
 

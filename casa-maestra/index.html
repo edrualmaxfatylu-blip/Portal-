@@ -5,6 +5,8 @@
 <meta name="description" content="Menú, pedidos por WhatsApp, pagos y más.">
 <meta property="og:type" content="website"><meta property="og:title" content="Endorfina Casa Maestra"><meta property="og:description" content="Menú, pedidos por WhatsApp, pagos y más.">
 <meta property="og:image" content="https://portalab.com.mx/casa-maestra/portada-casa-maestra.jpg"><meta property="og:url" content="https://portalab.com.mx/casa-maestra/"><meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://portalab.com.mx/casa-maestra/">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CafeOrCoffeeShop", "name": "Endorfina Casa Maestra", "url": "https://portalab.com.mx/casa-maestra/", "image": "https://portalab.com.mx/casa-maestra/portada-casa-maestra.jpg", "servesCuisine": "Café y chocolatería", "sameAs": ["https://www.facebook.com/share/1TuXLpxRKK/"]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
 <style>
 :root{--c:#801838;--c2:#5e1028;--bg:#f7ebec;--card:#fffafa;--ink:#2b1018;--mut:#7a5560;--line:#ecd0d4;--wa:#1f9d4c}
@@ -112,13 +114,22 @@ h1::after{content:"";display:block;width:46px;height:2px;margin:12px auto 0;back
 .copy{border-color:var(--c2);color:var(--c2)}.copy.ok{background:var(--c2);color:#fff}
 .t3{background:linear-gradient(135deg,var(--c2),var(--c))}
 @media (prefers-color-scheme:dark){.copy{border-color:var(--gold);color:var(--gold)}h1{color:var(--gold)}}
+/* ---- Horarios en vivo, compartir y crédito ---- */
+.hrs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:12px 0 0}
+.hrs span{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);font-size:.82rem;color:var(--mut)}
+.hrs span.on{border-color:var(--c);color:var(--ink);font-weight:600}
+.hrs span.on::before{content:"";width:7px;height:7px;border-radius:50%;background:#1f9d4c;box-shadow:0 0 0 3px rgba(31,157,76,.2)}
+.hrs span.on i{font-style:normal;color:#1f9d4c}
+.share{margin-top:14px}
+footer span,footer a{display:block}
+footer .cred{width:max-content;margin:6px auto 0;color:var(--mut);font-size:.75rem;text-decoration:none;border-bottom:1px dotted var(--mut)}
 </style></head>
 <body>
 <main>
 <header class="hero" id="hero" role="img" aria-label="Portada"></header>
 <div class="logo"><span id="lN"></span><small id="lS"></small></div>
 <h1 id="t"></h1><p class="lema" id="lema"></p>
-<p class="lema" id="hor" style="font-size:.88rem;margin-top:2px"></p>
+<div class="hrs" id="hor" hidden></div>
 <div style="text-align:center"><span class="demo" id="demo" hidden>Versión de demostración</span></div>
 <section class="ticket" id="ticket" hidden><div class="num"><b id="mn"></b><span>mesa</span></div><div><strong id="greet"></strong><p>Pide, paga y cuéntanos cómo va todo desde aquí.</p><select id="mesaSel" hidden aria-label="Cambiar mesa (demo)"></select></div></section>
 <nav class="tabs" id="tabs" role="tablist" hidden><button role="tab" aria-selected="true" data-v="vInicio" id="tabI">Mi mesa</button><button role="tab" aria-selected="false" data-v="vOpina">Opinar</button></nav>
@@ -142,8 +153,9 @@ h1::after{content:"";display:block;width:46px;height:2px;margin:12px auto 0;back
 <button class="btn main" id="send" disabled style="margin:0">Enviar opinión</button></div>
 <div class="card thanks" id="fbDone" hidden></div>
 </section>
-<a class="btn alt" id="otra" target="_blank" rel="noopener" style="margin-top:14px" hidden></a>
-<footer id="pie"></footer>
+<a class="btn alt" id="otra" style="margin-top:14px" hidden></a>
+<button class="btn alt share" id="share" type="button">Compartir con un amigo</button>
+<footer><span id="pie"></span><a class="cred" href="https://portalab.com.mx/" target="_blank" rel="noopener">Portal digital por portalab</a></footer>
 </main>
 <div class="vw" id="vw" hidden><div class="vh"><b>Menú</b><button id="vx">Cerrar</button></div><div class="vt" id="vt" role="tablist"></div><div class="vn">Toca la imagen para acercar</div><div class="vs" id="vs"></div></div>
 <script>
@@ -159,6 +171,7 @@ const CONFIG={
  menuImagenes:[],   // cuando llegue el menú: [["Desayunos","9 a 13 h","menu-desayunos.webp"],["Comidas","","menu-comidas.webp"]]
  lealtad:"https://app.luyoa.com/enroll/endorfina",   // tarjeta de lealtad (vacío = oculta)
  horarioTexto:"",
+ horarios:[],   // ej. [["Desayunos","9 a 13 h",9,13],["Comidas","13 h al cierre",13,22]]
  whatsapp:{numero:"", etiqueta:"", mensaje:"Hola, quisiera hacer un pedido:"},
  pago:{banco:"Banorte", titular:"Claudia Hernandez", cuentaEtiqueta:"CLABE", cuenta:"072180010818090894", alias:"", whatsapp:"525547614263", nota:"En concepto, anota tu nombre. Después de pagar, envía tu comprobante por WhatsApp."},
  mapa:"https://share.google/FYRO9qNpS21dZIHQG",
@@ -166,7 +179,7 @@ const CONFIG={
  instagram:"",
  otraSucursal:{nombre:"Endorfina espresso", url:"https://portalab.com.mx/endorfina/"},   // vacío = oculta
  facebook:"https://www.facebook.com/share/1TuXLpxRKK/",
- pie:"© Endorfina Casa Maestra | Portal digital",
+ pie:"© Endorfina Casa Maestra",
  demo:false,                              // true = muestra "demostración" y selector de mesa; ponlo en false al entregar
  mesaMax:12,                             // solo para el selector de la demo
  opiniones:{}    // a este WhatsApp llegan las opiniones de 3 estrellas o menos. Vacío ({}) = oculta Opinar
@@ -237,10 +250,17 @@ $("#send").onclick=function(){
  d.innerHTML=h;$("#fbForm").hidden=true;d.hidden=false;
  $("#again").onclick=function(){reset();document.querySelector('.tabs button[data-v="vInicio"]').click()}};
 paintS();
+// ---- Compartir (sin el número de mesa) ----
+$("#share").onclick=function(){var u=location.origin+location.pathname,b=this;
+ function ok(){b.textContent="Enlace copiado";setTimeout(function(){b.textContent="Compartir con un amigo"},1800)}
+ if(navigator.share)navigator.share({title:C.titulo,text:C.lema,url:u}).catch(function(){});
+ else if(navigator.clipboard)navigator.clipboard.writeText(u).then(ok,function(){});};
 
 // ---- Menú en imágenes (carga solo al abrirlo) ----
 var VI=C.menuImagenes||[],vi=0;
-if(C.horarioTexto)$("#hor").textContent=C.horarioTexto;else $("#hor").hidden=true;
+var HR=C.horarios||[],hh=new Date().getHours();
+if(HR.length){HR.forEach(function(x,i){var e=document.createElement("span"),on=hh>=x[2]&&hh<x[3];if(on)e.className="on";e.textContent=x[0]+" "+x[1];if(on){var t=document.createElement("i");t.textContent="· ahora";e.appendChild(t);if(x[4]!=null&&VI[x[4]])vi=x[4]}$("#hor").appendChild(e)});$("#hor").hidden=false}
+else if(C.horarioTexto){$("#hor").textContent=C.horarioTexto;$("#hor").hidden=false}
 function vshow(i){vi=i;document.querySelectorAll("#vt button").forEach(function(b,j){b.setAttribute("aria-selected",j===i)});var s=$("#vs");s.className="vs";s.textContent="";var im=new Image();im.alt=VI[i][0];im.onerror=function(){s.innerHTML='<p style="padding:28px 20px;text-align:center;color:var(--mut)">No pudimos cargar el menú. Escríbenos por WhatsApp y te lo enviamos.</p>'};im.src=VI[i][2];s.appendChild(im);s.scrollTo(0,0)}
 // El botón "atrás" del teléfono cierra el menú en vez de salir del portal
 function vopen(){if(!$("#vw").hidden)return;$("#vw").hidden=false;document.body.style.overflow="hidden";try{history.pushState({menu:1},"")}catch(e){}vshow(vi)}
