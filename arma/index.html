@@ -44,6 +44,10 @@ h1{font:800 clamp(2.3rem,9vw,4rem)/1 var(--tit);letter-spacing:-.035em;margin:28
 .tab b{display:block;font:800 1.05rem/1.15 var(--tit)}.tab small{display:block;color:var(--mut);font-size:.82rem;line-height:1.3;margin-top:3px}
 @media (max-width:520px){.tab{flex-direction:column;align-items:flex-start;gap:8px}.tab svg{width:34px;height:34px}.qx{display:none}}
 .tab[aria-pressed="true"]{border-color:var(--co);box-shadow:0 0 0 3px var(--tint)}
+.tab.nav{grid-column:1/-1;flex-direction:row;align-items:center;background:linear-gradient(160deg,#9b1c31,#5c0f1d);border-color:#9b1c31;color:#fff}.tab.nav small{color:#f3dcd0}.tab.nav svg{width:44px;height:44px}
+.tab.nav .pr{margin-left:auto;flex:none;font:800 1.15rem var(--tit);font-style:normal;background:#e9b949;color:#5c0f1d;border-radius:999px;padding:6px 12px}
+.tab.nav[aria-pressed="true"]{border-color:#e9b949;box-shadow:0 0 0 3px rgba(233,185,73,.45)}
+.dis.uno{display:none}
 .card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:14px}
 .card h2{margin:0;font:800 1.3rem/1.15 var(--tit);letter-spacing:-.02em}
 .dis{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 -18px;padding:2px 18px 4px}.dis::-webkit-scrollbar{display:none}
@@ -102,10 +106,11 @@ footer{text-align:center;color:var(--mut);font-size:.86rem;margin:48px 0 0}foote
 <div class="mesa">
 <section class="panel" aria-label="Tus datos">
  <div class="tabs" role="group" aria-label="Qué quieres armar">
-  <button class="tab" type="button" id="tInv" aria-pressed="true"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="9" width="34" height="24" rx="5" fill="#ffe3da" stroke="#171532" stroke-width="2.4"/><path d="M4 11l16 12 16-12" fill="none" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="23" r="4" fill="#ff6b4a"/></svg><span><b>Invitación</b><small>Navidad, posadas, bodas, XV</small></span></button>
+  <button class="tab nav" type="button" id="tNav" aria-pressed="false"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3l2 4 4.5.6-3.3 3 .8 4.4-4-2.2-4 2.2.8-4.4-3.3-3L18 7z" fill="#e9b949"/><path d="M20 12l8 10h-4l8 9H8l8-9h-4z" fill="#2f6d4f" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><rect x="17.5" y="31" width="5" height="5" rx="1" fill="#8a4b2a"/><circle cx="18" cy="21" r="1.6" fill="#e9b949"/><circle cx="23" cy="27" r="1.6" fill="#fff"/></svg><span><b>Tarjetas navideñas interactivas</b><small>Tarjetas e invitaciones de posada con WhatsApp</small></span><em class="pr">$99</em></button>
+  <button class="tab" type="button" id="tInv" aria-pressed="true"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="3" y="9" width="34" height="24" rx="5" fill="#ffe3da" stroke="#171532" stroke-width="2.4"/><path d="M4 11l16 12 16-12" fill="none" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="23" r="4" fill="#ff6b4a"/></svg><span><b>Invitación</b><small>Bodas, XV años, fiestas</small></span></button>
   <button class="tab" type="button" id="tPor" aria-pressed="false"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="5" y="15" width="30" height="20" rx="4" fill="#e9e7ff" stroke="#171532" stroke-width="2.4"/><path d="M3 15l4-9h26l4 9z" fill="#ff6b4a" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><rect x="16" y="24" width="8" height="11" fill="#fff" stroke="#171532" stroke-width="2.2"/></svg><span><b>Portal de negocio</b><small>Menú, servicios, pedidos</small></span></button>
  </div>
- <div class="card"><div><div class="lab">Paso 1</div><h2>Elige el diseño</h2></div><div class="dis" id="dis"></div>
+ <div class="card"><div><div class="lab">Paso 1</div><h2 id="h2dis">Elige el diseño</h2></div><div class="dis" id="dis"></div>
   <div><div class="campo"><label id="lPal">Colores</label></div><div class="pal" id="pal" role="group" aria-labelledby="lPal" style="margin-top:8px"></div></div></div>
  <div class="card"><div><div class="lab">Paso 2</div><h2 id="h2d">Escribe tus datos</h2></div><div id="form" style="display:grid;gap:14px"></div></div>
  <div class="honesto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><div><b>Así funciona:</b> probar es gratis y no guardamos nada aquí. Al tocar «La quiero» nos mandas por WhatsApp lo que escribiste; te decimos el precio y la terminamos con todos sus botones. Tus fotos se quedan en tu celular: nos las mandas por WhatsApp.</div></div>
@@ -132,19 +137,19 @@ const $=s=>document.querySelector(s);
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 const clon=o=>JSON.parse(JSON.stringify(o));
 
-const DIS={inv:[["navidad","Navidad o posada"],["boda","Boda o XV"],["cuento","Cuento de hadas"],["juguetes","Juguetes"],["selva","Selva"]],por:[["negocio","Negocio"],["menu","Menú con pedidos"]]};
+const DIS={nav:[["navidad","Navidad o posada"]],inv:[["boda","Boda o XV"],["cuento","Cuento de hadas"],["juguetes","Juguetes"],["selva","Selva"]],por:[["negocio","Negocio"],["menu","Menú con pedidos"]]};
 const PAL_INV=[["Del diseño",null],["Rosa",["#b0476b","#7a2a47","#e8b04b","#ffb3c7","#fff4f6"]],["Azul",["#2f5d9e","#1b3a66","#f2c14e","#7fd1ff","#f3f7ff"]],["Olivo",["#4c5a45","#333d2e","#b08d57","#d9c9a3","#f6f1e7"]],["Lila",["#6b4fa0","#3f2a6b","#f5c451","#c9b6ff","#f8f4ff"]],["Negro y oro",["#1f1f24","#0e0e12","#c9a45c","#e8d9b0","#f7f3ea"]]];
 const PAL_POR=[["Del diseño",null],["Medianoche",["#171532","#171532","#ff6b4a","#ff6b4a","#fff7ec"]],["Café",["#2b1d16","#2b1d16","#ff9f43","#ff9f43","#fbf3ea"]],["Verde",["#14532d","#14532d","#facc15","#facc15","#f3faf4"]],["Azul",["#1e3a8a","#1e3a8a","#38bdf8","#38bdf8","#f2f6ff"]],["Vino",["#7f1d1d","#7f1d1d","#fbbf24","#fbbf24","#fff6f2"]],["Rosa",["#831843","#831843","#f9a8d4","#f9a8d4","#fff4f8"]]];
 const TIPOS=["Nuestra boda","Mis XV años","Bautizo","Primera comunión","Aniversario"];
 
 // ---- Estado ----
-let modo="inv",dis="boda",pal=0,foto="",D={};
-const QUE=["Invitación a posada","Tarjeta navideña"];
+let modo="nav",dis="navidad",pal=0,foto="",D={};
+const QUE=["Tarjeta navideña","Invitación a posada"];
 const NAV={"Invitación a posada":{titulo:"Posada navideña",frase:"Ven a pedir posada con nosotros: habrá piñata, ponche, tamales y mucha alegría."},
  "Tarjeta navideña":{titulo:"¡Feliz Navidad!",frase:"Gracias por estar con nosotros este año. Les deseamos una Navidad llena de paz y un año nuevo increíble."}};
 let porta=false;
 function inicial(){const b=T[dis].base;porta=false;
- if(dis==="navidad")D={que:QUE[0],titulo:b.titulo,de:b.de,fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:b.eventos[0].direccion,frase:b.frase,fb:"",ig:""};
+ if(dis==="navidad")D={que:QUE[0],titulo:NAV[QUE[0]].titulo,de:b.de,fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:"",frase:NAV[QUE[0]].frase,fb:"",ig:""};
  else if(dis==="boda")D={tipo:b.tipo,n1:b.nombres[0]||"",n2:b.nombres[1]||"",fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[1]?b.eventos[1].lugar:b.eventos[0].lugar,dir:(b.eventos[1]||b.eventos[0]).direccion,frase:b.frase};
  else if(T[dis].tipo==="invitacion")D={nombre:b.nombre,edad:(b.edad.match(/\d+/)||[""])[0],fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:b.eventos[0].direccion,frase:b.frase};
  else if(dis==="negocio")D={nombre:b.nombre,giro:b.giro,eslogan:b.eslogan,desc:b.descripcion,s:b.servicios.map(s=>[s.nombre,s.precio]),dir:b.direccion};
@@ -181,10 +186,10 @@ function armar(){const f=$("#form");f.replaceChildren();n=0;
   if(dis==="negocio")f.append(campo("Frase grande","eslogan","text","La última palabra sale en color."),campo("Descripción corta","desc","area"),lista("Tus servicios","Servicio"));
   else f.append(campo("Categoría del menú","cat","text","Ej.: Tacos, Café, Desayunos"),lista("Platillos","Platillo"));
   f.append(campo("Dirección","dir"),campoFoto("Tu logo"))}}
-function pintarDis(){const w=$("#dis");w.replaceChildren();DIS[modo].forEach(([id,nm])=>{const b=T[id].base,x=el("button","dz");x.type="button";x.setAttribute("aria-pressed",id===dis);
+function pintarDis(){const w=$("#dis");w.replaceChildren();w.classList.toggle("uno",DIS[modo].length<2);$("#h2dis").textContent=DIS[modo].length<2?"Elige los colores":"Elige el diseño";DIS[modo].forEach(([id,nm])=>{const b=T[id].base,x=el("button","dz");x.type="button";x.setAttribute("aria-pressed",id===dis);
  const i=el("i");[b.color,b.color2||b.color,b.acento,b.acento2||b.fondo,b.fondo].forEach(c=>{const s=el("span");s.style.background=c;i.appendChild(s)});x.append(i,el("b","",nm));
  x.onclick=()=>{dis=id;pal=0;foto="";inicial();pintarDis();pintarPal();armar();heroTexto();cambio(true)};w.appendChild(x)})}
-function pintarPal(){const w=$("#pal");w.replaceChildren();const P=modo==="inv"?PAL_INV:PAL_POR,b=T[dis].base;
+function pintarPal(){const w=$("#pal");w.replaceChildren();const P=modo!=="por"?PAL_INV:PAL_POR,b=T[dis].base;
  P.forEach(([nm,c],j)=>{const cs=c||[b.color,b.color2||b.color,b.acento,b.acento2||b.acento,b.fondo];const x=el("button","pc");x.type="button";x.title=nm;x.setAttribute("aria-label","Colores "+nm);x.setAttribute("aria-pressed",j===pal);
   [cs[0],cs[2]].forEach(v=>{const s=el("span");s.style.background=v;x.appendChild(s)});x.onclick=()=>{pal=j;pintarPal();cambio()};w.appendChild(x)})}
 
@@ -193,7 +198,7 @@ const mapa=d=>d?"https://maps.google.com/?q="+encodeURIComponent(d):"";
 function hora12(h){if(!h)return "";const [a,b]=h.split(":").map(Number);return (a%12||12)+":"+String(b).padStart(2,"0")+" "+(a<12?"am":"pm")}
 function red(v,dom){v=(v||"").trim();if(!v)return "";if(/^https?:\/\//i.test(v))return v;v=v.replace(/^@/,"").replace(/^(www\.)?(facebook|instagram)\.com\//i,"");return "https://"+dom+"/"+encodeURIComponent(v)}
 function config(){const c=clon(T[dis].base);c.demo=true;
- const P=(modo==="inv"?PAL_INV:PAL_POR)[pal][1];if(P){c.color=P[0];if("color2" in c)c.color2=P[1];c.acento=P[2];if("acento2" in c)c.acento2=P[3];c.fondo=P[4]}
+ const P=(modo!=="por"?PAL_INV:PAL_POR)[pal][1];if(P){c.color=P[0];if("color2" in c)c.color2=P[1];c.acento=P[2];if("acento2" in c)c.acento2=P[3];c.fondo=P[4]}
  if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";c.modo=tar?"tarjeta":"posada";c.tipo=tar?"Te mandamos un abrazo":c.tipo;c.titulo=D.titulo;c.de=D.de;c.frase=D.frase;
   c.abrir=tar?"Abrir tarjeta":"Abrir invitación";c.fecha=tar?"":(D.fecha||c.fecha.slice(0,10))+"T"+(D.hora||"19:00")+":00";
   c.eventos=[{nombre:tar?D.de:D.lugar,hora:hora12(D.hora),lugar:"",direccion:D.dir,mapa:mapa(D.dir)}];
@@ -224,7 +229,7 @@ $("#bSobre").onclick=()=>{sobre=true;pintar();sobre=false};
 
 // ---- Mensaje de WhatsApp ----
 const FMT=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo==="inv"?PAL_INV:PAL_POR)[pal][0];
+function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo!=="por"?PAL_INV:PAL_POR)[pal][0];
  if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta de Navidad":"invitación de posada")+" en su página y la quiero (promoción de $99).","","• Colores: "+pn.toLowerCase(),"• Título: "+D.titulo,"• De parte de: "+D.de);
   if(!tar){let f="";try{f=D.fecha?FMT.format(new Date(D.fecha+"T12:00:00")):""}catch(e){}L.push("• Fecha: "+f+(D.hora?", "+hora12(D.hora):""),"• Lugar: "+[D.lugar,D.dir].filter(Boolean).join(", "))}else if(D.dir)L.push("• Dirección: "+D.dir);
   if(D.frase)L.push("• Mensaje: "+D.frase);const r=[D.fb,D.ig].filter(x=>x&&x.trim());if(r.length)L.push("• Redes: "+r.join(", "));
@@ -235,25 +240,25 @@ function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo==="in
   L.push("• Fecha: "+f+(D.hora?", "+hora12(D.hora):""),"• Lugar: "+[D.lugar,D.dir].filter(Boolean).join(", "));if(D.frase)L.push("• Frase: "+D.frase)}
  else{L.push("Hola portalab, armé el portal de mi negocio en su página y lo quiero.","","• Tipo: "+nm+" · colores "+pn.toLowerCase(),"• Negocio: "+D.nombre+(D.giro?" ("+D.giro+")":""));
   const s=D.s.filter(x=>x[0]).map(x=>x[0]+(x[1]?" "+(dis==="menu"?"$"+String(x[1]).replace(/[^\d.]/g,""):x[1]):""));if(s.length)L.push("• "+(dis==="menu"?"Platillos":"Servicios")+": "+s.join(", "));if(D.dir)L.push("• Dirección: "+D.dir)}
- if(foto)L.push("","Te mando "+(modo==="inv"?"mis fotos":"mi logo")+" por aquí.");
+ if(foto)L.push("","Te mando "+(modo!=="por"?"mis fotos":"mi logo")+" por aquí.");
  $("#quiero").href="https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent(L.join("\n"));
- $("#qT").replaceChildren(document.createTextNode(modo==="inv"?"La quiero":"Lo quiero"),el("span","qx",modo==="inv"?" · pedirla por WhatsApp":" · pedirlo por WhatsApp"))}
+ $("#qT").replaceChildren(document.createTextNode(modo!=="por"?"La quiero":"Lo quiero"),el("span","qx",modo!=="por"?" · pedirla por WhatsApp":" · pedirlo por WhatsApp"))}
 
 // ---- Pestañas ----
 function heroTexto(){const m=modo;
- if(dis==="navidad"){$("#h1").replaceChildren(document.createTextNode("Tu tarjeta o invitación de Navidad. "),el("em","","Solo $99."));
+ if(m==="nav"){$("#h1").replaceChildren(document.createTextNode("Tu tarjeta o invitación de Navidad. "),el("em","","Solo $99."));
   $("#lead").textContent="Arma tu tarjeta navideña o la invitación de tu posada con botón de WhatsApp, ubicación y tus redes. Mírala gratis en tu celular y pídela por $99. ¿La quieres impresa con QR y NFC? Son $150 más, con envío.";return}
  $("#h1").replaceChildren(document.createTextNode(m==="inv"?"Arma tu invitación. ":"Arma el portal de tu negocio. "),el("em","",m==="inv"?"Nosotros la terminamos.":"Nosotros lo terminamos."));
  $("#lead").textContent=m==="inv"?"Escribe tus datos y mira al instante cómo queda en tu celular. Es gratis probar: si te gusta, nos escribes y la dejamos lista, con confirmación por WhatsApp y un enlace para cada invitado.":"No te quedes con una tarjeta que solo abre tus reseñas o tu Instagram. Arma tu portal con menú, pedidos, pagos y ubicación, y míralo en tu celular antes de pagar."}
 function ponModo(m,desdeHash){modo=m;dis=DIS[m][0][0];pal=0;foto="";
- $("#tInv").setAttribute("aria-pressed",m==="inv");$("#tPor").setAttribute("aria-pressed",m==="por");
+ $("#tNav").setAttribute("aria-pressed",m==="nav");$("#tInv").setAttribute("aria-pressed",m==="inv");$("#tPor").setAttribute("aria-pressed",m==="por");
  heroTexto();
- $("#bSobre").hidden=m!=="inv";
- if(!desdeHash)history.replaceState(null,"","#"+(m==="inv"?"invitacion":"portal"));
+ $("#bSobre").hidden=m==="por";
+ if(!desdeHash)history.replaceState(null,"","#"+(m==="nav"?"navidad":m==="inv"?"invitacion":"portal"));
  inicial();pintarDis();pintarPal();armar();cambio(true)}
-$("#tInv").onclick=()=>ponModo("inv");$("#tPor").onclick=()=>ponModo("por");
+$("#tNav").onclick=()=>ponModo("nav");$("#tInv").onclick=()=>ponModo("inv");$("#tPor").onclick=()=>ponModo("por");
 $("#bVer").onclick=()=>$("#vista").scrollIntoView({behavior:"smooth"});
-function deHash(){const h=location.hash.slice(1);ponModo(h==="portal"||h==="menu"?"por":"inv",true);if(h==="menu"){dis="menu";inicial();pintarDis();pintarPal();armar();cambio(true)}
+function deHash(){const h=location.hash.slice(1);ponModo(h==="portal"||h==="menu"?"por":(h===""||h==="navidad")?"nav":"inv",true);if(h==="menu"){dis="menu";inicial();pintarDis();pintarPal();armar();cambio(true)}
  else if(h==="boda"||h==="cuento"||h==="juguetes"||h==="selva"){dis=h;inicial();pintarDis();pintarPal();armar();heroTexto();cambio(true)}}
 addEventListener("hashchange",deHash);deHash();
 })();
