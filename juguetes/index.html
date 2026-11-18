@@ -258,4 +258,15 @@ if(location.hash==="#enlaces"){$("#sAdm").hidden=false;abrir();var base=location
 window.addEventListener("hashchange",function(){location.reload()});
 })();
 </script>
+<script>
+// Demostración: los botones de WhatsApp con el número de muestra (55 0000 0000)
+// llevan al WhatsApp de portalab. En un portal entregado (demo:false) no hace nada.
+(function(){
+ if(typeof CONFIG==="undefined"||!CONFIG||!CONFIG.demo)return;
+ var RE=/^https:\/\/wa\.me\/(?:52)?5500000000(?=[?\/#]|$)/;
+ function fix(u){return typeof u==="string"&&RE.test(u)?"https://wa.me/525533497852?text="+encodeURIComponent("Hola, vi la demostración «"+document.title+"» en portalab.com.mx y quiero una así."):u}
+ var abrir=window.open;window.open=function(u){var a=[].slice.call(arguments);a[0]=fix(u);return abrir.apply(window,a)};
+ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a){var n=fix(a.href);if(n!==a.href)a.href=n}},true);
+})();
+</script>
 </body></html>

@@ -1,15 +1,31 @@
 # portalab
 
-Página de portalab y demostraciones de invitaciones digitales.
+Página de portalab, demostraciones, simulador público y portales de clientes.
+Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 
 - `index.html`: página principal
 - `boda/`, `cuento/`, `juguetes/`, `selva/`: invitaciones de demostración
-- `logo.svg`, `icono.svg`: logo
+- `logo.svg`, `icono.svg`, `apple-touch-icon.png`: logo e ícono
+- `og.png`, `arma/og.png`: imágenes que salen al compartir el enlace en WhatsApp o Facebook
+- `404.html`: página para enlaces que no existen
+- `robots.txt`, `sitemap.xml`: para que Google encuentre las páginas
 
 ## Dominio
 
-- El sitio vive en **https://portalab.com.mx/** (archivo `CNAME`). Las direcciones viejas de `github.io/Portal-/` redirigen solas al dominio.
-- Los portales de Endorfina están en sus propios repositorios y siguen en `github.io`.
+- El dominio está en Akky y sus DNS en Cloudflare (plan gratis): 4 registros A `@` a GitHub
+  (185.199.108.153, .109.153, .110.153, .111.153) y un CNAME `www` a `edrualmaxfatylu-blip.github.io`,
+  todos con la nube gris («DNS only»). HTTPS forzado en Settings → Pages.
+- El archivo `CNAME` le dice a GitHub que el sitio es `portalab.com.mx`. No lo borres.
+- Las direcciones viejas de `github.io/Portal-/` redirigen solas al dominio.
+
+## Portales de clientes
+
+- `endorfina/`: Endorfina espresso. Antes en el repositorio `Endorfinas-cafe`.
+- `casa-maestra/`: Endorfina Casa Maestra. Antes en `endorfina-casa-maestra`. Le faltan horario, WhatsApp y menú.
+- `el-cerdito/`: Carnitas El Cerdito. Antes en el repositorio `index.html`. Sus datos van en `NEGOCIO`
+  al final del archivo; lo que está vacío no se muestra.
+- Los repositorios viejos ya solo redirigen a estas direcciones y conservan el número de mesa (`#mesa-5`),
+  así que los NFC y QR que ya se entregaron siguen funcionando.
 
 ## Simulador público
 
@@ -30,4 +46,11 @@ Página de portalab y demostraciones de invitaciones digitales.
 - `plantillas/mascota/`: placa de mascota con botón para avisar al dueño y mandarle la ubicación.
 - En **Publicar**, la fábrica también saca el código QR listo para imprimir (uno por mesa en los menús).
 - Las invitaciones de `boda/`, `cuento/`, `juguetes/` y `selva/` también son plantillas de la fábrica.
+- En modo demostración (`demo:true`), los botones de WhatsApp con el número de muestra 55 0000 0000
+  llevan al WhatsApp de portalab (52 55 3349 7852). Al entregar, desmarca «Demostración» en la fábrica.
 - `clientes/<carpeta>/`: aquí va cada portal entregado. Dirección: `https://portalab.com.mx/clientes/<carpeta>/`
+
+## Si cambias el número de WhatsApp de portalab
+
+Está en `index.html` (`whatsapp`), `arma/fuente.html` (`WHATSAPP`), `404.html` y al final de cada plantilla
+(bloque «Demostración»). Después corre `node fabrica/generar.js construir`.
