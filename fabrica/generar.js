@@ -23,7 +23,8 @@ const PLANTILLAS = {
   boda:     { nombre: "Boda o XV años",     tipo: "invitacion", ruta: "boda/index.html" },
   cuento:   { nombre: "Cuento de hadas",    tipo: "invitacion", ruta: "cuento/index.html" },
   juguetes: { nombre: "Juguetes",           tipo: "invitacion", ruta: "juguetes/index.html" },
-  selva:    { nombre: "Selva",              tipo: "invitacion", ruta: "selva/index.html" }
+  selva:    { nombre: "Selva",              tipo: "invitacion", ruta: "selva/index.html" },
+  navidad:  { nombre: "Navidad o posada",   tipo: "invitacion", ruta: "navidad/index.html" }
 };
 
 // Ubica el bloque `const CONFIG={ ... };` de una plantilla.
@@ -64,7 +65,7 @@ function construir() {
 
   // Simulador público (arma/): solo las plantillas que el visitante puede armar.
   const pub = {};
-  for (const id of ["boda", "cuento", "juguetes", "selva", "negocio", "menu"]) {
+  for (const id of ["navidad", "boda", "cuento", "juguetes", "selva", "negocio", "menu"]) {
     const { nombre, tipo, base, html } = datos[id];
     pub[id] = { nombre, tipo, base, html };
   }
