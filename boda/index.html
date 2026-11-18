@@ -147,9 +147,9 @@ const CONFIG={
  duracionHoras:8,                           // para el calendario
  color:"#4c5a45", color2:"#333d2e", acento:"#b08d57", fondo:"#f6f1e7",
  foto:"",                                   // ruta (portada.webp). Vacío = fondo de color
- eventos:[                                  // quita o agrega los que necesites
-  {nombre:"Ceremonia", hora:"5:00 pm", lugar:"Parroquia de Ejemplo", direccion:"Av. Ejemplo 123, Naucalpan, Estado de México", mapa:"https://maps.google.com/?q=Naucalpan+Estado+de+Mexico"},
-  {nombre:"Recepción", hora:"7:00 pm", lugar:"Jardín Ejemplo", direccion:"Calle Ejemplo 45, Naucalpan, Estado de México", mapa:"https://maps.google.com/?q=Naucalpan+Estado+de+Mexico"}
+ eventos:[                                  // quita o agrega los que necesites   // mapa: tu link de Google Maps (opcional); vacío = la ruta sale de la dirección. Waze siempre usa la dirección
+  {nombre:"Ceremonia", hora:"5:00 pm", lugar:"Parroquia de Ejemplo", direccion:"Av. Ejemplo 123, Naucalpan, Estado de México", mapa:""},
+  {nombre:"Recepción", hora:"7:00 pm", lugar:"Jardín Ejemplo", direccion:"Calle Ejemplo 45, Naucalpan, Estado de México", mapa:""}
  ],
  itinerario:[["5:00 pm","Ceremonia religiosa",""],["7:00 pm","Recepción","Coctel de bienvenida"],["8:30 pm","Cena",""],["10:00 pm","Primer baile","Y se abre la pista"]],   // [] = oculta
  vestimenta:{titulo:"Formal", nota:"Evita el color blanco. El jardín tiene pasto: toma en cuenta tu calzado."},   // {} = oculta
@@ -196,7 +196,7 @@ tic();
 var PIN='<svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
 (C.eventos||[]).forEach(function(e){var c=el("div","card");c.innerHTML=PIN;c.appendChild(el("h3","",e.nombre));c.appendChild(el("div","hr",e.hora));
  var p=el("p");p.appendChild(el("b","",e.lugar));p.appendChild(el("br"));p.appendChild(document.createTextNode(e.direccion||""));c.appendChild(p);
- if(e.mapa){var a=el("a","btn","Cómo llegar");a.href=e.mapa;a.target="_blank";a.rel="noopener";c.appendChild(a)}$("#evs").appendChild(c)});
+ if(e.mapa||e.direccion){var q=e.direccion||e.nombre||"",rt=[["Google Maps",e.mapa||(q?"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q):"")],["Waze",q?"https://waze.com/ul?q="+encodeURIComponent(q)+"&navigate=yes":""]].filter(function(x){return x[1]}),d=el("div","dos");if(rt.length<2)d.style.gridTemplateColumns="1fr";rt.forEach(function(x){var a=el("a","btn",x[0]);a.href=x[1];a.target="_blank";a.rel="noopener";d.appendChild(a)});c.appendChild(d)}$("#evs").appendChild(c)});
 if(!(C.eventos||[]).length)$("#evs").hidden=true;
 // calendario
 function z(n){return(n<10?"0":"")+n}

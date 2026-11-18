@@ -165,8 +165,8 @@ const CONFIG={
  fecha:"2026-12-19T19:00:00",               // inicio (hora local). En tarjeta: vacío = cuenta regresiva a Nochebuena
  duracionHoras:5,                           // para el calendario
  color:"#9b1c31", color2:"#5c0f1d", acento:"#e9b949", acento2:"#2f6d4f", fondo:"#fbf6ef",
- eventos:[                                  // en tarjeta: deja la dirección vacía para ocultar la ubicación
-  {nombre:"Casa de la Familia Ejemplo", hora:"7:00 pm", lugar:"", direccion:"Calle Ejemplo 123, Naucalpan, Estado de México", mapa:"https://maps.google.com/?q=Naucalpan+Estado+de+Mexico"}
+ eventos:[                                  // en tarjeta: deja la dirección vacía para ocultar la ubicación   // mapa: tu link de Google Maps (opcional); vacío = la ruta sale de la dirección. Waze siempre usa la dirección
+  {nombre:"Casa de la Familia Ejemplo", hora:"7:00 pm", lugar:"", direccion:"Calle Ejemplo 123, Naucalpan, Estado de México", mapa:""}
  ],
  actividadesTitulo:"Lo que habrá",
  actividades:[["🕯️","Letanía","7:30 pm"],["🪅","Piñata","8:30 pm"],["🍲","Cena y ponche","9:00 pm"],["🎁","Intercambio","10:00 pm"]],   // [] = oculta
@@ -230,8 +230,7 @@ if(TAR){$("#dLab").textContent="Ubicación";$("#dTit").textContent="Visítanos";
 var PIN='<svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
 E.forEach(function(e){var c=el("div","card");c.innerHTML=PIN;if(e.nombre)c.appendChild(el("h3","",e.nombre));if(e.hora&&!TAR)c.appendChild(el("div","hr",e.hora));
  var p=el("p");if(e.lugar){p.appendChild(el("b","",e.lugar));p.appendChild(el("br"))}p.appendChild(document.createTextNode(e.direccion||""));c.appendChild(p);
- var m=e.mapa||(e.direccion?"https://maps.google.com/?q="+encodeURIComponent(e.direccion):"");
- if(m){var a=el("a","btn","Cómo llegar");a.href=m;a.target="_blank";a.rel="noopener";c.appendChild(a)}$("#evs").appendChild(c)});
+ if(e.mapa||e.direccion){var q=e.direccion||e.nombre||"",rt=[["Google Maps",e.mapa||(q?"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(q):"")],["Waze",q?"https://waze.com/ul?q="+encodeURIComponent(q)+"&navigate=yes":""]].filter(function(x){return x[1]}),d=el("div","dos");if(rt.length<2)d.style.gridTemplateColumns="1fr";rt.forEach(function(x){var a=el("a","btn",x[0]);a.href=x[1];a.target="_blank";a.rel="noopener";d.appendChild(a)});c.appendChild(d)}$("#evs").appendChild(c)});
 function z(n){return(n<10?"0":"")+n}
 function st(d){return d.getFullYear()+z(d.getMonth()+1)+z(d.getDate())+"T"+z(d.getHours())+z(d.getMinutes())+"00"}
 var F2=new Date(F.getTime()+(C.duracionHoras||5)*36e5),e0=E[0]||{},lug=[e0.nombre,e0.direccion].filter(Boolean).join(", ");
