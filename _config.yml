@@ -4,3 +4,4 @@ exclude:
   - fabrica
   - arma/fuente.html
   - README.md
+  - publicar.js
