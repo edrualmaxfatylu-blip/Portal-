@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnitas El Cerdito · Menú Digital</title>
+    <meta name="description" content="Menú digital de Carnitas El Cerdito: especialidades del cazo, pedidos y pagos desde tu mesa.">
+    <meta name="theme-color" content="#0F0305">
+    <link rel="canonical" href="https://portalab.com.mx/el-cerdito/">
     <style>
         :root {
             --rojo-mexicano: #E5213F;
@@ -17,6 +20,7 @@
             --texto-gris: #D4A8B0;
         }
 
+        [hidden] { display: none !important; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
         body { 
@@ -290,6 +294,7 @@
             padding-top: 20px;
             border-top: 1px solid var(--borde-tarjeta);
         }
+        a.footer-brand { display: block; text-decoration: none; }
         .footer-brand { font-weight: 800; color: var(--rojo-mexicano); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 5px; }
         .footer-text { font-size: 0.75rem; color: #7A5359; line-height: 1.5; }
     </style>
@@ -301,7 +306,7 @@
         <div class="header">
             <div class="logo-frame">
                 <div class="logo-inner">
-                    <img src="visual_illustration_15264539774590811814.png" alt="Carnitas El Cerdito">
+                    <svg viewBox="0 0 120 120" role="img" aria-label="Carnitas El Cerdito" style="width:86%;height:86%"><path d="M30 44C20 34 18 20 22 12c10 2 22 10 28 20z" fill="#EF8AA0"/><path d="M90 44c10-10 12-24 8-32-10 2-22 10-28 20z" fill="#EF8AA0"/><circle cx="60" cy="66" r="40" fill="#F7A8B8"/><ellipse cx="35" cy="74" rx="7" ry="4" fill="#F27E98" opacity=".55"/><ellipse cx="85" cy="74" rx="7" ry="4" fill="#F27E98" opacity=".55"/><circle cx="45" cy="56" r="5.2" fill="#2B1018"/><circle cx="75" cy="56" r="5.2" fill="#2B1018"/><circle cx="46.8" cy="54.2" r="1.7" fill="#fff"/><circle cx="76.8" cy="54.2" r="1.7" fill="#fff"/><ellipse cx="60" cy="79" rx="19" ry="13.5" fill="#F0839A"/><ellipse cx="53" cy="79" rx="3.4" ry="5" fill="#8B0015"/><ellipse cx="67" cy="79" rx="3.4" ry="5" fill="#8B0015"/></svg>
                 </div>
             </div>
             <h1 class="taqueria-title">EL CERDITO</h1>
@@ -352,9 +357,9 @@
             </div>
 
             <!-- Acción Principal -->
-            <a href="https://wa.me/NUMERO_DE_TELEFONO" class="btn-flotante">
+            <a href="#" class="btn-flotante" id="btnWa" target="_blank" rel="noopener">
                 <span class="wa-icon">💬</span>
-                Pedir a la mesa por WhatsApp
+                <span id="waTxt">Pedir a la mesa por WhatsApp</span>
             </a>
 
             <!-- Digital Wallet / Pagos -->
@@ -370,17 +375,17 @@
                     <div class="bank-details">
                         <div class="data-row">
                             <label>Banco Receptor</label>
-                            <div class="value" style="color: #fff; font-family: inherit;">BBVA Bancomer</div>
+                            <div class="value" id="vBanco" style="color: #fff; font-family: inherit;"></div>
                         </div>
                         <div class="data-row">
                             <label>Beneficiario</label>
-                            <div class="value" style="color: #fff; font-family: inherit;">Taquería El Cerdito</div>
+                            <div class="value" id="vBenef" style="color: #fff; font-family: inherit;"></div>
                         </div>
                         <div class="data-row" style="margin-top: 15px;">
                             <label>CLABE Interbancaria</label>
                             <div class="value-group">
-                                <span class="value">012 000 0000000000 0</span>
-                                <button class="btn-copy-tech" onclick="copiarInfo('012000000000000000')">COPIAR</button>
+                                <span class="value" id="vClabe"></span>
+                                <button class="btn-copy-tech" onclick="copiarInfo(this)">COPIAR</button>
                             </div>
                         </div>
                     </div>
@@ -388,7 +393,7 @@
             </div>
 
             <!-- Redes & Reviews (Bento UI) -->
-            <div class="section-header">
+            <div class="section-header" id="hRedes">
                 <div class="icon-bg">⭐</div>
                 <h3>Comunidad & Reseñas</h3>
             </div>
@@ -413,41 +418,54 @@
             </div>
 
             <div class="footer">
-                <div class="footer-brand">ZENITHKODE LABS</div>
+                <a class="footer-brand" href="https://portalab.com.mx/" target="_blank" rel="noopener">portalab</a>
                 <div class="footer-text">
                     © 2026 Carnitas El Cerdito.<br>
-                    Portal Inteligente de Mesa. Diseño registrado.
+                    Portal digital de mesa por portalab.
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Lógica de Mesa y Saludo Dinámico
-        const urlParams = new URLSearchParams(window.location.search);
-        let numMesa = urlParams.get('mesa') || '1'; 
-        document.getElementById('display-mesa').innerText = numMesa;
-        
-        const hora = new Date().getHours();
-        let saludo = 'Bienvenidos';
-        
-        if (hora >= 5 && hora < 12) {
-            saludo = 'Buenos días';
-        } else if (hora >= 12 && hora < 19) {
-            saludo = 'Buenas tardes';
-        } else {
-            saludo = 'Buenas noches';
-        }
-
-        document.getElementById('greeting-text').innerText = `${saludo}, mesa ${numMesa}`;
-
-        // Sistema de Copiado con feedback nativo
-        function copiarInfo(texto) {
-            navigator.clipboard.writeText(texto).then(() => {
-                alert("¡CLABE copiada al portapapeles! Lista para tu app de banco.");
-            }).catch(err => {
-                console.error('Error al copiar: ', err);
+        // ===== Datos del negocio: lo que quede vacío no se muestra =====
+        const NEGOCIO = {
+            whatsapp: "",                       // con 52 adelante, ej. "5255XXXXXXXX"
+            banco: "", beneficiario: "", clabe: "",   // pago por transferencia (18 dígitos)
+            google: "", instagram: "", facebook: "", web: ""   // enlaces completos
+        };
+        (function () {
+            const $ = s => document.querySelector(s);
+            // Mesa: viene en el enlace de cada tarjeta (?mesa=5 o #mesa-5)
+            const q = new URLSearchParams(location.search).get("mesa") || "";
+            const h = (location.hash.match(/^#mesa-(\d{1,3})$/) || [])[1] || "";
+            const mesa = /^\d{1,3}$/.test(q) ? q : h;
+            const hora = new Date().getHours();
+            const saludo = hora >= 5 && hora < 12 ? "Buenos días" : hora >= 12 && hora < 19 ? "Buenas tardes" : "Buenas noches";
+            if (mesa) { $("#display-mesa").textContent = mesa; $("#greeting-text").textContent = saludo + ", mesa " + mesa; }
+            else { $(".table-number").hidden = true; $("#greeting-text").textContent = saludo + ", bienvenidos"; }
+            // Pedido por WhatsApp
+            if (NEGOCIO.whatsapp) {
+                $("#btnWa").href = "https://wa.me/" + NEGOCIO.whatsapp + "?text=" + encodeURIComponent((mesa ? "Hola, soy de la mesa " + mesa + ". " : "Hola. ") + "Quiero pedir:");
+                $("#waTxt").textContent = mesa ? "Pedir a la mesa por WhatsApp" : "Pedir por WhatsApp";
+            } else $("#btnWa").hidden = true;
+            // Pago por transferencia
+            if (NEGOCIO.clabe) {
+                $("#vBanco").textContent = NEGOCIO.banco; $("#vBenef").textContent = NEGOCIO.beneficiario;
+                $("#vClabe").textContent = NEGOCIO.clabe.replace(/^(\d{3})(\d{3})(\d{11})(\d)$/, "$1 $2 $3 $4");
+            } else $("#payAccordion").hidden = true;
+            // Reseñas y redes
+            let redes = 0;
+            [["google", ".b-google"], ["instagram", ".b-insta"], ["facebook", ".b-fb"], ["web", ".b-web"]].forEach(([k, sel]) => {
+                const a = $(sel);
+                if (NEGOCIO[k]) { a.href = NEGOCIO[k]; a.target = "_blank"; a.rel = "noopener"; redes++; } else a.hidden = true;
             });
+            if (!redes) { $("#hRedes").hidden = true; $(".bento-grid").hidden = true; }
+        })();
+
+        function copiarInfo(btn) {
+            const ok = () => { btn.textContent = "COPIADO"; setTimeout(() => { btn.textContent = "COPIAR"; }, 1600); };
+            if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(NEGOCIO.clabe).then(ok, () => {});
         }
     </script>
 </body>
