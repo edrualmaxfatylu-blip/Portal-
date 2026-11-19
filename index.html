@@ -2,176 +2,527 @@
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>portalab · portales digitales con NFC</title>
-<meta name="description" content="Portales digitales que se abren con un toque NFC o un QR: para tu negocio, tu menú, tu salud, tu mascota y tus eventos. Sin app.">
-<meta property="og:type" content="website"><meta property="og:title" content="portalab · Acerca el teléfono. Listo."><meta property="og:description" content="Portales para negocios, menús digitales, fichas médicas, collares para mascotas e invitaciones. Con NFC y QR, sin app.">
+<meta name="description" content="Portales digitales que se abren con un toque NFC o un QR: para tu negocio, tus invitaciones y tus tarjetas de Navidad. Sin app.">
+<meta property="og:type" content="website"><meta property="og:title" content="portalab · Acerca el teléfono. Listo."><meta property="og:description" content="Portales para negocios, invitaciones digitales y tarjetas de Navidad. Se abren con NFC o QR, sin app.">
 <meta property="og:url" content="https://portalab.com.mx/"><meta property="og:site_name" content="portalab"><meta property="og:locale" content="es_MX">
 <meta property="og:image" content="https://portalab.com.mx/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="portalab: acerca el teléfono y se abre tu portal">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://portalab.com.mx/"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "portalab", "url": "https://portalab.com.mx/", "logo": "https://portalab.com.mx/apple-touch-icon.png", "image": "https://portalab.com.mx/og.png", "description": "Portales digitales con NFC y QR para negocios, menús, fichas médicas, mascotas e invitaciones.", "telephone": "+525533497852", "areaServed": "Naucalpan, Estado de México", "address": {"@type": "PostalAddress", "addressLocality": "Naucalpan de Juárez", "addressRegion": "Estado de México", "addressCountry": "MX"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LocalBusiness", "name": "portalab", "url": "https://portalab.com.mx/", "logo": "https://portalab.com.mx/apple-touch-icon.png", "image": "https://portalab.com.mx/og.png", "description": "Portales digitales con NFC y QR para negocios, invitaciones y tarjetas de Navidad.", "telephone": "+525533497852", "areaServed": "Naucalpan, Estado de México", "address": {"@type": "PostalAddress", "addressLocality": "Naucalpan de Juárez", "addressRegion": "Estado de México", "addressCountry": "MX"}}</script>
 <meta name="theme-color" content="#171532">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Cpath d='M15 37V23a9 9 0 0 1 18 0v14' fill='none' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='26' r='3.2' fill='%23ff6b4a'/%3E%3Ccircle cx='36.5' cy='11.5' r='2.6' fill='%23b9b4ff'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff7ec;--card:#fff;--ink:#171532;--mut:#5f5c7a;--line:#eadfce;--st:#171532;--st2:#0d0b22;--gr:#d9482a;--co:#ff6b4a;--li:#b9b4ff;--gd:#1faa59;
---tit:"Bricolage Grotesque","Arial Narrow",system-ui,sans-serif;--txt:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-box-sizing:border-box}
-@media (prefers-color-scheme:dark){:root{--bg:#100f22;--card:#1b1936;--ink:#f3f0ff;--mut:#a9a6c8;--line:#2c2a4d;--gr:#ff8f75;color-scheme:dark}}
-*{box-sizing:border-box}[hidden]{display:none!important}
-html{scroll-behavior:smooth;scroll-padding-top:12px}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--txt);-webkit-font-smoothing:antialiased;padding:env(safe-area-inset-top,0) 0 calc(96px + env(safe-area-inset-bottom,0px))}
-button,a{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--gr);outline-offset:2px}
-.w{max-width:480px;margin:0 auto;padding:0 20px}
-.hero{background:radial-gradient(80% 60% at 100% 0,rgba(185,180,255,.38),transparent 62%),radial-gradient(60% 50% at 0 100%,rgba(255,107,74,.28),transparent 65%),var(--st);color:#fbf8ff;border-radius:0 0 38px 38px;padding:28px 0 46px;overflow:hidden;position:relative}
-.ondas{position:absolute;right:-70px;top:-70px;width:300px;height:300px;fill:none;stroke-width:2;pointer-events:none}.hero .w{position:relative}
-.br{display:flex;align-items:center;gap:11px}
-.br svg{width:46px;height:46px;flex:none}.br svg rect{fill:rgba(255,255,255,.12)}
-.br strong{font:800 1.7rem/1 var(--tit);letter-spacing:-.03em}.br strong em{font-style:normal;color:var(--li)}
-.br small{display:block;font:.66rem ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#c9c5ef;margin-top:4px}
-h1{font:800 clamp(2.6rem,12.5vw,3.4rem)/1 var(--tit);letter-spacing:-.035em;margin:34px 0 14px}h1 em{font-style:normal;color:var(--co)}
-.lead{color:#d9d6f2;margin:0 0 24px;max-width:36ch}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;border-radius:999px;text-decoration:none;font-weight:700;border:0;cursor:pointer;transition:transform .15s,filter .2s;padding:8px 20px;text-align:center}
-.btn:active{transform:scale(.97)}.btn:hover{filter:brightness(1.07)}
-.wa{background:var(--gd);color:#fff}.gh{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;margin-top:10px}
-.ln+.ln{margin-top:8px}.ln{background:none;border:1.5px solid var(--ink);color:var(--ink);min-height:46px;font-size:.93rem;margin-top:14px}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}.tags span{font-size:.8rem;font-weight:600;padding:5px 12px;border-radius:999px;background:rgba(185,180,255,.18);color:#e6e3ff}
-.nav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:18px -20px 0;padding:0 20px 4px}.nav::-webkit-scrollbar{display:none}
-.nav a{flex:none;display:flex;align-items:center;gap:7px;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:600;font-size:.88rem}
-.nav svg{width:18px;height:18px}
-.sec{margin-top:52px}.lab{font:.72rem ui-monospace,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--gr);font-weight:700}
-h2{font:800 1.9rem/1.1 var(--tit);letter-spacing:-.025em;margin:6px 0 8px}.sub{color:var(--mut);margin:0 0 20px}
-.steps{display:grid;gap:12px}.st{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
-.st>b{flex:none;width:38px;height:38px;border-radius:12px;background:var(--co);color:#171532;font:800 1.1rem var(--tit);display:grid;place-items:center;transform:rotate(-4deg)}.st strong{display:block}.st span{color:var(--mut);font-size:.92rem}
-.ic{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.sv{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:12px 12px 20px;margin-top:16px;scroll-margin-top:12px;box-shadow:0 14px 30px -22px rgba(23,21,50,.5)}
-.sv>*{margin-left:10px;margin-right:10px}.sv .il{display:block;width:100%;height:auto;margin:0 0 16px;border-radius:18px}
-.sv .top{display:flex;align-items:center;gap:14px}
-.sv h3{margin:0;font:800 1.45rem/1.12 var(--tit);letter-spacing:-.02em}.sv .pr{display:inline-block;margin-top:8px;font-size:.8rem;font-weight:700;color:#171532;background:#ffe3da;padding:3px 11px;border-radius:999px}
-.sv p{margin-top:12px;margin-bottom:0;color:var(--mut)}
-.ok{list-style:none;padding:0;margin:12px 0 0}.ok li{display:flex;gap:10px;padding:5px 0;font-size:.95rem}.ok li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--co) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23171532' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 10.5l3 3 6-7'/%3E%3C/svg%3E") center/100% no-repeat}
-.nota{margin-top:12px!important;font-size:.84rem;padding:10px 12px;border-radius:12px;background:var(--bg)}
-.sv .btn.wa{margin-top:16px;min-height:50px}
-.caso{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:12px;text-decoration:none}
-.caso b{display:block}.caso span{color:var(--mut);font-size:.9rem}.caso div{flex:1}.caso i{font-style:normal;font-size:1.3rem;color:var(--gr)}.caso b{font:800 1.1rem var(--tit)}
-.promo{display:flex;align-items:center;gap:14px;margin-top:18px;padding:16px;border-radius:22px;text-decoration:none;color:#fff;background:radial-gradient(70% 80% at 100% 0,rgba(233,185,73,.35),transparent 70%),linear-gradient(160deg,#9b1c31,#5c0f1d);box-shadow:0 14px 30px -18px rgba(92,15,29,.8)}
-.promo svg{width:54px;height:54px;flex:none}.promo b{display:block;font:800 1.15rem/1.15 var(--tit);letter-spacing:-.02em}.promo span{display:block;font-size:.88rem;opacity:.92;margin-top:3px}.promo i{font-style:normal;font-weight:800;color:#e9b949}
-details{background:var(--card);border:1px solid var(--line);border-radius:18px;margin-top:10px;overflow:hidden}
-summary{cursor:pointer;padding:16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--gr);font-weight:700;font-size:1.2rem;line-height:1.2}details[open] summary::after{content:"−"}
-details p{margin:0;padding:0 16px 16px;color:var(--mut)}
-.ft{text-align:center;color:var(--mut);font-size:.82rem;margin:46px 0 0}
-.fab{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));pointer-events:none;z-index:5;background:linear-gradient(transparent,var(--bg) 45%)}
-.fab a{pointer-events:auto;max-width:480px;margin:0 auto;box-shadow:0 14px 28px -10px rgba(31,170,89,.7)}
-@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.hero .w>*{animation:up .6s cubic-bezier(.2,.7,.2,1) backwards}.hero .w>:nth-child(2){animation-delay:.08s}.hero .w>:nth-child(3){animation-delay:.16s}.hero .w>:nth-child(4){animation-delay:.24s}.hero .w>:nth-child(5){animation-delay:.3s}.hero .w>:nth-child(6){animation-delay:.36s}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
-</style></head>
+/* Una columna para teléfono; Negocios va en banda medianoche (tono empresarial), Invitaciones y Navidad en crema (tono cálido). */
+:root{
+  --bg:#fff7ec; --card:#ffffff; --line:#eadfce; --fg:#171532; --muted:#5f5c7a;
+  --coral:#ff6b4a; --coral-t:#d9482a; --lila:#b9b4ff; --pill:#ffe3da;
+  --night:#171532; --night2:#0d0b22; --on-night:#f3f0ff; --on-night-muted:#b8b4d9;
+  --band:#171532; --band-card:#221f45; --band-line:#34306a;
+  --wa:#1faa59; --demo:#ffefc2; --demo-fg:#5a4300;
+  --display:"Bricolage Grotesque", "Instrument Sans", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#100f22; --card:#1b1936; --line:#2c2a4d; --fg:#f3f0ff; --muted:#a9a6c8;
+  --coral-t:#ff8a6e; --pill:#3a2431; --band:#1b1936; --band-card:#25224b; --band-line:#3a3770;
+  --demo:#3a3216; --demo-fg:#ffe7a3; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#100f22; --card:#1b1936; --line:#2c2a4d; --fg:#f3f0ff; --muted:#a9a6c8;
+  --coral-t:#ff8a6e; --pill:#3a2431; --band:#1b1936; --band-card:#25224b; --band-line:#3a3770;
+  --demo:#3a3216; --demo-fg:#ffe7a3; color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+html{scroll-behavior:smooth}
+body{margin:0;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.08;margin:0;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--coral);outline-offset:3px;border-radius:8px}
+.wrap{max-width:552px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font:600 .72rem/1 var(--mono);text-transform:uppercase;letter-spacing:.16em;color:var(--coral-t)}
+
+/* Barra superior */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--night);color:var(--on-night)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;font:800 1.2rem/1 var(--display);letter-spacing:-.03em}
+.logo svg{width:32px;height:32px}
+.logo .lab{color:var(--coral)}
+.nav{display:flex;gap:4px}
+.nav a{font-size:.85rem;font-weight:600;text-decoration:none;padding:8px 10px;border-radius:999px;color:var(--on-night-muted)}
+.nav a:hover{color:var(--on-night);background:rgba(255,255,255,.08)}
+@media (max-width:430px){.top .wrap{gap:6px}.nav{gap:0}.nav a{padding:8px 7px;font-size:.8rem}.logo{font-size:1.05rem;gap:6px}.logo svg{width:28px;height:28px}}
+
+.demo{background:var(--demo);color:var(--demo-fg);font-size:.85rem}
+.demo .wrap{padding-block:8px}
+
+/* Portada */
+.hero{position:relative;overflow:hidden;background:var(--night);color:var(--on-night);border-radius:0 0 38px 38px}
+.hero::before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-180px;background:radial-gradient(closest-side,rgba(185,180,255,.42),transparent)}
+.hero::after{content:"";position:absolute;width:380px;height:380px;left:-170px;bottom:-200px;background:radial-gradient(closest-side,rgba(255,107,74,.38),transparent)}
+.rings{position:absolute;right:-70px;top:40px;width:260px;height:260px;opacity:.55}
+.hero .wrap{position:relative;z-index:1;padding-block:44px 40px;display:grid;gap:18px}
+.hero h1{font-size:clamp(2.2rem,9vw,3rem)}
+.hero h1 em{font-style:normal;color:var(--coral)}
+.hero p{color:var(--on-night-muted);font-size:1.08rem;max-width:34ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips span{font-size:.8rem;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+
+/* ¿Qué necesitas? */
+.pick{padding-block:32px 8px;display:grid;gap:14px}
+.pick h2{font-size:1.5rem}
+.choice{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;text-decoration:none;transition:transform .2s}
+.choice:hover{transform:translateY(-2px)}
+.choice svg{width:64px;height:64px}
+.choice b{display:block;font:800 1.1rem/1.15 var(--display);letter-spacing:-.02em}
+.choice small{display:block;color:var(--muted);font-size:.88rem;margin-top:2px}
+.choice .go{font-size:1.4rem;color:var(--coral-t);font-weight:700}
+.choice.main{border:2px solid var(--coral)}
+.tag{display:inline-block;font:700 .66rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;background:var(--coral);color:#fff;padding:4px 7px;border-radius:6px;margin-bottom:6px}
+
+/* Secciones */
+section{scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
+.sec{padding-block:44px;display:grid;gap:22px}
+.sec-head{display:grid;gap:10px}
+.sec-head h2{font-size:clamp(1.9rem,7.5vw,2.4rem)}
+.sec-head p{color:var(--muted);font-size:1.05rem}
+.sub{display:grid;gap:14px;margin-top:10px}
+.sub h3{font-size:1.4rem}
+.sub > p{color:var(--muted)}
+
+/* Banda de negocios */
+.band{background:var(--band);color:var(--on-night);border-radius:38px;margin-top:28px}
+.band .sec-head p,.band .sub > p{color:var(--on-night-muted)}
+.band .eyebrow{color:var(--coral)}
+.band .card{background:var(--band-card);border-color:var(--band-line)}
+.band .muted{color:var(--on-night-muted)}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden}
+.card-body{padding:18px 20px 20px;display:grid;gap:12px}
+.art{display:block;width:100%;height:auto}
+.price-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.price-row h3{font-size:1.35rem}
+.price{font:800 1.05rem/1 var(--display);background:var(--pill);color:var(--coral-t);padding:8px 14px;border-radius:999px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.band .price{background:var(--coral);color:#fff}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.checks li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start}
+.checks li::before{content:"";width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;border:0;cursor:pointer}
+.btn-wa{background:var(--wa);color:#fff}
+.btn-wa:hover{filter:brightness(1.06)}
+.btn-line{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn-row .btn{min-height:48px;padding:0 12px;font-size:.95rem}
+.wa-ico{width:20px;height:20px;flex:none}
+
+/* Pasos */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.step{display:grid;grid-template-columns:48px 1fr;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:14px 16px}
+.step .n{width:44px;height:44px;border-radius:13px;background:var(--coral);color:#fff;display:grid;place-items:center;font:800 1.25rem/1 var(--display);transform:rotate(-4deg)}
+.step b{display:block;font-weight:700}
+.step span{color:var(--muted);font-size:.93rem}
+.band .step{background:var(--band-card);border-color:var(--band-line)}
+.band .step span{color:var(--on-night-muted)}
+
+/* Temporadas */
+.what{border-left:4px solid var(--lila);padding:4px 0 4px 14px;display:grid;gap:6px}
+.what b{font-size:1.02rem}
+.what p{color:var(--on-night-muted)}
+.cal{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.cal div{flex:none;min-width:118px;padding:12px 14px;border-radius:16px;border:1px solid var(--band-line);background:var(--band-card)}
+.cal small{display:block;font:600 .66rem/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--on-night-muted)}
+.cal b{display:block;margin-top:4px;font-weight:700;line-height:1.2}
+.cal .next{border:2px solid var(--coral)}
+.cal .next small{color:var(--coral)}
+.mods{display:grid;gap:10px}
+.mod{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:16px 18px;border-radius:20px;background:var(--band-card);border:1px solid var(--band-line)}
+.mod b{font-weight:700;font-size:1.02rem}
+.mod p{grid-column:1/-1;color:var(--on-night-muted);font-size:.93rem}
+.mod b{grid-column:1;grid-row:1}.mod .price{grid-row:1;grid-column:2}
+.mod.pack{background:linear-gradient(135deg,rgba(255,107,74,.18),rgba(185,180,255,.14)),var(--band-card);border:2px solid var(--coral)}
+.note{font-size:.9rem;color:var(--on-night-muted)}
+
+/* Galería de plantillas */
+.gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tpl{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.tpl .card-body{padding:12px 14px 14px;gap:8px;flex:1;align-content:start}
+.tpl h3{font-size:1.08rem;letter-spacing:-.02em}
+.tpl p{font-size:.85rem;color:var(--muted);line-height:1.4}
+.tpl .acts{display:grid;gap:6px;margin-top:auto}
+.tpl .btn{min-height:44px;font-size:.88rem;padding:0 10px}
+@media (max-width:360px){.gallery{grid-template-columns:1fr}}
+
+.feat{display:flex;flex-wrap:wrap;gap:8px}
+.feat span{font-size:.85rem;font-weight:600;padding:7px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line)}
+
+.what-light{border-left:4px solid var(--coral);padding:4px 0 4px 14px;color:var(--muted)}
+.what-light b{color:var(--fg)}
+.case{text-decoration:none}
+.case .price{background:var(--coral);color:#fff}
+
+/* Preguntas */
+details{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0 18px}
+details + details{margin-top:8px}
+summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:56px;font-weight:700}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:800 1.5rem/1 var(--display);color:var(--coral-t)}
+details[open] summary::after{content:"−"}
+details p{color:var(--muted);padding-bottom:16px}
+
+footer{border-top:1px solid var(--line);margin-top:20px}
+footer .wrap{padding-block:28px;display:grid;gap:12px;color:var(--muted);font-size:.9rem}
+footer .links{display:flex;flex-wrap:wrap;gap:14px}
+footer .links a{font-weight:600;color:var(--fg)}
+
+/* Botón fijo */
+.fab{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:linear-gradient(transparent,var(--bg) 40%)}
+.fab .btn{max-width:520px;margin:0 auto;box-shadow:0 8px 24px rgba(23,21,50,.25)}
+
+.reveal{animation:up .6s ease both}
+@keyframes up{from{transform:translateY(14px)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.reveal{animation:none}html{scroll-behavior:auto}.choice{transition:none}}
+</style>
+
+</head>
 <body>
-<header class="hero"><svg class="ondas" viewBox="0 0 300 300" aria-hidden="true"><circle cx="150" cy="150" r="50" stroke="#ff6b4a"/><circle cx="150" cy="150" r="85" stroke="#b9b4ff" opacity=".7"/><circle cx="150" cy="150" r="120" stroke="#b9b4ff" opacity=".4"/><circle cx="150" cy="150" r="148" stroke="#b9b4ff" opacity=".2"/></svg><div class="w">
-<div class="br"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg>
-<div><strong>porta<em>lab</em></strong><small>portales digitales con NFC</small></div></div>
-<h1>Acerca el teléfono.<br><em>Listo.</em></h1>
-<p class="lead" id="lead"></p>
-<a class="btn wa" id="w1" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-<a class="btn gh" href="arma/">Arma la tuya gratis</a>
-<div class="tags"><span>Sin app</span><span>NFC + QR</span><span id="zn"></span></div>
-</div></header>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#inicio" aria-label="portalab, inicio">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532" stroke="rgba(255,255,255,.18)"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg>
+      <span>porta<span class="lab">lab</span></span>
+    </a>
+    <nav class="nav" aria-label="Secciones">
+      <a href="#negocios">Negocios</a>
+      <a href="#invitaciones">Invitaciones</a>
+      <a href="#navidad">Navidad</a>
+    </nav>
+  </div>
+</header>
 
-<main class="w">
-<!-- Promoción de temporada: borra este enlace cuando termine -->
-<a class="promo" href="arma/#navidad"><svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 5l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" fill="#e9b949"/><path d="M27 18l11 14h-6l11 13H11l11-13h-6z" fill="#2f6d4f" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="30" r="2.4" fill="#e9b949"/><circle cx="31" cy="38" r="2.4" fill="#fff"/><circle cx="21" cy="41" r="2.4" fill="#ff6b4a"/></svg><div><b>Tarjetas e invitaciones de Navidad: <i>$99</i></b><span>Con botón de WhatsApp, ubicación y redes. Ármala y mírala en tu celular →</span></div></a>
-<nav class="nav" id="nav" aria-label="Servicios"></nav>
+<div class="demo" id="demo" hidden><div class="wrap">Vista previa: falta poner el número de WhatsApp y los enlaces de ejemplo.</div></div>
 
-<section class="sec"><div class="lab">Cómo funciona</div><h2>Un toque y se abre</h2><p class="sub">Nadie instala nada. El chip NFC o el código QR abren una página hecha para ti.</p>
-<div class="steps">
-<div class="st"><b>1</b><div><strong>Toca o escanea</strong><span>Un exhibidor, una pulsera o una placa con chip NFC y código QR, para cualquier teléfono.</span></div></div>
-<div class="st"><b>2</b><div><strong>Se abre tu portal</strong><span>Una página con tu imagen y justo la información que se necesita en ese momento.</span></div></div>
-<div class="st"><b>3</b><div><strong>Se actualiza cuando quieras</strong><span>Cambia precios, datos o teléfonos sin reimprimir ni cambiar el chip.</span></div></div>
-</div></section>
+<main id="inicio">
+  <div class="hero">
+    <svg class="rings" viewBox="0 0 260 260" aria-hidden="true">
+      <circle cx="130" cy="130" r="40" fill="none" stroke="#ff6b4a" stroke-width="3"/>
+      <circle cx="130" cy="130" r="72" fill="none" stroke="#b9b4ff" stroke-width="3"/>
+      <circle cx="130" cy="130" r="104" fill="none" stroke="#ff6b4a" stroke-width="2" opacity=".6"/>
+      <circle cx="130" cy="130" r="128" fill="none" stroke="#b9b4ff" stroke-width="2" opacity=".4"/>
+    </svg>
+    <div class="wrap reveal">
+      <span class="eyebrow" style="color:#ff6b4a">Portales digitales · NFC y QR</span>
+      <h1>Tu página se abre con solo acercar el <em>teléfono</em></h1>
+      <p>Hacemos portales para negocios, invitaciones y tarjetas de Navidad. Tú nos dices qué quieres y nosotros lo armamos.</p>
+      <div class="chips"><span>Sin descargar apps</span><span>Funciona en cualquier celular</span><span>Pruébalo gratis</span></div>
+    </div>
+  </div>
 
-<section class="sec" id="servicios"><div class="lab">Servicios</div><h2>Qué hacemos</h2><p class="sub">Elige el que necesitas y cuéntame tu caso por WhatsApp.</p>
-<div id="svs"></div></section>
+  <div class="wrap pick">
+    <span class="eyebrow">Empieza aquí</span>
+    <h2>¿Qué necesitas?</h2>
+    <a class="choice main" href="#negocios">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="18" fill="#e9e7ff"/><path d="M14 28h36v22H14z" fill="#fff" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M11 28l5-12h32l5 12z" fill="#ff6b4a" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><rect x="27" y="36" width="10" height="14" fill="#b9b4ff" stroke="#171532" stroke-width="3"/></svg>
+      <span><span class="tag">El más pedido</span><b>Portal para mi negocio</b><small>Menú, servicios y promociones · <span data-precio></span></small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+    <a class="choice" href="#invitaciones">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="18" fill="#ffe3da"/><rect x="12" y="20" width="40" height="28" rx="4" fill="#fff" stroke="#171532" stroke-width="3"/><path d="M12 22l20 14 20-14" fill="none" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M32 16c-3-4-9-1-6 4l6 5 6-5c3-5-3-8-6-4z" fill="#ff6b4a" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/></svg>
+      <span><b>Invitación para mi evento</b><small>Bodas, XV años, cumpleaños y más</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+    <a class="choice" href="#navidad">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="18" fill="#ffefc2"/><path d="M32 12L18 34h8l-10 14h32L38 34h8z" fill="#fff" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="11" r="4" fill="#ff6b4a" stroke="#171532" stroke-width="2.4"/><rect x="28" y="48" width="8" height="6" fill="#b9b4ff" stroke="#171532" stroke-width="2.4"/></svg>
+      <span><b>Tarjeta de Navidad</b><small>Para tu familia o tu empresa · <span data-navidad></span></small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+  </div>
 
-<section class="sec" id="casos"><div class="lab">Ya funcionando</div><h2>Míralo en un negocio real</h2><p class="sub">Portales que hoy usan clientes en sus mesas.</p><div id="cs"></div></section>
+  <!-- ===================== NEGOCIOS ===================== -->
+  <section id="negocios" class="band">
+    <div class="wrap sec">
+      <div class="sec-head">
+        <span class="eyebrow">Para negocios</span>
+        <h2>Un portal propio para tu negocio</h2>
+        <p>Tus clientes acercan su teléfono a tu tarjeta o escanean tu código QR y ven al instante tu menú o servicios, tus promociones y cómo contactarte.</p>
+      </div>
 
-<section class="sec"><div class="lab">Preguntas</div><h2>Lo que más me preguntan</h2><div id="faq"></div></section>
+      <article class="card">
+        <svg class="art" viewBox="0 0 320 170" aria-hidden="true">
+          <rect width="320" height="170" fill="#e9e7ff"/>
+          <rect x="54" y="56" width="104" height="64" rx="10" fill="#fff" stroke="#171532" stroke-width="3"/>
+          <rect x="68" y="70" width="26" height="26" rx="7" fill="#171532"/><path d="M75 93v-9a6 6 0 0 1 12 0v9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+          <rect x="102" y="74" width="42" height="6" rx="3" fill="#b9b4ff"/><rect x="102" y="86" width="30" height="6" rx="3" fill="#ffe3da"/>
+          <path d="M170 70a26 26 0 0 1 0 36M180 62a38 38 0 0 1 0 52M190 54a50 50 0 0 1 0 68" fill="none" stroke="#ff6b4a" stroke-width="3" stroke-linecap="round"/>
+          <rect x="206" y="22" width="68" height="128" rx="14" fill="#fff" stroke="#171532" stroke-width="3"/>
+          <rect x="216" y="36" width="48" height="26" rx="6" fill="#ff6b4a"/>
+          <rect x="216" y="70" width="48" height="8" rx="4" fill="#e9e7ff"/><rect x="216" y="84" width="36" height="8" rx="4" fill="#e9e7ff"/><rect x="216" y="98" width="42" height="8" rx="4" fill="#e9e7ff"/>
+          <rect x="216" y="118" width="48" height="18" rx="9" fill="#1faa59"/>
+        </svg>
+        <div class="card-body">
+          <div class="price-row"><h3>Portal para negocio</h3><span class="price" data-precio></span></div>
+          <ul class="checks">
+            <li>Tu logo, tus colores y tu información</li>
+            <li>Menú digital, catálogo o lista de servicios</li>
+            <li>Botón directo a tu WhatsApp</li>
+            <li>Ubicación y horarios</li>
+            <li>Se abre con NFC o código QR, sin apps</li>
+          </ul>
+          <a class="btn btn-wa" data-wa="Hola, me interesa un portal para mi negocio.">Quiero mi portal</a>
+          <div class="btn-row">
+            <a class="btn btn-line" href="https://portalab.com.mx/plantillas/negocio/" target="_blank" rel="noopener">Ver un portal</a>
+            <a class="btn btn-line" href="https://portalab.com.mx/plantillas/menu/" target="_blank" rel="noopener">Ver un menú</a>
+          </div>
+          <a class="btn btn-line" data-arma="#portal">Arma el tuyo gratis</a>
+        </div>
+      </article>
 
-<section class="sec"><div class="lab">Hablemos</div><h2>¿Lo quieres para ti?</h2><p class="sub" id="zn2"></p>
-<a class="btn wa" id="w2" target="_blank" rel="noopener">Escríbeme por WhatsApp</a>
-<p class="ft" id="ft"></p></section>
+      <div class="sub">
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h3>De la plática a tu portal en 4 pasos</h3>
+        <ol class="steps">
+          <li class="step"><span class="n">1</span><span><b>Platicamos</b><span>Nos cuentas de tu negocio y qué quieres mostrar.</span></span></li>
+          <li class="step"><span class="n">2</span><span><b>Diseñamos</b><span>Armamos tu portal con tu logo, colores y datos.</span></span></li>
+          <li class="step"><span class="n">3</span><span><b>Publicamos</b><span>Te entregamos tu enlace y tu tarjeta NFC o QR.</span></span></li>
+          <li class="step"><span class="n">4</span><span><b>Lo mantenemos al día</b><span>Si quieres, lo cambiamos en cada temporada.</span></span></li>
+        </ol>
+      </div>
+
+      <div class="sub" id="temporadas">
+        <span class="eyebrow">Servicio extra</span>
+        <h3>Tu portal cambia con la temporada</h3>
+        <p>Así tus clientes siempre encuentran algo nuevo. Ahora en Navidad, tu portal se viste navideño y muestra tus promociones de fin de año.</p>
+        <div class="what">
+          <b>¿Qué es una temporada?</b>
+          <p>Una fecha comercial concreta, como Navidad o el Día de las Madres. Cada cambio dura aproximadamente cuatro semanas en tu portal; al terminar, regresa a su diseño de siempre.</p>
+        </div>
+        <div class="cal" id="cal" aria-label="Temporadas del año"></div>
+        <div class="mods" id="mods"></div>
+        <p class="note">Precios por cambio, adicionales al portal. Puedes contratar una sola temporada o el paquete.</p>
+        <a class="btn btn-wa" data-wa="Hola, quiero que mi portal cambie con la temporada.">Quiero mi portal de temporada</a>
+      </div>
+
+      <div class="sub" id="casos" hidden>
+        <span class="eyebrow">Portales reales</span>
+        <h3>Ya trabajamos con ellos</h3>
+        <div class="mods" id="ejemplos"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== INVITACIONES ===================== -->
+  <section id="invitaciones">
+    <div class="wrap sec">
+      <div class="sec-head">
+        <span class="eyebrow">Para tu evento</span>
+        <h2>Invitaciones digitales</h2>
+        <p>Para bodas, XV años y fiestas. Cada invitado la abre con su nombre y confirma por WhatsApp.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><span><b>Elige tu diseño</b><span>Escoge la plantilla que más te guste.</span></span></li>
+        <li class="step"><span class="n">2</span><span><b>Escribe tus datos</b><span>Ves cómo queda en tu celular, gratis.</span></span></li>
+        <li class="step"><span class="n">3</span><span><b>Mándala por WhatsApp</b><span>Te damos precio y terminamos tu versión final.</span></span></li>
+      </ol>
+      <div class="sub">
+        <h3>Plantillas</h3>
+        <div class="gallery" id="inv"></div>
+      </div>
+      <div class="sub">
+        <h3>Todas incluyen</h3>
+        <div class="feat"><span>Sobre que se abre</span><span>Nombre de cada invitado y sus pases</span><span>Cuenta regresiva</span><span>Mapa del lugar</span><span>Agregar al calendario</span><span>Confirmación por WhatsApp</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NAVIDAD ===================== -->
+  <section id="navidad">
+    <div class="wrap sec">
+      <div class="sec-head">
+        <span class="eyebrow">Temporada navideña</span>
+        <h2>Tarjetas de Navidad digitales</h2>
+        <p>Tarjetas interactivas e invitaciones de posada, con botón de WhatsApp, ubicación y tus redes.</p>
+        <div class="price-row" style="justify-content:flex-start"><span class="price" data-navidad></span><span style="color:var(--muted);font-size:.95rem">por tarjeta</span></div>
+      </div>
+      <div class="gallery" id="nav"></div>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><span><b>Elige tu tarjeta</b><span>Para la familia, la posada o tu empresa.</span></span></li>
+        <li class="step"><span class="n">2</span><span><b>Escribe tu mensaje</b><span>Ves la vista previa gratis en tu celular.</span></span></li>
+        <li class="step"><span class="n">3</span><span><b>Mándala por WhatsApp</b><span>La terminamos y la compartes con quien quieras.</span></span></li>
+      </ol>
+      <p id="impresa" class="what-light" hidden><b>¿La quieres impresa con QR y NFC?</b> <span></span></p>
+      <a class="btn btn-wa" data-wa="Hola, me interesa la tarjeta de Navidad.">Pídela por WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- ===================== PREGUNTAS ===================== -->
+  <section id="preguntas">
+    <div class="wrap sec">
+      <div class="sec-head"><span class="eyebrow">Dudas</span><h2>Preguntas frecuentes</h2></div>
+      <div>
+        <details><summary>¿Necesito descargar una app?</summary><p>No. La página se abre en el navegador de cualquier celular, acercándolo a la tarjeta o escaneando el código QR.</p></details>
+        <details><summary>¿Qué es NFC?</summary><p>Es un chip dentro de la tarjeta o placa. Acercas el teléfono y la página se abre sola, como cuando pagas con el celular.</p></details>
+        <details><summary>¿Qué incluye un cambio de temporada?</summary><p>Depende del módulo: el básico cambia colores y banner, el siguiente agrega una promoción y el completo suma productos o una sección nueva. Dura unas cuatro semanas.</p></details>
+        <details><summary>¿Puedo probarlo antes de pagar?</summary><p>Sí. En el armador eliges un diseño, escribes tus datos y ves la vista previa en tu celular sin costo. Si te gusta, nos la mandas por WhatsApp y la terminamos.</p></details>
+        <details><summary>¿Puedo cambiar la información después?</summary><p>Sí. El contenido se actualiza cuando lo necesites, sin reimprimir ni cambiar el chip.</p></details>
+        <details><summary>¿Cómo pido el mío?</summary><p>Mándanos un mensaje por WhatsApp con lo que necesitas y te respondemos con los siguientes pasos.</p></details>
+      </div>
+    </div>
+  </section>
 </main>
-<div class="fab"><a class="btn wa" id="w3" target="_blank" rel="noopener">Escríbeme por WhatsApp</a></div>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#inicio" style="color:var(--fg)"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><span>porta<span class="lab">lab</span></span></a>
+    <p>Portales digitales con NFC y QR · Naucalpan, Estado de México</p>
+    <div class="links" id="redes"></div>
+  </div>
+</footer>
+
+<div class="fab"><a class="btn btn-wa" data-wa="Hola, quiero información de portalab.">
+  <svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2l-.4-.2z"/></svg>
+  Escríbenos por WhatsApp</a></div>
 
 <script>
-// ============ CONFIGURACIÓN ============
-const CONFIG={
- marca:"portalab", whatsapp:"525533497852", zona:"Naucalpan, Estado de México",
- lead:"Hacemos portales digitales que se abren con un toque NFC o un código QR: para tu negocio, tu salud, tu mascota y tus eventos.",
- servicios:[   // icono: portal, menu, salud, mascota, sobre.  precio: texto libre ("" = no se muestra).  demo: enlace ("" = sin botón)
-  {id:"portales", icono:"portal", nombre:"Portales para negocios", precio:"Desde $350 MXN por exhibidor",
-   texto:"Un exhibidor en la mesa o el mostrador que abre todo lo de tu negocio en una sola página.",
-   puntos:["Pedidos por WhatsApp desde la mesa","Pago por transferencia con un toque para copiar","Ubicación, reseñas en Google y redes","Tarjeta de lealtad y opiniones por mesa"],
-   nota:"", demos:[["Arma tu portal gratis","arma/#portal"],["Ver demostración","plantillas/negocio/"]], mensaje:"Hola, me interesa un portal digital para mi negocio."},
-  {id:"menu", icono:"menu", nombre:"Menú digital con NFC", precio:"A cotizar",
-   texto:"Tu menú siempre al día. El cliente acerca el teléfono y lo ve al instante, con fotos y horarios.",
-   puntos:["Cambia precios y platillos sin reimprimir","Secciones por horario: desayunos, comidas, bebidas","Funciona con NFC y con QR","Se ve bien aun con poca señal"],
-   nota:"", demos:[["Arma tu menú gratis","arma/#menu"],["Ver demostración","plantillas/menu/#mesa=3"]], mensaje:"Hola, me interesa un menú digital con NFC."},
-  {id:"salud", icono:"salud", nombre:"Ficha médica en pulsera NFC", precio:"A cotizar",
-   texto:"Una pulsera que, al acercar un teléfono, muestra los datos que importan en una emergencia.",
-   puntos:["Tipo de sangre, alergias y padecimientos","Medicamentos que tomas","Contactos de emergencia con botón para llamar","Tú actualizas la ficha cuando algo cambia"],
-   nota:"Tú decides qué datos mostrar: cualquier persona que acerque su teléfono a la pulsera puede ver la ficha.",
-   demo:"plantillas/salud/", mensaje:"Hola, me interesa una pulsera NFC con ficha médica."},
-  {id:"mascotas", icono:"mascota", nombre:"Collar para mascotas con localizador y NFC", precio:"A cotizar",
-   texto:"Si tu perro se pierde, quien lo encuentre acerca su teléfono a la placa y te contacta en segundos.",
-   puntos:["Placa NFC con el nombre de tu mascota y tus teléfonos","Botón para llamarte o escribirte por WhatsApp","Datos de salud: vacunas, alergias, veterinario","Localizador tipo tag para ubicarlo desde tu teléfono"],
-   nota:"", demo:"plantillas/mascota/", mensaje:"Hola, me interesa un collar con localizador y NFC para mi mascota."},
-  {id:"invitaciones", icono:"sobre", nombre:"Invitaciones y tarjetas digitales", precio:"Navidad y posadas: $99 MXN",
-   texto:"Tarjetas navideñas e invitaciones para posadas, bodas, XV años y fiestas infantiles que se mandan por WhatsApp.",
-   puntos:["Botón de WhatsApp, ubicación y tus redes","Confirmación de asistencia por WhatsApp","Enlace personalizado con el nombre de cada invitado","Impresa con QR y NFC: $150 más, con envío"],
-   nota:"Bodas, XV años y fiestas infantiles: a cotizar.", demos:[["Arma tu tarjeta de Navidad","arma/#navidad"],["Ver demo: posada","navidad/"],["Arma tu invitación gratis","arma/#boda"],["Ver demo: boda","boda/"],["Ver demo: cuento de hadas","cuento/"],["Ver demo: juguetes","juguetes/"],["Ver demo: selva","selva/"]], mensaje:"Hola, me interesa una invitación digital."}
- ],
- casos:[      // [] = oculta la sección
-  ["Endorfina espresso","Cafetería · menú, pedidos y pagos","https://portalab.com.mx/endorfina/"],
-  ["Endorfina Casa Maestra","Chocolatería y café","https://portalab.com.mx/casa-maestra/"]
- ],
- preguntas:[
-  ["¿Hay que descargar una app?","No. El portal es una página web: se abre sola al acercar el teléfono al chip o al escanear el código QR."],
-  ["¿Funciona en iPhone y Android?","Sí. La mayoría de los teléfonos recientes leen NFC; para los que no, cada producto lleva también un código QR."],
-  ["¿Puedo cambiar la información después?","Sí. El chip solo guarda la dirección de tu portal, así que el contenido se actualiza sin tocar el chip ni reimprimir nada."],
-  ["¿Quién puede ver mi ficha médica o los datos de mi mascota?","Cualquier persona que acerque su teléfono a la pulsera o a la placa, porque para eso sirven en una emergencia. Por eso solo se pone lo necesario y tú eliges qué aparece."],
-  ["¿Dónde trabajas?","En Naucalpan y alrededores para la instalación en negocios. Pulseras, placas e invitaciones se pueden coordinar por WhatsApp."]
- ]
+// ===================== CONFIG: lo único que se edita =====================
+const CONFIG = {
+  demo: false,                      // true muestra el aviso de vista previa
+  whatsapp: "525533497852",         // número con lada de país (52), sin espacios ni +
+  precioPortal: "$350",             // precio del portal para negocio
+  precioNavidad: "$99",             // precio de la tarjeta de Navidad
+  armador: "https://portalab.com.mx/arma/",   // armador gratis de invitaciones y tarjetas
+
+  // Cambios de temporada (adicionales al portal)
+  temporadas: [
+    { nombre: "Básico de temporada",     precio: "$50",  incluye: "Colores y banner con el tema de la fecha." },
+    { nombre: "Temporada con promoción", precio: "$60",  incluye: "Lo del básico, más una promoción publicada en tu portal." },
+    { nombre: "Temporada completa",      precio: "$70",  incluye: "Lo anterior, más productos o una sección nueva." }
+  ],
+  paquete: { nombre: "Paquete de 5 temporadas", precio: "$250", incluye: "Cinco cambios en el año. Te sale más barato que pagarlos por separado." },
+
+  // Fechas comerciales que se muestran en el calendario (mes 1–12)
+  calendario: [
+    { nombre: "San Valentín",      mes: 2,  cuando: "Febrero" },
+    { nombre: "Día de las Madres", mes: 5,  cuando: "Mayo" },
+    { nombre: "Regreso a clases",  mes: 8,  cuando: "Agosto" },
+    { nombre: "Buen Fin",          mes: 11, cuando: "Noviembre" },
+    { nombre: "Navidad",           mes: 12, cuando: "Diciembre" }
+  ],
+
+  // Plantillas de invitaciones ya diseñadas. enlace = página de ejemplo (vacío oculta el botón)
+  invitaciones: [
+    { nombre: "Boda o XV años",  tema: "boda",     detalle: "Elegante, para tu gran día.",           enlace: "https://portalab.com.mx/boda/",     arma: "#boda" },
+    { nombre: "Cuento de hadas", tema: "cuento",   detalle: "Para fiestas mágicas.",                 enlace: "https://portalab.com.mx/cuento/",   arma: "#cuento" },
+    { nombre: "Juguetes",        tema: "juguetes", detalle: "Colorida, para cumpleaños infantiles.", enlace: "https://portalab.com.mx/juguetes/", arma: "#juguetes" },
+    { nombre: "Selva",           tema: "selva",    detalle: "Divertida, para fiestas temáticas.",    enlace: "https://portalab.com.mx/selva/",    arma: "#selva" }
+  ],
+
+  // Tarjetas de Navidad
+  navidad: [
+    { nombre: "Tarjeta navideña",     tema: "familia", detalle: "Tu foto y tu mensaje para familia, amigos o clientes.", enlace: "",                                 arma: "#navidad" },
+    { nombre: "Invitación de posada", tema: "empresa", detalle: "Con fecha, lugar, mapa y confirmación.",               enlace: "https://portalab.com.mx/navidad/", arma: "#navidad" }
+  ],
+  navidadImpresa: "$150 más, con envío",   // tarjeta impresa con QR y NFC (vacío la oculta)
+
+  // Portales reales (vacío oculta la sección)
+  ejemplos: [
+    { nombre: "Endorfina espresso",      detalle: "Cafetería · menú digital.",   enlace: "https://portalab.com.mx/endorfina/" },
+    { nombre: "Endorfina Casa Maestra",  detalle: "Cafetería · portal.",         enlace: "https://portalab.com.mx/casa-maestra/" },
+    { nombre: "Carnitas El Cerdito",     detalle: "Restaurante · menú digital.", enlace: "https://portalab.com.mx/el-cerdito/" }
+  ],
+
+  facebook: "",                     // enlace a la página de Facebook
+  instagram: ""
 };
-// =======================================
-(function(){
-const C=CONFIG,$=s=>document.querySelector(s);
-function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
-const wa=m=>"https://wa.me/"+C.whatsapp+"?text="+encodeURIComponent(m);
-const IC={portal:'<path d="M6 21V11a6 6 0 0 1 12 0v10M3 21h18"/><circle cx="12" cy="13" r="1.4"/>',
- menu:'<path d="M5 4a2 2 0 0 1 2-2h12v17H7a2 2 0 0 0-2 2zM5 4v17M9 7h6M9 11h6"/>',
- salud:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 9v5M9.5 11.5h5"/>',
- mascota:'<circle cx="7" cy="9" r="1.8"/><circle cx="17" cy="9" r="1.8"/><circle cx="10" cy="5" r="1.8"/><circle cx="14" cy="5" r="1.8"/><path d="M12 11c-3 0-5 2.6-5 5a2.6 2.6 0 0 0 5 1 2.6 2.6 0 0 0 5-1c0-2.4-2-5-5-5z"/>',
- sobre:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>'};
-const IL={"portal": "<rect width=\"320\" height=\"170\" fill=\"#e9e7ff\"/><rect y=\"140\" width=\"320\" height=\"30\" fill=\"#d6d2ff\"/><rect x=\"70\" y=\"132\" width=\"70\" height=\"9\" rx=\"3\" fill=\"#171532\"/><rect x=\"78\" y=\"50\" width=\"54\" height=\"84\" rx=\"7\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"90\" y=\"62\" width=\"30\" height=\"30\" rx=\"4\" fill=\"#171532\"/><g fill=\"#fff\"><rect x=\"94\" y=\"66\" width=\"8\" height=\"8\" rx=\"1.5\"/><rect x=\"108\" y=\"66\" width=\"8\" height=\"8\" rx=\"1.5\"/><rect x=\"94\" y=\"80\" width=\"8\" height=\"8\" rx=\"1.5\"/></g><rect x=\"108\" y=\"80\" width=\"8\" height=\"8\" rx=\"1.5\" fill=\"#ff6b4a\"/><rect x=\"88\" y=\"102\" width=\"34\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><rect x=\"94\" y=\"114\" width=\"22\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M148 80q9 12 0 24M159 71q15 21 0 42M170 62q21 30 0 60\"/></g><g transform=\"rotate(12 225 88)\"><rect x=\"192\" y=\"26\" width=\"66\" height=\"124\" rx=\"13\" fill=\"#171532\"/><rect x=\"197\" y=\"32\" width=\"56\" height=\"112\" rx=\"9\" fill=\"#fff\"/><circle cx=\"225\" cy=\"58\" r=\"13\" fill=\"#ff6b4a\"/><rect x=\"207\" y=\"80\" width=\"36\" height=\"5\" rx=\"2.5\" fill=\"#171532\"/><rect x=\"211\" y=\"91\" width=\"28\" height=\"5\" rx=\"2.5\" fill=\"#b9b4ff\"/><rect x=\"205\" y=\"112\" width=\"40\" height=\"16\" rx=\"8\" fill=\"#1faa59\"/></g>", "menu": "<rect width=\"320\" height=\"170\" fill=\"#ffe3da\"/><circle cx=\"60\" cy=\"98\" r=\"36\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><circle cx=\"60\" cy=\"98\" r=\"21\" fill=\"#ffefc2\" stroke=\"#171532\" stroke-width=\"2\"/><rect x=\"125\" y=\"14\" width=\"70\" height=\"142\" rx=\"13\" fill=\"#171532\"/><rect x=\"130\" y=\"20\" width=\"60\" height=\"130\" rx=\"9\" fill=\"#fff\"/><path d=\"M130 29a9 9 0 0 1 9-9h42a9 9 0 0 1 9 9v17h-60z\" fill=\"#ff6b4a\"/><rect x=\"146\" y=\"30\" width=\"28\" height=\"5\" rx=\"2.5\" fill=\"#fff\"/><g stroke=\"#171532\" stroke-width=\"2\" fill=\"#ffefc2\"><circle cx=\"143\" cy=\"64\" r=\"7\"/><circle cx=\"143\" cy=\"90\" r=\"7\"/><circle cx=\"143\" cy=\"116\" r=\"7\"/></g><g fill=\"#171532\"><rect x=\"155\" y=\"58\" width=\"28\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"84\" width=\"28\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"110\" width=\"28\" height=\"4\" rx=\"2\"/></g><g fill=\"#b9b4ff\"><rect x=\"155\" y=\"66\" width=\"18\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"92\" width=\"18\" height=\"4\" rx=\"2\"/><rect x=\"155\" y=\"118\" width=\"18\" height=\"4\" rx=\"2\"/></g><rect x=\"236\" y=\"86\" width=\"42\" height=\"36\" rx=\"9\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M278 94h5a8 8 0 0 1 0 16h-5\" fill=\"none\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M250 76q-5-7 0-14M264 76q-5-7 0-14\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>", "salud": "<rect width=\"320\" height=\"170\" fill=\"#e9e7ff\"/><ellipse cx=\"160\" cy=\"96\" rx=\"92\" ry=\"46\" fill=\"none\" stroke=\"#171532\" stroke-width=\"20\"/><ellipse cx=\"160\" cy=\"96\" rx=\"92\" ry=\"46\" fill=\"none\" stroke=\"#b9b4ff\" stroke-width=\"3\" stroke-dasharray=\"2 9\" stroke-linecap=\"round\"/><rect x=\"116\" y=\"24\" width=\"88\" height=\"56\" rx=\"15\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"152\" y=\"36\" width=\"16\" height=\"32\" rx=\"3\" fill=\"#ff6b4a\"/><rect x=\"144\" y=\"44\" width=\"32\" height=\"16\" rx=\"3\" fill=\"#ff6b4a\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M222 40q9 12 0 24M234 31q15 21 0 42\"/></g><path d=\"M112 98h26l8-14 12 28 10-20 6 6h34\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>", "mascota": "<rect width=\"320\" height=\"170\" fill=\"#ffefc2\"/><path d=\"M114 52q-30-8-26 38 16 16 30-4zM206 52q30-8 26 38-16 16-30-4z\" fill=\"#171532\"/><ellipse cx=\"160\" cy=\"74\" rx=\"50\" ry=\"46\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><circle cx=\"143\" cy=\"68\" r=\"5\" fill=\"#171532\"/><circle cx=\"177\" cy=\"68\" r=\"5\" fill=\"#171532\"/><ellipse cx=\"160\" cy=\"92\" rx=\"19\" ry=\"14\" fill=\"#ffe3da\"/><ellipse cx=\"160\" cy=\"86\" rx=\"7.5\" ry=\"5.5\" fill=\"#171532\"/><path d=\"M160 92v6M160 98q-6 6-11 1M160 98q6 6 11 1\" fill=\"none\" stroke=\"#171532\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><path d=\"M120 110q40 24 80 0\" fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"13\" stroke-linecap=\"round\"/><circle cx=\"160\" cy=\"142\" r=\"16\" fill=\"#b9b4ff\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M154 147v-6a6 6 0 0 1 12 0v6\" fill=\"none\" stroke=\"#171532\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><g fill=\"none\" stroke=\"#ff6b4a\" stroke-width=\"4\" stroke-linecap=\"round\"><path d=\"M186 132q8 10 0 20M197 125q13 17 0 34\"/></g><path d=\"M268 96s-19-17-19-32a19 19 0 0 1 38 0c0 15-19 32-19 32z\" fill=\"#ff6b4a\"/><circle cx=\"268\" cy=\"64\" r=\"7\" fill=\"#fff\"/><path d=\"M52 60l4 9 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z\" fill=\"#ff6b4a\" opacity=\".0\"/>", "sobre": "<rect width=\"320\" height=\"170\" fill=\"#ffe3da\"/><rect x=\"95\" y=\"72\" width=\"130\" height=\"84\" rx=\"11\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\"/><rect x=\"112\" y=\"22\" width=\"96\" height=\"96\" rx=\"9\" fill=\"#fff7ec\" stroke=\"#171532\" stroke-width=\"3\"/><path d=\"M160 60c-5-9-18-6-18 4 0 8 10 14 18 20 8-6 18-12 18-20 0-10-13-13-18-4z\" fill=\"#ff6b4a\"/><rect x=\"138\" y=\"92\" width=\"44\" height=\"4\" rx=\"2\" fill=\"#171532\"/><path d=\"M95 86l65 42 65-42v59a11 11 0 0 1-11 11H106a11 11 0 0 1-11-11z\" fill=\"#fff\" stroke=\"#171532\" stroke-width=\"3\" stroke-linejoin=\"round\"/><g fill=\"#ff6b4a\"><circle cx=\"58\" cy=\"48\" r=\"6\"/><rect x=\"254\" y=\"104\" width=\"12\" height=\"12\" rx=\"3\" transform=\"rotate(20 260 110)\"/></g><g fill=\"#b9b4ff\"><circle cx=\"262\" cy=\"46\" r=\"8\"/><rect x=\"48\" y=\"104\" width=\"13\" height=\"13\" rx=\"3\" transform=\"rotate(-18 54 110)\"/></g><g fill=\"#171532\"><circle cx=\"240\" cy=\"74\" r=\"4\"/><circle cx=\"76\" cy=\"80\" r=\"4\"/></g>"};
-const svg=k=>'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">'+(IC[k]||IC.portal)+'</svg>';
-$("#lead").textContent=C.lead;$("#zn").textContent=C.zona.split(",")[0];
-$("#zn2").textContent="Trabajo en "+C.zona+" y alrededores. Cuéntame qué necesitas y te digo cómo quedaría.";
-$("#ft").textContent="© "+new Date().getFullYear()+" "+C.marca+" · portales digitales · "+C.zona;
-["#w1","#w2","#w3"].forEach(s=>$(s).href=wa("Hola, me interesan los servicios de "+C.marca+"."));
-C.servicios.forEach(s=>{
- const a=el("a");a.href="#"+s.id;a.innerHTML=svg(s.icono);a.appendChild(el("span","",s.nombre.split(" ")[0]==="Portales"?"Negocios":s.nombre.split(" con ")[0].replace("Ficha médica en pulsera NFC","Ficha médica").replace("Collar para mascotas","Mascotas").replace("Invitaciones digitales","Invitaciones")));$("#nav").appendChild(a);
- const c=el("article","sv");c.id=s.id;
- c.innerHTML='<svg class="il" viewBox="0 0 320 170" role="img" aria-label="Ilustración: '+s.nombre+'">'+(IL[s.icono]||IL.portal)+"</svg>";const h=el("div");h.appendChild(el("h3","",s.nombre));if(s.precio)h.appendChild(el("span","pr",s.precio));c.appendChild(h);
- c.appendChild(el("p","",s.texto));
- const u=el("ul","ok");s.puntos.forEach(p=>u.appendChild(el("li","",p)));c.appendChild(u);
- if(s.nota)c.appendChild(el("p","nota",s.nota));
- (s.demos||(s.demo?[["Ver demostración",s.demo]]:[])).forEach(x=>{const d=el("a","btn ln",x[0]);d.href=x[1];d.target="_blank";d.rel="noopener";c.appendChild(d)});
- const b=el("a","btn wa","Lo quiero");b.href=wa(s.mensaje);b.target="_blank";b.rel="noopener";c.appendChild(b);
- $("#svs").appendChild(c)});
-if(!(C.casos||[]).length)$("#casos").hidden=true;
-(C.casos||[]).forEach(k=>{const a=el("a","caso"),d=el("div");a.href=k[2];a.target="_blank";a.rel="noopener";d.appendChild(el("b","",k[0]));d.appendChild(el("span","",k[1]));a.appendChild(d);a.appendChild(el("i","","→"));$("#cs").appendChild(a)});
-C.preguntas.forEach(q=>{const d=el("details");d.appendChild(el("summary","",q[0]));d.appendChild(el("p","",q[1]));$("#faq").appendChild(d)});
+// ========================================================================
+
+const ART = {
+  boda:`<rect width="320" height="170" fill="#f3efe6"/><circle cx="140" cy="88" r="34" fill="none" stroke="#171532" stroke-width="3"/><circle cx="180" cy="88" r="34" fill="none" stroke="#c9a14a" stroke-width="5"/><path d="M60 140c20-30 40-30 50-10M260 140c-20-30-40-30-50-10" fill="none" stroke="#7a9b76" stroke-width="3" stroke-linecap="round"/><circle cx="160" cy="40" r="5" fill="#ff6b4a"/>`,
+  cuento:`<rect width="320" height="170" fill="#ffefc2"/><path d="M110 140V80h20v-14h12v14h36V66h12v14h20v60z" fill="#fff" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M104 80l16-26 16 26M184 80l16-26 16 26" fill="#b9b4ff" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><rect x="150" y="108" width="20" height="32" rx="10" fill="#ff6b4a" stroke="#171532" stroke-width="3"/><path d="M120 54V36l12 6-12 6" fill="#ff6b4a" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/><circle cx="250" cy="44" r="4" fill="#fff"/><circle cx="70" cy="60" r="3" fill="#fff"/>`,
+  juguetes:`<rect width="320" height="170" fill="#ffe3da"/><rect x="96" y="96" width="44" height="44" rx="6" fill="#ff6b4a" stroke="#171532" stroke-width="3"/><rect x="144" y="96" width="44" height="44" rx="6" fill="#b9b4ff" stroke="#171532" stroke-width="3"/><rect x="120" y="50" width="44" height="44" rx="6" fill="#ffefc2" stroke="#171532" stroke-width="3"/><circle cx="226" cy="118" r="22" fill="#fff" stroke="#171532" stroke-width="3"/><path d="M204 118h44M226 96c-10 12-10 32 0 44" fill="none" stroke="#ff6b4a" stroke-width="3"/>`,
+  selva:`<rect width="320" height="170" fill="#e2f1df"/><circle cx="240" cy="48" r="20" fill="#ffefc2" stroke="#171532" stroke-width="3"/><path d="M80 150c0-50 30-80 60-90-10 30-20 60-40 90z" fill="#7fbf7a" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M200 150c0-40-30-70-70-74 20 20 36 46 40 74z" fill="#a6d49f" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M150 150c4-30 20-50 40-56-6 20-12 40-14 56z" fill="#ff6b4a" stroke="#171532" stroke-width="3" stroke-linejoin="round"/>`,
+  familia:`<rect width="320" height="170" fill="#ffe3da"/><path d="M160 26l-38 58h20l-28 42h92l-28-42h20z" fill="#7fbf7a" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><circle cx="160" cy="24" r="8" fill="#ffefc2" stroke="#171532" stroke-width="3"/><circle cx="146" cy="96" r="5" fill="#ff6b4a"/><circle cx="174" cy="82" r="5" fill="#b9b4ff"/><circle cx="168" cy="110" r="5" fill="#fff"/><rect x="86" y="118" width="30" height="26" fill="#b9b4ff" stroke="#171532" stroke-width="3"/><rect x="206" y="114" width="34" height="30" fill="#ff6b4a" stroke="#171532" stroke-width="3"/><path d="M101 118v26M223 114v30" stroke="#171532" stroke-width="3"/>`,
+  empresa:`<rect width="320" height="170" fill="#e9e7ff"/><rect x="82" y="40" width="156" height="100" rx="10" fill="#fff" stroke="#171532" stroke-width="3"/><path d="M82 50l78 50 78-50" fill="none" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><circle cx="160" cy="34" r="14" fill="#ff6b4a" stroke="#171532" stroke-width="3"/><path d="M160 14v6" stroke="#171532" stroke-width="3"/><path d="M60 40l4 8 8 4-8 4-4 8-4-8-8-4 8-4zM262 110l3 6 6 3-6 3-3 6-3-6-6-3 6-3z" fill="#ffefc2" stroke="#171532" stroke-width="2"/>`
+};
+
+const $ = s => document.querySelector(s);
+function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function waUrl(msg){ return "https://wa.me/" + (CONFIG.whatsapp||"") + "?text=" + encodeURIComponent(msg); }
+function waLink(a, msg){ a.href = waUrl(msg); a.target = "_blank"; a.rel = "noopener"; }
+
+// Precio y botones de WhatsApp
+document.querySelectorAll("[data-precio]").forEach(n => n.textContent = CONFIG.precioPortal);
+document.querySelectorAll("[data-navidad]").forEach(n => n.textContent = CONFIG.precioNavidad);
+document.querySelectorAll("[data-arma]").forEach(a => {
+  if (!CONFIG.armador){ a.hidden = true; return; }
+  a.href = CONFIG.armador + a.dataset.arma; a.target = "_blank"; a.rel = "noopener";
+});
+document.querySelectorAll("[data-wa]").forEach(a => waLink(a, a.dataset.wa));
+if (CONFIG.demo || !CONFIG.whatsapp) $("#demo").hidden = false;
+
+// Calendario: empieza por la próxima temporada
+(() => {
+  const mes = new Date().getMonth() + 1;
+  const cal = [...CONFIG.calendario].sort((a,b)=>a.mes-b.mes);
+  let i = cal.findIndex(t => t.mes > mes); if (i < 0) i = 0;
+  const orden = cal.slice(i).concat(cal.slice(0,i));
+  orden.forEach((t,k) => {
+    const d = el("div", k===0 ? "next" : "");
+    d.append(el("small", null, k===0 ? "Próxima · " + t.cuando : t.cuando), el("b", null, t.nombre));
+    $("#cal").append(d);
+  });
 })();
+
+// Módulos de temporada
+CONFIG.temporadas.concat([CONFIG.paquete]).forEach((m,k,arr) => {
+  const d = el("div", "mod" + (k===arr.length-1 ? " pack" : ""));
+  d.append(el("b", null, m.nombre), el("span", "price", m.precio), el("p", null, m.incluye));
+  $("#mods").append(d);
+});
+
+// Portales reales
+if (CONFIG.ejemplos.length){
+  $("#casos").hidden = false;
+  CONFIG.ejemplos.forEach(e => {
+    const d = el(e.enlace ? "a" : "div", "mod case");
+    if (e.enlace){ d.href = e.enlace; d.target = "_blank"; d.rel = "noopener"; }
+    d.append(el("b", null, e.nombre));
+    if (e.enlace) d.append(el("span", "price", "Ver →"));
+    d.append(el("p", null, e.detalle));
+    $("#ejemplos").append(d);
+  });
+}
+if (CONFIG.navidadImpresa){ const p = $("#impresa"); p.querySelector("span").textContent = "Son " + CONFIG.navidadImpresa + "."; p.hidden = false; }
+
+// Galerías de plantillas
+function gallery(list, target, tipo){
+  list.forEach(t => {
+    const card = el("article", "tpl");
+    const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.setAttribute("viewBox","0 0 320 170"); svg.setAttribute("class","art"); svg.setAttribute("aria-hidden","true");
+    svg.innerHTML = ART[t.tema] || "";
+    const body = el("div", "card-body");
+    body.append(el("h3", null, t.nombre), el("p", null, t.detalle));
+    const acts = el("div", "acts");
+    if (t.enlace){ const v = el("a", "btn btn-line", "Ver ejemplo"); v.href = t.enlace; v.target="_blank"; v.rel="noopener"; acts.append(v); }
+    const q = el("a", "btn btn-wa", t.arma && CONFIG.armador ? "Pruébala gratis" : "La quiero");
+    if (t.arma && CONFIG.armador){ q.href = CONFIG.armador + t.arma; q.target = "_blank"; q.rel = "noopener"; }
+    else waLink(q, "Hola, me interesa la " + tipo + " " + t.nombre + ".");
+    acts.append(q); body.append(acts);
+    card.append(svg, body); target.append(card);
+  });
+}
+gallery(CONFIG.invitaciones, $("#inv"), "invitación");
+gallery(CONFIG.navidad, $("#nav"), "tarjeta de Navidad");
+
+// Redes
+[["Facebook", CONFIG.facebook], ["Instagram", CONFIG.instagram]].forEach(([n,u]) => {
+  if (!u) return; const a = el("a", null, n); a.href = u; a.target="_blank"; a.rel="noopener"; $("#redes").append(a);
+});
 </script>
 </body></html>
