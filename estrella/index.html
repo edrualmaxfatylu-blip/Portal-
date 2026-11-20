@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6d6c8">
+<title>El camino de la estrella</title>
+<meta name="description" content="Tarjeta navideña interactiva: guía al peregrino por islas flotantes, gira el árbol de escalones y rompe la piñata. Hazla con tu nombre en portalab.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="El camino de la estrella · tarjeta navideña interactiva">
+<meta property="og:description" content="Juégala: guía al peregrino, gira el árbol y rompe la piñata. Hazla con tu nombre.">
+<meta property="og:url" content="https://portalab.com.mx/estrella/">
+<meta property="og:image" content="https://portalab.com.mx/estrella/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../icono.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--tinta:#3b2f4a;--suave:#7a6a86;--crema:#fff8f0;--rojo:#d9475a;--oro:#f2c46d;--pino:#5aa894;
+  --serif:"Crimson Text",Georgia,serif;--sans:"Inter",system-ui,-apple-system,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%;background:#2b2d5c}
+body{font:16px/1.5 var(--sans);color:var(--tinta);-webkit-font-smoothing:antialiased;overflow:hidden;-webkit-tap-highlight-color:transparent}
+#app{position:fixed;inset:0;margin:0 auto;max-width:480px;overflow:hidden;background:#f6d6c8}
+.reel #app{max-width:none}
+.etapa{position:absolute;inset:0;transition:transform 1.1s cubic-bezier(.7,0,.25,1),opacity 1.1s;will-change:transform}
+.etapa svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.etapa.arriba{transform:translateY(-100%)}
+.etapa.abajo{transform:translateY(100%)}
+/* HUD */
+.hud{position:absolute;left:0;right:0;top:0;z-index:20;padding:calc(22px + env(safe-area-inset-top)) 26px 0;text-align:center;pointer-events:none;transition:opacity .5s}
+.hud .num{font:600 .7rem/1 var(--mono);letter-spacing:.28em;text-transform:uppercase;opacity:.7}
+.hud h1{font:italic 400 clamp(2rem,9vw,2.6rem)/1.05 var(--serif);margin-top:10px;letter-spacing:-.01em;text-wrap:balance}
+.hud p{font-size:.95rem;margin-top:8px;opacity:.8}
+.claro .hud,.claro .pista{color:#fff8f0}
+.pista{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;
+  display:inline-flex;align-items:center;gap:10px;padding:13px 20px;border-radius:999px;background:rgba(255,248,240,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font:600 .92rem/1 var(--sans);white-space:nowrap;pointer-events:none;transition:opacity .4s;box-shadow:0 10px 30px -12px rgba(59,47,74,.45)}
+.claro .pista{background:rgba(43,45,92,.55);color:#fff8f0}
+.pista i{width:10px;height:10px;border-radius:50%;background:currentColor;animation:late 1.3s infinite}
+.pista.oculta,.hud.oculta{opacity:0}
+@keyframes late{0%,100%{transform:scale(.7);opacity:.4}50%{transform:scale(1.15);opacity:1}}
+.puntos{position:absolute;right:18px;top:50%;transform:translateY(-50%);z-index:20;display:grid;gap:9px;pointer-events:none}
+.puntos b{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.3;transition:opacity .4s,transform .4s}
+.puntos b.si{opacity:1;transform:scale(1.3)}
+.claro .puntos{color:#fff8f0}
+/* nieve */
+.nieve{position:absolute;inset:0;z-index:15;pointer-events:none;overflow:hidden}
+.nieve i{position:absolute;top:-10px;border-radius:50%;background:#fff;animation:cae linear infinite}
+@keyframes cae{to{transform:translate3d(30px,110vh,0)}}
+/* sobre */
+.portada .hud{top:auto;bottom:calc(120px + env(safe-area-inset-bottom))}
+.btn{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;border:0;cursor:pointer;
+  font:600 1rem/1 var(--sans);text-decoration:none;transition:transform .2s}
+.btn:active{transform:scale(.97)}
+.btn-tinta{background:var(--tinta);color:#fff8f0}
+.btn-borde{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn-wa{background:#1faa59;color:#fff}
+#abrir{position:absolute;left:50%;bottom:calc(46px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:21}
+.para{font:600 .72rem/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;opacity:.75;margin-top:14px}
+.para b{display:block;font:italic 400 1.5rem/1.1 var(--serif);letter-spacing:0;text-transform:none;margin-top:8px;opacity:1}
+/* mensaje final */
+.hoja{position:absolute;left:0;right:0;bottom:0;z-index:30;max-height:78%;overflow-y:auto;background:var(--crema);border-radius:30px 30px 0 0;
+  padding:30px 26px calc(26px + env(safe-area-inset-bottom));transform:translateY(105%);transition:transform .9s cubic-bezier(.2,.8,.2,1);box-shadow:0 -20px 60px -20px rgba(20,16,40,.5);text-align:center}
+.hoja.si{transform:none}
+.hoja .tipo{font:600 .7rem/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--suave)}
+.hoja h2{font:italic 400 2.5rem/1 var(--serif);margin:12px 0 6px;color:var(--rojo)}
+.hoja .inv{font:italic 400 1.35rem/1.2 var(--serif);margin-bottom:14px}
+.hoja .frase{color:var(--suave);max-width:32ch;margin:0 auto 16px}
+.hoja .de{font:600 .95rem/1.4 var(--sans);margin-bottom:18px}
+.hoja .de span{display:block;font:500 .7rem/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--suave);margin-bottom:6px}
+.datos{display:grid;gap:8px;margin:0 0 18px;text-align:left}
+.datos div{background:#fff;border:1px solid #f0e2d4;border-radius:16px;padding:12px 14px}
+.datos small{display:block;font:600 .64rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--suave);margin-bottom:5px}
+.acciones{display:grid;gap:10px}
+.credito{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:.8rem;color:#5f5c7a;text-decoration:none}
+.credito svg{width:22px;height:22px}.credito b{font:800 .95rem/1 var(--sans);letter-spacing:-.03em;color:#171532}.credito b span{color:#ff6b4a}
+.demo{display:inline-block;margin-bottom:14px;font:600 .62rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;background:#ffefc2;color:#5a4300;padding:6px 10px;border-radius:999px}
+@media (prefers-reduced-motion:reduce){.etapa{transition:none}.nieve{display:none}.pista i{animation:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- 0 · SOBRE -->
+  <section class="etapa portada" id="e0">
+    <svg id="s0" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+    <div class="hud" id="h0">
+      <p class="num" id="sTipo"></p>
+      <h1 id="sTit"></h1>
+      <p class="para" id="sPara" hidden>Para<b id="sInv"></b></p>
+    </div>
+    <button class="btn btn-tinta" id="abrir" type="button"></button>
+  </section>
+  <!-- 1 · CAMINO -->
+  <section class="etapa abajo" id="e1">
+    <svg id="s1" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-label="Escena: el camino"></svg>
+    <div class="hud"><p class="num">I · III</p><h1>Sigue la luz</h1></div>
+  </section>
+  <!-- 2 · ÁRBOL -->
+  <section class="etapa abajo" id="e2">
+    <svg id="s2" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-label="Escena: el árbol de escalones"></svg>
+    <div class="hud"><p class="num">II · III</p><h1>El árbol de los escalones</h1></div>
+  </section>
+  <!-- 3 · ESTRELLA Y CASITA -->
+  <section class="etapa abajo claro" id="e3">
+    <svg id="s3" viewBox="0 0 360 640" preserveAspectRatio="xMidYMid slice" aria-label="Escena: la estrella y la casita"></svg>
+    <div class="hud" id="h3"><p class="num">III · III</p><h1>La estrella</h1></div>
+  </section>
+
+  <div class="nieve" id="nieve"></div>
+  
+  <div class="pista oculta" id="pista"><i></i><span id="pistaT"></span></div>
+
+  <div class="hoja" id="hoja" role="dialog" aria-label="Mensaje">
+    <span class="demo" id="demo" hidden>Demostración</span>
+    <p class="tipo" id="mTipo"></p>
+    <h2 id="mTit"></h2>
+    <p class="inv" id="mInv" hidden></p>
+    <p class="frase" id="mFrase"></p>
+    <p class="de" id="mDe" hidden><span id="mDeT"></span><b id="mDeN"></b></p>
+    <div class="datos" id="mDatos" hidden></div>
+    <div class="acciones" id="mAcc"></div>
+    <a class="credito" href="https://portalab.com.mx/" id="credito"><span id="pie"></span>
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg>
+      <b>porta<span>lab</span></b></a>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — lo único que se edita. Campo vacío = no se muestra.
+   Enlace por invitado:  .../#para=Familia+López     Modo reel (se juega solo):  .../#reel
+   ===================================================================== */
+const CONFIG={
+  modo: "tarjeta",                          // "tarjeta" = felicitación · "posada" = invitación con fecha, lugar y confirmación
+  tipo: "Tienes una tarjeta",               // texto pequeño del sobre
+  titulo: "El camino de la estrella",       // título del sobre
+  abrir: "Abrir",                           // botón del sobre
+  mensajeTitulo: "¡Feliz Navidad!",         // título del mensaje final
+  frase: "Que la luz de estas fiestas te encuentre en el camino y te lleve a casa con los que más quieres.",
+  de: "portalab",                           // quién felicita o invita
+  // Solo en modo "posada":
+  fecha: "",                                // ej. "Viernes 19 de diciembre · 7:00 pm"
+  lugar: "",                                // ej. "Calle Ejemplo 123, Naucalpan"
+  mapa: "",                                 // enlace de Google Maps (opcional)
+  confirmar: "",                            // WhatsApp para confirmar, ej. "525500000000"; vacío = sin botón
+  mensajeConfirmar: "Hola, confirmo mi asistencia a la posada.",
+  pie: "Hecha por",
+  demo: false,                              // true = muestra "Demostración"; false al entregar
+  color: "#d9475a", color2: "#3b2f4a", acento: "#f2c46d", acento2: "#5aa894", fondo: "#f6d6c8"   // muestra de colores en el simulador
+};
+</script>
+
+<script>
+(function(){
+"use strict";
+const C = CONFIG, NS = "http://www.w3.org/2000/svg";
+const $ = id => document.getElementById(id);
+const vacio = v => v == null || (typeof v === "string" && !v.trim());
+const params = new URLSearchParams((location.hash || "").slice(1));
+const REEL = params.has("reel");
+const MOV = !matchMedia("(prefers-reduced-motion: reduce)").matches;
+const para = (params.get("para") || "").slice(0, 60).trim();
+if (REEL) document.documentElement.classList.add("reel");
+
+/* ---------- utilidades SVG ---------- */
+function S(tag, at, padre){ const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); if (padre) padre.appendChild(e); return e; }
+const pts = arr => arr.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+const lerp = (a, b, t) => a + (b - a) * t;
+const esperar = ms => new Promise(r => setTimeout(r, ms));
+const suave = t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3)/2;
+const rebote = t => { const c1 = 1.5, c3 = c1 + 1; return 1 + c3*Math.pow(t - 1, 3) + c1*Math.pow(t - 1, 2); };
+function tween(ms, fn, ease = suave){ return new Promise(res => { if (!MOV) ms = Math.min(ms, 120); const t0 = performance.now();
+  (function paso(ahora){ const t = Math.min(1, (ahora - t0)/ms); fn(ease(t), t); if (t < 1) requestAnimationFrame(paso); else res(); })(t0); }); }
+
+/* ---------- materiales pastel ---------- */
+const MAT = {
+  piedra: ["#fff3e6", "#f2b8a2", "#d98f84"],
+  rosa:   ["#ffe3e8", "#f3a9ba", "#d4849b"],
+  pino:   ["#d3f2e5", "#86cfb8", "#5fae98"],
+  pino2:  ["#c3ead9", "#73c0a7", "#4f9c86"],
+  oro:    ["#fff1c4", "#f4c86a", "#d9a443"],
+  lila:   ["#efe9ff", "#bbb0f1", "#968ad6"],
+  nube:   ["#ffffff", "#f1e6f5", "#ddd0ea"],
+  noche:  ["#c9c3ef", "#8b84c9", "#6a63a8"]
+};
+
+/* proyección isométrica por escena */
+function iso(OX, OY, U = 22){ const V = U/2, H = U; return (x, y, z) => [OX + (x - y)*U, OY + (x + y)*V - z*H]; }
+
+/* caja (prisma) con sus tres caras visibles */
+function caja(P, x, y, z, w, d, h, m, padre){
+  const c = MAT[m] || m, g = S("g", {}, padre);
+  const t = [P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)];
+  S("polygon", { points: pts([P(x, y + d, z + h), P(x + w, y + d, z + h), P(x + w, y + d, z), P(x, y + d, z)]), fill: c[1] }, g);
+  S("polygon", { points: pts([P(x + w, y, z + h), P(x + w, y + d, z + h), P(x + w, y + d, z), P(x + w, y, z)]), fill: c[2] }, g);
+  S("polygon", { points: pts(t), fill: c[0] }, g);
+  S("polyline", { points: pts([t[3], t[0], t[1]]), fill: "none", stroke: "rgba(255,255,255,.75)", "stroke-width": .9 }, g);
+  return g;
+}
+/* arma un mundo de bloques ordenados para que se tapen bien */
+function mundo(P, lista, padre){
+  const ids = {};
+  lista.slice().sort((a, b) => (a.x + a.y + a.z) - (b.x + b.y + b.z) || a.z - b.z).forEach(b => {
+    const g = caja(P, b.x, b.y, b.z, b.w || 1, b.d || 1, b.h || 1, b.m, padre);
+    if (b.deco) b.deco(g, b);
+    if (b.oculto){ g.setAttribute("opacity", 0); g.setAttribute("transform", "translate(0 150)"); }
+    if (b.id) ids[b.id] = g;
+  });
+  return ids;
+}
+const cima = (P, x, y, z) => P(x + .5, y + .5, z + 1);
+
+/* ---------- elementos decorativos ---------- */
+function cielo(svg, id, c1, c2, c3){
+  const d = S("defs", {}, svg);
+  const lg = S("linearGradient", { id, x1: 0, y1: 0, x2: 0, y2: 1 }, d);
+  S("stop", { offset: 0, "stop-color": c1 }, lg); S("stop", { offset: .6, "stop-color": c2 }, lg); S("stop", { offset: 1, "stop-color": c3 }, lg);
+  const f = S("filter", { id: id + "b", x: "-80%", y: "-80%", width: "260%", height: "260%" }, d); S("feGaussianBlur", { stdDeviation: 4 }, f);
+  const f2 = S("filter", { id: id + "B", x: "-100%", y: "-100%", width: "300%", height: "300%" }, d); S("feGaussianBlur", { stdDeviation: 12 }, f2);
+  S("rect", { width: 360, height: 640, fill: `url(#${id})` }, svg);
+  return { brillo: `url(#${id}b)`, halo: `url(#${id}B)` };
+}
+function nube(svg, x, y, s, op = .85, dur = 26){
+  const g = S("g", { opacity: op }, svg);
+  [[0, 0, 26, 11], [-22, 5, 18, 8], [24, 4, 20, 9], [4, -8, 16, 9]].forEach(([dx, dy, rx, ry]) => S("ellipse", { cx: x + dx*s, cy: y + dy*s, rx: rx*s, ry: ry*s, fill: "#fff" }, g));
+  if (MOV) S("animateTransform", { attributeName: "transform", type: "translate", values: "0 0; 14 0; 0 0", dur: dur + "s", repeatCount: "indefinite" }, g);
+  return g;
+}
+function roca(svg, P, x0, y0, w, d, prof, c1 = "#e9a594", c2 = "#c98078"){
+  const L = P(x0, y0 + d, 0), B = P(x0 + w, y0 + d, 0), R = P(x0 + w, y0, 0), A = [B[0] + 4, B[1] + prof];
+  S("polygon", { points: pts([L, B, A]), fill: c1 }, svg);
+  S("polygon", { points: pts([B, R, A]), fill: c2 }, svg);
+}
+function pino(svg, P, x, y, z, s = 1){
+  const [cx, cy] = P(x + .5, y + .5, z), g = S("g", {}, svg);
+  S("ellipse", { cx, cy, rx: 9*s, ry: 4*s, fill: "rgba(59,47,74,.15)" }, g);
+  S("rect", { x: cx - 2*s, y: cy - 7*s, width: 4*s, height: 7*s, fill: "#b07a63" }, g);
+  for (let k = 0; k < 3; k++){ const by = cy - 6*s - k*10*s, hw = (13 - k*3)*s, ty = by - 16*s;
+    S("polygon", { points: pts([[cx - hw, by], [cx, by + 3*s], [cx, ty]]), fill: "#86cfb8" }, g);
+    S("polygon", { points: pts([[cx, by + 3*s], [cx + hw, by], [cx, ty]]), fill: "#5fae98" }, g); }
+  S("circle", { cx, cy: cy - 44*s, r: 2.2*s, fill: "#fff" }, g);
+  return g;
+}
+function farolito(svg, x, y, color, F){
+  const g = S("g", {}, svg);
+  S("circle", { cx: x, cy: y, r: 13, fill: color, opacity: .55, filter: F.brillo }, g);
+  S("line", { x1: x, y1: y - 26, x2: x, y2: y - 8, stroke: "rgba(59,47,74,.35)", "stroke-width": 1 }, g);
+  S("rect", { x: x - 5, y: y - 8, width: 10, height: 14, rx: 4, fill: color }, g);
+  S("rect", { x: x - 3, y: y - 10, width: 6, height: 3, rx: 1, fill: "#b07a63" }, g);
+  if (MOV) S("animateTransform", { attributeName: "transform", type: "rotate", values: `-4 ${x} ${y - 26}; 4 ${x} ${y - 26}; -4 ${x} ${y - 26}`, dur: "4s", repeatCount: "indefinite" }, g);
+  return g;
+}
+function regalo(P, x, y, z, m, cinta, padre){
+  const g = caja(P, x, y, z, .7, .7, .6, m, padre);
+  const a = P(x + .35, y, z + .6), b = P(x + .35, y + .7, z + .6), c = P(x, y + .35, z + .6), d2 = P(x + .7, y + .35, z + .6);
+  S("line", { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: cinta, "stroke-width": 2.4 }, g);
+  S("line", { x1: c[0], y1: c[1], x2: d2[0], y2: d2[1], stroke: cinta, "stroke-width": 2.4 }, g);
+  const t = P(x + .35, y + .35, z + .6);
+  S("circle", { cx: t[0] - 3, cy: t[1] - 3, r: 3, fill: "none", stroke: cinta, "stroke-width": 2 }, g);
+  S("circle", { cx: t[0] + 3, cy: t[1] - 3, r: 3, fill: "none", stroke: cinta, "stroke-width": 2 }, g);
+  return g;
+}
+function estrellas(svg, n, y1 = 400){
+  for (let i = 0; i < n; i++){ const c = S("circle", { cx: Math.random()*360, cy: Math.random()*y1, r: (.6 + Math.random()*1.4).toFixed(1), fill: "#fff", opacity: (.3 + Math.random()*.6).toFixed(2) }, svg);
+    if (MOV) S("animate", { attributeName: "opacity", values: "0.2;1;0.2", dur: (2 + Math.random()*3).toFixed(1) + "s", begin: (-Math.random()*3).toFixed(1) + "s", repeatCount: "indefinite" }, c); }
+}
+
+/* ---------- el peregrino (personaje original) ---------- */
+function peregrino(svg, F){
+  const g = S("g", {}, svg), cuerpo = S("g", {}, g);
+  S("ellipse", { cx: 0, cy: 0, rx: 7, ry: 3, fill: "rgba(40,30,60,.22)" }, g);
+  g.insertBefore(g.lastChild, cuerpo);
+  S("path", { d: "M-7.5 0 Q-8.5 -13 0 -18 Q8.5 -13 7.5 0 Z", fill: "#d9475a" }, cuerpo);
+  S("polyline", { points: "-7,-6 -4.5,-8.5 -2,-6 0.5,-8.5 3,-6 5.5,-8.5 7.6,-6.4", fill: "none", stroke: "#fff8f0", "stroke-width": 1.4, "stroke-linejoin": "round" }, cuerpo);
+  S("circle", { cx: 0, cy: -22, r: 6.2, fill: "#f6d2b8" }, cuerpo);
+  S("path", { d: "M-6.4 -22.5 A6.4 6.4 0 0 1 6.4 -22.5 Z", fill: "#3f8f77" }, cuerpo);
+  S("rect", { x: -6.8, y: -23.6, width: 13.6, height: 2.4, rx: 1.2, fill: "#fff8f0" }, cuerpo);
+  S("circle", { cx: 0, cy: -29.6, r: 2.6, fill: "#fff8f0" }, cuerpo);
+  S("circle", { cx: -2.2, cy: -20, r: .9, fill: "#3b2f4a" }, cuerpo);
+  S("circle", { cx: 2.2, cy: -20, r: .9, fill: "#3b2f4a" }, cuerpo);
+  // farol
+  S("line", { x1: 6, y1: -11, x2: 10, y2: -13, stroke: "#3b2f4a", "stroke-width": 1.3, "stroke-linecap": "round" }, cuerpo);
+  S("circle", { cx: 11, cy: -8, r: 8, fill: "#ffd36e", opacity: .65, filter: F.brillo }, cuerpo);
+  S("rect", { x: 8, y: -12, width: 6, height: 8, rx: 2, fill: "#ffd36e", stroke: "#b07a63", "stroke-width": 1 }, cuerpo);
+  g.cuerpo = cuerpo; g.pos = [0, 0]; g.dir = 1;
+  g.poner = (x, y) => { g.pos = [x, y]; g.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`); };
+  return g;
+}
+async function caminar(per, puntos, ms = 340){
+  for (const [x, y] of puntos){
+    const [x0, y0] = per.pos, dir = x < x0 ? -1 : x > x0 ? 1 : per.dir;
+    if (dir !== per.dir){ per.dir = dir; per.cuerpo.setAttribute("transform", `scale(${dir} 1)`); }
+    const alto = y < y0 - 4 ? 16 : 7;
+    await tween(ms, (e, t) => per.setAttribute("transform", `translate(${lerp(x0, x, t).toFixed(1)} ${(lerp(y0, y, t) - Math.sin(Math.PI*t)*alto).toFixed(1)})`), t => t);
+    per.pos = [x, y];
+  }
+}
+function subir(g, retraso = 0, ms = 750){
+  return esperar(retraso).then(() => tween(ms, e => { g.setAttribute("transform", `translate(0 ${(150*(1 - e)).toFixed(1)})`); g.setAttribute("opacity", Math.min(1, e*1.6).toFixed(2)); }, rebote));
+}
+
+/* =====================================================================
+   ESCENA 0 · SOBRE
+   ===================================================================== */
+const s0 = $("s0"), F0 = cielo(s0, "c0", "#f9e2d2", "#f3cfd6", "#d9c6ec");
+nube(s0, 70, 120, 1.1); nube(s0, 290, 200, .8, .7, 30); nube(s0, 80, 520, .9, .6, 34);
+const P0 = iso(180, 250, 30);
+roca(s0, P0, 0, 0, 3, 3, 120);
+mundo(P0, [{ x: 0, y: 0, z: 0, w: 3, d: 3, h: .5, m: "piedra" }], s0);
+pino(s0, P0, 0, 0, .5, 1.1); pino(s0, P0, 2.2, -.1, .5, .8);
+const sobre = S("g", {}, s0);
+(function(){
+  const P = P0, z = 1.6, g = sobre;
+  caja(P, .5, .7, z, 2, 1.6, .18, ["#fffaf3", "#f1dccb", "#dcc0aa"], g);
+  const a = P(.5, .7, z + .18), b = P(2.5, .7, z + .18), c = P(2.5, 2.3, z + .18), d = P(.5, 2.3, z + .18), m = P(1.5, 1.5, z + .18);
+  S("polyline", { points: pts([a, m, b]), fill: "none", stroke: "#e4cbb8", "stroke-width": 1.4 }, g);
+  S("polyline", { points: pts([d, m, c]), fill: "none", stroke: "#efdccd", "stroke-width": 1 }, g);
+  S("circle", { cx: m[0], cy: m[1], r: 11, fill: "#d9475a" }, g);
+  S("path", { d: estrellaD(m[0], m[1], 6.5, 2.8, 7), fill: "#ffd36e" }, g);
+  if (MOV) S("animateTransform", { attributeName: "transform", type: "translate", values: "0 0; 0 -8; 0 0", dur: "3.2s", repeatCount: "indefinite" }, g);
+})();
+farolito(s0, 60, 330, "#ffd36e", F0); farolito(s0, 305, 300, "#f3a9ba", F0);
+
+function estrellaD(cx, cy, R, r, n){ let d = ""; for (let i = 0; i < n*2; i++){ const a = -Math.PI/2 + i*Math.PI/n, rr = i % 2 ? r : R; d += (i ? "L" : "M") + (cx + Math.cos(a)*rr).toFixed(1) + " " + (cy + Math.sin(a)*rr).toFixed(1); } return d + "Z"; }
+
+/* =====================================================================
+   ESCENA 1 · EL CAMINO (manivela y escalera que aparece)
+   ===================================================================== */
+const s1 = $("s1"), F1 = cielo(s1, "c1", "#fbe3cf", "#f6d0c4", "#e3c3df");
+nube(s1, 60, 170, 1); nube(s1, 300, 120, .7, .7, 32); nube(s1, 270, 560, 1, .55, 36);
+const P1 = iso(140, 392, 28);
+// isla pequeña flotante de adorno
+const Pm = iso(300, 470, 14); roca(s1, Pm, 0, 0, 2, 2, 40); mundo(Pm, [{ x: 0, y: 0, z: 0, w: 2, d: 2, h: .6, m: "rosa" }], s1); regalo(Pm, .6, .6, .6, "lila", "#fff", s1);
+const Pm2 = iso(48, 250, 13); roca(s1, Pm2, 0, 0, 2, 2, 34, "#c9bde8", "#a99cd2"); mundo(Pm2, [{ x: 0, y: 0, z: 0, w: 2, d: 2, h: .6, m: "lila" }], s1); pino(s1, Pm2, .5, .5, .6, .6);
+roca(s1, P1, 0, 0, 4, 4, 150);
+const B1 = [];
+for (let x = 0; x < 4; x++) for (let y = 0; y < 4; y++) B1.push({ x, y, z: 0, m: (x + y) % 2 ? "piedra" : "rosa" });
+B1.push({ x: 0, y: 0, z: 1, m: "lila", id: "base" });
+B1.push({ x: 3, y: 2, z: 1, m: "oro", oculto: true, id: "p1" }, { x: 3, y: 1, z: 2, m: "oro", oculto: true, id: "p2" }, { x: 3, y: 0, z: 3, m: "oro", oculto: true, id: "p3" });
+B1.push({ x: 3, y: -1, z: 4, m: "piedra" }, { x: 3, y: -2, z: 4, m: "rosa" }, { x: 2, y: -2, z: 4, m: "piedra" });
+const I1 = mundo(P1, B1, s1);
+// columna que sostiene la plataforma alta (ilusión)
+(function(){ const a = P1(3, -2, 4), b = P1(4, -2, 4), c = P1(4, -1, 4); S("polygon", { points: pts([P1(3, -1, 4), P1(4, -1, 4), [c[0], c[1] - 40], [P1(3, -1, 4)[0], P1(3, -1, 4)[1] - 40]]), fill: "none" }, s1); })();
+pino(s1, P1, 1, 0, 1, .9); pino(s1, P1, 2, 1, 1, .7); pino(s1, P1, 0, 2, 1, .65);
+farolito(s1, P1(2.5, -1.5, 5)[0] - 34, P1(2.5, -1.5, 5)[1] - 30, "#ffd36e", F1);
+// manivela sobre el bloque lila
+const man = S("g", {}, s1), mc = cima(P1, 0, 0, 1);
+S("ellipse", { cx: mc[0], cy: mc[1], rx: 12, ry: 6, fill: "#968ad6" }, man);
+S("ellipse", { cx: mc[0], cy: mc[1] - 3, rx: 12, ry: 6, fill: "#efe9ff" }, man);
+const brazo = S("g", {}, man);
+S("line", { x1: mc[0], y1: mc[1] - 3, x2: mc[0] + 11, y2: mc[1] - 3, stroke: "#3b2f4a", "stroke-width": 2.6, "stroke-linecap": "round" }, brazo);
+S("rect", { x: mc[0] + 9, y: mc[1] - 15, width: 5, height: 12, rx: 2.5, fill: "#d9475a" }, brazo);
+const anillo = S("ellipse", { cx: mc[0], cy: mc[1] - 3, rx: 20, ry: 10, fill: "none", stroke: "#fff", "stroke-width": 2, opacity: .9 }, s1);
+if (MOV){ S("animate", { attributeName: "rx", values: "14;26;14", dur: "1.6s", repeatCount: "indefinite" }, anillo); S("animate", { attributeName: "ry", values: "7;13;7", dur: "1.6s", repeatCount: "indefinite" }, anillo); S("animate", { attributeName: "opacity", values: ".9;0;.9", dur: "1.6s", repeatCount: "indefinite" }, anillo); }
+const per1 = peregrino(s1, F1);
+const ruta1a = [[1, 3, 0], [2, 3, 0], [3, 3, 0]].map(p => cima(P1, ...p));
+const ruta1b = [[3, 2, 1], [3, 1, 2], [3, 0, 3], [3, -1, 4], [3, -2, 4]].map(p => cima(P1, ...p));
+
+/* =====================================================================
+   ESCENA 2 · EL ÁRBOL DE LOS ESCALONES (gira y se enciende)
+   ===================================================================== */
+const s2 = $("s2"), F2 = cielo(s2, "c2", "#e9d3ec", "#cdbfe9", "#a9a3dc");
+estrellas(s2, 18, 260); nube(s2, 70, 200, .9, .6); nube(s2, 300, 520, 1, .5, 38);
+const P2 = iso(180, 440, 24);
+roca(s2, P2, -1, -1, 6, 6, 140, "#bdb2e6", "#9b8fd0");
+const B2 = [];
+for (let x = -1; x < 5; x++) for (let y = -1; y < 5; y++) if (x < 0 || y < 0 || x > 3 || y > 3) B2.push({ x, y, z: 0, h: .5, m: (x + y) % 2 ? "lila" : "nube" });
+mundo(P2, B2, s2);
+const arbolG = S("g", {}, s2), focos = [];
+const tier = [];
+for (let k = 0; k < 4; k++) for (let x = 0; x <= 3 - k; x++) for (let y = 0; y <= 3 - k; y++) tier.push({ x, y, z: k, m: k % 2 ? "pino2" : "pino", deco: (g, b) => {
+  const max = 3 - b.z, cols = ["#d9475a", "#f2c46d", "#fff8f0", "#f3a9ba"];
+  if (b.y === max){ const c = P2(b.x + .5, b.y + 1, b.z + .45); focos.push(S("circle", { cx: c[0], cy: c[1], r: 3.3, fill: cols[(b.x + b.z) % 4], opacity: .35 }, g)); }
+  if (b.x === max){ const c = P2(b.x + 1, b.y + .5, b.z + .45); focos.push(S("circle", { cx: c[0], cy: c[1], r: 3.3, fill: cols[(b.y + b.z + 1) % 4], opacity: .35 }, g)); }
+} });
+tier.forEach(b => { b.z = b.z; });
+mundo(P2, tier.map(b => ({ ...b, z: b.z })), arbolG);
+// regalos al pie del árbol
+regalo(P2, 4.2, 1.2, 0, "rosa", "#fff", s2); regalo(P2, 1.3, 4.3, 0, "oro", "#d9475a", s2); regalo(P2, 4.1, 2.4, 0, "lila", "#fff", s2);
+// estrella en la punta (apagada)
+const punta = S("g", { opacity: .55 }, s2), pc = P2(.5, .5, 5.3);
+const halo2 = S("circle", { cx: pc[0], cy: pc[1], r: 26, fill: "#ffd36e", opacity: 0, filter: F2.halo }, punta);
+S("path", { d: estrellaD(pc[0], pc[1], 15, 6.5, 5), fill: "#f2c46d", stroke: "#fff", "stroke-width": 1.5 }, punta);
+const per2 = peregrino(s2, F2);
+const ruta2 = [[2, 2, 1], [1, 1, 2], [0, 0, 3]].map(p => cima(P2, ...p));
+const anillo2 = S("circle", { cx: P2(.5, .5, 2)[0], cy: P2(.5, .5, 2)[1], r: 70, fill: "none", stroke: "#fff", "stroke-width": 2, opacity: 0 }, s2);
+
+/* =====================================================================
+   ESCENA 3 · LA ESTRELLA-PIÑATA Y LA CASITA
+   ===================================================================== */
+const s3 = $("s3"), F3 = cielo(s3, "c3", "#1f2150", "#3d3a7a", "#7d68b0");
+estrellas(s3, 60, 640);
+const P3 = iso(180, 470, 26);
+roca(s3, P3, -1, -1, 5, 5, 130, "#6a63a8", "#4f4890");
+const B3 = [];
+for (let x = -1; x < 4; x++) for (let y = -1; y < 4; y++) B3.push({ x, y, z: 0, h: .5, m: (x + y) % 2 ? "noche" : "lila" });
+mundo(P3, B3, s3);
+pino(s3, P3, -1, 2.6, .5, .85); pino(s3, P3, 2.8, -1, .5, .75);
+// casita (aparece después)
+const casa = S("g", { opacity: 0, transform: "translate(0 150)" }, s3), luz = S("g", { opacity: 0 }, casa);
+(function(){
+  const P = P3, x = 0, y = 0, z = .5, w = 2, d = 2, h = 1.5, top = z + h + 1.1;
+  const lc = P(x + w/2, y + d/2, z + .6);
+  S("circle", { cx: lc[0], cy: lc[1], r: 50, fill: "#ffd36e", filter: F3.halo }, luz);
+  S("path", { d: estrellaD(lc[0], lc[1] - 6, 11, 4.6, 5), fill: "#fff1c4" }, luz);
+  casa.paredI = S("polygon", { points: pts([P(x, y + d, z + h), P(x + w, y + d, z + h), P(x + w, y + d, z), P(x, y + d, z)]), fill: "#f3a9ba" }, casa);
+  casa.paredD = S("g", {}, casa);
+  S("polygon", { points: pts([P(x + w, y, z + h), P(x + w, y + d, z + h), P(x + w, y + d, z), P(x + w, y, z)]), fill: "#d4849b" }, casa.paredD);
+  S("polygon", { points: pts([P(x + w, y + .7, z), P(x + w, y + 1.3, z), P(x + w, y + 1.3, z + .95), P(x + w, y + .7, z + .95)]), fill: "#ffd36e" }, casa.paredD);
+  S("polygon", { points: pts([P(x + .5, y + d, z + .7), P(x + 1.1, y + d, z + .7), P(x + 1.1, y + d, z + 1.15), P(x + .5, y + d, z + 1.15)]), fill: "#ffe7a3" }, casa.paredI);
+  casa.ventana = S("polygon", { points: pts([P(x + .5, y + d, z + .7), P(x + 1.1, y + d, z + .7), P(x + 1.1, y + d, z + 1.15), P(x + .5, y + d, z + 1.15)]), fill: "#ffe7a3" }, casa);
+  casa.techo = S("g", {}, casa);
+  S("polygon", { points: pts([P(x, y + d/2, top), P(x + w, y + d/2, top), P(x + w, y + d + .15, z + h), P(x, y + d + .15, z + h)]), fill: "#e9707f" }, casa.techo);
+  S("polygon", { points: pts([P(x + w + .1, y - .15, z + h), P(x + w + .1, y + d + .15, z + h), P(x + w + .1, y + d/2, top)]), fill: "#c95568" }, casa.techo);
+  const r1 = P(x, y + d/2, top), r2 = P(x + w, y + d/2, top);
+  S("line", { x1: r1[0], y1: r1[1], x2: r2[0], y2: r2[1], stroke: "#fff", "stroke-width": 4, "stroke-linecap": "round" }, casa.techo);
+  const ch = P(x + .4, y + .6, top - .2);
+  S("rect", { x: ch[0] - 5, y: ch[1] - 22, width: 10, height: 18, fill: "#c95568" }, casa.techo);
+})();
+// piñata estrella de siete picos
+const pin = S("g", {}, s3), PX = 180, PY = 215, picos = [];
+const colores = ["#f3a9ba", "#86cfb8", "#bbb0f1", "#f2c46d", "#f3a9ba", "#86cfb8", "#bbb0f1"];
+const haloP = S("circle", { cx: PX, cy: PY, r: 60, fill: "#ffd36e", opacity: .25, filter: F3.halo }, pin);
+S("line", { x1: PX, y1: 0, x2: PX, y2: PY - 34, stroke: "rgba(255,255,255,.5)", "stroke-width": 1.2 }, pin);
+for (let i = 0; i < 7; i++){
+  const a = -Math.PI/2 + i*2*Math.PI/7, g = S("g", {}, pin), bx = PX + Math.cos(a)*28, by = PY + Math.sin(a)*28, tx = PX + Math.cos(a)*68, ty = PY + Math.sin(a)*68, pa = a + Math.PI/2;
+  const o = [Math.cos(pa)*11, Math.sin(pa)*11];
+  S("polygon", { points: pts([[bx - o[0], by - o[1]], [tx, ty], [bx + o[0], by + o[1]]]), fill: colores[i] }, g);
+  S("polygon", { points: pts([[bx, by], [tx, ty], [bx + o[0], by + o[1]]]), fill: "rgba(0,0,0,.12)" }, g);
+  for (let k = 0; k < 3; k++){ const sx = tx + Math.cos(a)*(4 + k*2) + (k - 1)*4*Math.cos(pa), sy = ty + Math.sin(a)*(4 + k*2) + (k - 1)*4*Math.sin(pa);
+    S("path", { d: `M${tx.toFixed(1)} ${ty.toFixed(1)} Q${(sx + 6).toFixed(1)} ${(sy + 10).toFixed(1)} ${(sx - 2).toFixed(1)} ${(sy + 22).toFixed(1)}`, fill: "none", stroke: ["#fff8f0", "#d9475a", "#f2c46d"][k], "stroke-width": 1.6, "stroke-linecap": "round" }, g); }
+  picos.push({ g, a });
+}
+const centro = S("g", {}, pin);
+S("circle", { cx: PX, cy: PY, r: 32, fill: "#f2c46d" }, centro);
+S("circle", { cx: PX, cy: PY, r: 32, fill: "none", stroke: "#fff1c4", "stroke-width": 3, "stroke-dasharray": "5 6" }, centro);
+S("path", { d: estrellaD(PX, PY, 18, 8, 5), fill: "#fff1c4" }, centro);
+if (MOV) S("animateTransform", { attributeName: "transform", type: "rotate", values: `-3 ${PX} 0; 3 ${PX} 0; -3 ${PX} 0`, dur: "3.6s", repeatCount: "indefinite" }, pin);
+const confeti = S("g", {}, s3);
+const per3 = peregrino(s3, F3);
+
+/* =====================================================================
+   TEXTOS
+   ===================================================================== */
+$("sTipo").textContent = C.tipo || "";
+$("sTit").textContent = C.titulo || "El camino de la estrella";
+$("abrir").textContent = C.abrir || "Abrir";
+if (para){ $("sInv").textContent = para; $("sPara").hidden = false; }
+const POSADA = C.modo === "posada";
+$("mTipo").textContent = POSADA ? "Te invitamos a nuestra posada" : "Llegaste a casa";
+$("mTit").textContent = C.mensajeTitulo || (POSADA ? "¡Ven a la posada!" : "¡Feliz Navidad!");
+if (para){ $("mInv").textContent = para; $("mInv").hidden = false; }
+$("mFrase").textContent = C.frase || "";
+if (!vacio(C.de)){ $("mDeT").textContent = POSADA ? "Te invita" : "Con cariño"; $("mDeN").textContent = C.de; $("mDe").hidden = false; }
+$("pie").textContent = C.pie || "";
+$("demo").hidden = !C.demo || REEL;
+const acc = $("mAcc");
+function boton(cls, txt, href){ const a = document.createElement(href ? "a" : "button"); a.className = "btn " + cls; a.textContent = txt; if (href){ a.href = href; a.target = "_blank"; a.rel = "noopener"; } else a.type = "button"; acc.appendChild(a); return a; }
+if (POSADA){
+  const datos = $("mDatos");
+  [["Cuándo", C.fecha], ["Dónde", C.lugar]].forEach(([k, v]) => { if (vacio(v)) return; const d = document.createElement("div"), s = document.createElement("small"); s.textContent = k; d.append(s, document.createTextNode(v)); datos.appendChild(d); datos.hidden = false; });
+  if (!vacio(C.confirmar)) boton("btn-wa", "Confirmar por WhatsApp", "https://wa.me/" + String(C.confirmar).replace(/\D/g, "") + "?text=" + encodeURIComponent(C.mensajeConfirmar + (para ? " (" + para + ")" : "")));
+  if (!vacio(C.mapa) || !vacio(C.lugar)) boton("btn-borde", "Cómo llegar", !vacio(C.mapa) ? C.mapa : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(C.lugar));
+}
+const otra = boton("btn-tinta", "Ver otra vez");
+otra.addEventListener("click", () => location.reload());
+document.title = (C.titulo || "El camino de la estrella") + (C.de ? " · " + C.de : "");
+
+/* nieve */
+const nieve = $("nieve");
+if (MOV) for (let k = 0; k < 28; k++){ const i = document.createElement("i"), s = 2 + Math.random()*5; i.style.left = Math.random()*100 + "%"; i.style.width = i.style.height = s + "px"; i.style.opacity = (.35 + Math.random()*.55).toFixed(2); i.style.animationDuration = (8 + Math.random()*9).toFixed(1) + "s"; i.style.animationDelay = (-Math.random()*14).toFixed(1) + "s"; nieve.appendChild(i); }
+
+/* =====================================================================
+   HISTORIA
+   ===================================================================== */
+const pista = $("pista"), pistaT = $("pistaT");
+let espera = null;
+function pedir(texto, objetivo, mostrar = true){
+  pistaT.textContent = texto; if (mostrar) pista.classList.remove("oculta");
+  return new Promise(res => {
+    const listo = () => { objetivo.removeEventListener("click", listo); pista.classList.add("oculta"); espera = null; res(); };
+    objetivo.addEventListener("click", listo); espera = listo;
+    if (REEL) setTimeout(listo, 1500);
+  });
+}
+function pasar(de, a, oscura){
+  $(de).classList.add("abajo"); $(a).classList.remove("abajo", "arriba");
+  const meta = document.querySelector("meta[name=theme-color]"); if (meta) meta.content = oscura ? "#1f2150" : "#f6d6c8";
+}
+function marcar(){}
+
+async function historia(){
+  await pedir("Toca para abrir", $("abrir"), false);
+  $("abrir").style.opacity = 0; $("h0").classList.add("oculta");
+  await tween(700, e => sobre.setAttribute("transform", `translate(0 ${(-260*e).toFixed(1)}) `));
+
+  // I · el camino
+  per1.poner(...cima(P1, 0, 3, 0));
+  pasar("e0", "e1"); marcar(0); await esperar(REEL ? 1200 : 1100);
+  await caminar(per1, ruta1a);
+  await pedir("Toca la manivela", s1);
+  anillo.remove();
+  tween(1200, e => brazo.setAttribute("transform", `rotate(${(e*720).toFixed(1)} ${mc[0]} ${mc[1] - 3})`));
+  await Promise.all([subir(I1.p1, 0), subir(I1.p2, 220), subir(I1.p3, 440)]);
+  await caminar(per1, ruta1b);
+  await esperar(250);
+
+  // II · el árbol
+  per2.poner(...cima(P2, 3, 3, 0));
+  pasar("e1", "e2"); marcar(1); await esperar(1200);
+  anillo2.setAttribute("opacity", .8);
+  if (MOV){ S("animate", { attributeName: "r", values: "60;90;60", dur: "1.8s", repeatCount: "indefinite" }, anillo2); S("animate", { attributeName: "opacity", values: ".8;0;.8", dur: "1.8s", repeatCount: "indefinite" }, anillo2); }
+  await pedir("Toca el árbol para girarlo", s2);
+  anillo2.remove();
+  const ox = P2(0, 0, 0)[0];
+  await tween(1500, (e) => { const s = Math.cos(e*Math.PI*4); arbolG.setAttribute("transform", `translate(${ox} 0) scale(${s.toFixed(3)} 1) translate(${-ox} 0)`);
+    focos.forEach((f, i) => { if (e > i/focos.length) f.setAttribute("opacity", 1); }); });
+  arbolG.removeAttribute("transform");
+  focos.forEach(f => f.setAttribute("opacity", 1));
+  await caminar(per2, ruta2, 420);
+  await tween(700, e => { punta.setAttribute("opacity", (.55 + .45*e).toFixed(2)); halo2.setAttribute("opacity", (e*.9).toFixed(2)); });
+  await esperar(600);
+
+  // III · la estrella y la casita
+  per3.poner(...cima(P3, 3, 2.2, 0));
+  per3.cuerpo.setAttribute("transform", "scale(-1 1)"); per3.dir = -1;
+  pasar("e2", "e3", true); marcar(2); await esperar(1200);
+  await pedir("Toca la estrella", pin);
+  { const a = pin.querySelector("animateTransform"); if (a) a.remove(); }
+  // golpe y explosión
+  await tween(500, (e, t) => pin.setAttribute("transform", `rotate(${(Math.sin(t*Math.PI*6)*10*(1 - t)).toFixed(2)} ${PX} 0)`), t => t);
+  romper();
+  await Promise.all(picos.map(({ g, a }, i) => tween(900, e => { g.setAttribute("transform", `translate(${(Math.cos(a)*90*e).toFixed(1)} ${(Math.sin(a)*90*e + 60*e*e).toFixed(1)}) rotate(${(e*120*(i % 2 ? 1 : -1)).toFixed(1)} ${PX} ${PY})`); g.setAttribute("opacity", (1 - e).toFixed(2)); })));
+  tween(900, e => { haloP.setAttribute("opacity", (.25 + .2*e).toFixed(2)); haloP.setAttribute("r", (60 - 8*e).toFixed(1)); centro.setAttribute("transform", `translate(${PX} ${PY}) scale(${(1 - .25*e).toFixed(3)}) translate(${-PX} ${-PY})`); });
+  $("h3").querySelector("h1").textContent = "Una casita para llegar";
+  await subir(casa, 200, 900);
+  await caminar(per3, [cima(P3, 2.6, 1, 0)]);
+  await pedir("Toca la casita", casa);
+  // la casita se despliega
+  await Promise.all([
+    tween(900, e => casa.techo.setAttribute("transform", `translate(${(10*e).toFixed(1)} ${(-90*e).toFixed(1)}) rotate(${(-12*e).toFixed(1)} 180 380)`)),
+    tween(900, e => { casa.paredI.setAttribute("transform", `translate(${(-34*e).toFixed(1)} ${(18*e).toFixed(1)})`); casa.paredI.setAttribute("opacity", (1 - e).toFixed(2)); casa.ventana.setAttribute("opacity", (1 - e).toFixed(2)); }),
+    tween(900, e => { casa.paredD.setAttribute("transform", `translate(${(34*e).toFixed(1)} ${(18*e).toFixed(1)})`); casa.paredD.setAttribute("opacity", (1 - e).toFixed(2)); }),
+    tween(900, e => luz.setAttribute("opacity", e.toFixed(2)))
+  ]);
+  $("h3").classList.add("oculta");
+  await esperar(300);
+  $("hoja").classList.add("si");
+}
+function romper(){
+  const cols = ["#f3a9ba", "#86cfb8", "#bbb0f1", "#f2c46d", "#fff8f0", "#d9475a"];
+  const piezas = [];
+  for (let i = 0; i < 46; i++){
+    const a = Math.random()*Math.PI*2, v = 60 + Math.random()*120, r = 2 + Math.random()*3;
+    const e = Math.random() > .5 ? S("circle", { cx: PX, cy: PY, r, fill: cols[i % cols.length] }, confeti) : S("rect", { x: PX - r, y: PY - r/2, width: r*2, height: r, rx: 1, fill: cols[i % cols.length] }, confeti);
+    piezas.push({ e, vx: Math.cos(a)*v, vy: Math.sin(a)*v - 60, rot: Math.random()*360 });
+  }
+  tween(2200, (e, t) => piezas.forEach(p => { const x = p.vx*t*1.4, y = p.vy*t*1.4 + 260*t*t; p.e.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${(p.rot + t*400).toFixed(0)} ${PX} ${PY})`); p.e.setAttribute("opacity", (1 - t*t).toFixed(2)); }), t => t);
+}
+historia();
+})();
+</script>
+</body>
+</html>

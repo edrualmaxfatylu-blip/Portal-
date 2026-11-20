@@ -5,6 +5,9 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 
 - `index.html`: página principal
 - `boda/`, `cuento/`, `juguetes/`, `selva/`: invitaciones de demostración
+- `estrella/`: «El camino de la estrella», tarjeta navideña que se juega (estilo isométrico, islas flotantes,
+  árbol de escalones que gira, piñata y casita que se despliega). `modo:"tarjeta"` o `"posada"`; nombre del invitado con
+  `#para=Nombre`; con `#reel` se juega sola (para grabar reels). Sale destacada en la portada (`#estrella`) y en el simulador (`arma/#estrella`).
 - `navidad/`: tarjeta navideña o invitación de posada (`modo:"tarjeta"` o `"posada"`). Promoción de temporada: desde $80, impresa con QR y NFC $150 más con envío.
 - `logo.svg`, `icono.svg`, `apple-touch-icon.png`: logo e ícono
 - `og.png`, `arma/og.png`: imágenes que salen al compartir el enlace en WhatsApp o Facebook
@@ -36,7 +39,7 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 
 - `arma/`: el visitante arma su invitación o el portal de su negocio, lo ve con marca de agua y lo pide por WhatsApp con «La quiero». No cobra nada en la página.
   - `arma/#invitacion`, `arma/#portal` y `arma/#menu` abren cada pestaña (útil para los anuncios).
-  - `arma/` (sin nada) y `arma/#navidad` abren el botón «Tarjetas navideñas interactivas» con el precio desde $80; `arma/#boda`, `#cuento`, `#juguetes` y `#selva` abren ese diseño.
+  - `arma/` (sin nada) y `arma/#navidad` abren el botón «Tarjetas navideñas interactivas» con el precio desde $80; `arma/#boda`, `#cuento`, `#juguetes` y `#selva` abren ese diseño; `arma/#estrella` abre «El camino de la estrella».
   - La promoción de Navidad sale en la portada (`index.html`, bloque «Promoción de temporada») y en el texto de `arma/`; quítala en enero.
   - `index.html` se arma con `node fabrica/generar.js construir`; se edita `fuente.html`.
 

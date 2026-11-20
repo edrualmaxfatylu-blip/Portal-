@@ -137,7 +137,7 @@ const $=s=>document.querySelector(s);
 function el(t,c,x){const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 const clon=o=>JSON.parse(JSON.stringify(o));
 
-const DIS={nav:[["navidad","Navidad o posada"]],inv:[["boda","Boda o XV"],["cuento","Cuento de hadas"],["juguetes","Juguetes"],["selva","Selva"]],por:[["negocio","Negocio"],["menu","Menú con pedidos"]]};
+const DIS={nav:[["navidad","Navidad o posada"],["estrella","El camino de la estrella"]],inv:[["boda","Boda o XV"],["cuento","Cuento de hadas"],["juguetes","Juguetes"],["selva","Selva"]],por:[["negocio","Negocio"],["menu","Menú con pedidos"]]};
 const PAL_INV=[["Del diseño",null],["Rosa",["#b0476b","#7a2a47","#e8b04b","#ffb3c7","#fff4f6"]],["Azul",["#2f5d9e","#1b3a66","#f2c14e","#7fd1ff","#f3f7ff"]],["Olivo",["#4c5a45","#333d2e","#b08d57","#d9c9a3","#f6f1e7"]],["Lila",["#6b4fa0","#3f2a6b","#f5c451","#c9b6ff","#f8f4ff"]],["Negro y oro",["#1f1f24","#0e0e12","#c9a45c","#e8d9b0","#f7f3ea"]]];
 const PAL_POR=[["Del diseño",null],["Medianoche",["#171532","#171532","#ff6b4a","#ff6b4a","#fff7ec"]],["Café",["#2b1d16","#2b1d16","#ff9f43","#ff9f43","#fbf3ea"]],["Verde",["#14532d","#14532d","#facc15","#facc15","#f3faf4"]],["Azul",["#1e3a8a","#1e3a8a","#38bdf8","#38bdf8","#f2f6ff"]],["Vino",["#7f1d1d","#7f1d1d","#fbbf24","#fbbf24","#fff6f2"]],["Rosa",["#831843","#831843","#f9a8d4","#f9a8d4","#fff4f8"]]];
 const TIPOS=["Nuestra boda","Mis XV años","Bautizo","Primera comunión","Aniversario"];
@@ -149,6 +149,7 @@ const NAV={"Invitación a posada":{titulo:"Posada navideña",frase:"Ven a pedir 
  "Tarjeta navideña":{titulo:"¡Feliz Navidad!",frase:"Gracias por estar con nosotros este año. Les deseamos una Navidad llena de paz y un año nuevo increíble."}};
 let porta=false;
 function inicial(){const b=T[dis].base;porta=false;
+ if(dis==="estrella"){D={que:b.modo==="posada"?QUE[1]:QUE[0],titulo:b.mensajeTitulo,de:"Familia Ejemplo",frase:b.frase,fecha:"",lugar:"",dir:""};return}
  if(dis==="navidad")D={que:QUE[0],titulo:NAV[QUE[0]].titulo,de:b.de,fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:"",frase:NAV[QUE[0]].frase,fb:"",ig:""};
  else if(dis==="boda")D={tipo:b.tipo,n1:b.nombres[0]||"",n2:b.nombres[1]||"",fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[1]?b.eventos[1].lugar:b.eventos[0].lugar,dir:(b.eventos[1]||b.eventos[0]).direccion,frase:b.frase};
  else if(T[dis].tipo==="invitacion")D={nombre:b.nombre,edad:(b.edad.match(/\d+/)||[""])[0],fecha:b.fecha.slice(0,10),hora:b.fecha.slice(11,16),lugar:b.eventos[0].nombre,dir:b.eventos[0].direccion,frase:b.frase};
@@ -176,7 +177,12 @@ function armarNavidad(f){const tar=D.que==="Tarjeta navideña";
  if(!tar)f.append(dos(campo("Fecha","fecha","date"),campo("Hora","hora","time")),campo("Lugar","lugar"),campo("Dirección","dir","text","La usamos para el botón «Cómo llegar»."));
  else f.append(campo("Dirección (opcional)","dir","text","Si es de tu negocio, sale el botón «Cómo llegar»."));
  f.append(campo("Mensaje","frase","area"),dos(campo("Facebook (opcional)","fb","text","Tu enlace o @usuario"),campo("Instagram (opcional)","ig","text","Tu enlace o @usuario")),campoFoto("Foto o logo (opcional)"),campoExtra())}
+function armarEstrella(f){const tar=D.que==="Tarjeta navideña";
+ f.append(campo("¿Qué quieres?","que","select","",QUE),dos(campo("Título del mensaje","titulo"),campo("De parte de","de","text","Tu familia o tu negocio")));
+ if(!tar)f.append(dos(campo("Cuándo","fecha","text","Ej.: Viernes 19 de diciembre · 7:00 pm"),campo("Dónde","lugar","text","Dirección para el botón «Cómo llegar».")));
+ f.append(campo("Mensaje","frase","area"),el("span","ay","Juega la vista previa: toca la manivela, el árbol, la estrella y la casita."))}
 function armar(){const f=$("#form");f.replaceChildren();n=0;
+ if(dis==="estrella"){armarEstrella(f);return}
  if(dis==="navidad"){armarNavidad(f);return}
  if(dis==="boda"){f.append(campo("Tipo de evento","tipo","select","",TIPOS),dos(campo("Nombre","n1"),campo("Segundo nombre (opcional)","n2")))}
  else if(T[dis].tipo==="invitacion"){f.append(dos(campo("Nombre del festejado","nombre"),campo("Años que cumple","edad","number")))}
@@ -189,7 +195,7 @@ function armar(){const f=$("#form");f.replaceChildren();n=0;
 function pintarDis(){const w=$("#dis");w.replaceChildren();w.classList.toggle("uno",DIS[modo].length<2);$("#h2dis").textContent=DIS[modo].length<2?"Elige los colores":"Elige el diseño";DIS[modo].forEach(([id,nm])=>{const b=T[id].base,x=el("button","dz");x.type="button";x.setAttribute("aria-pressed",id===dis);
  const i=el("i");[b.color,b.color2||b.color,b.acento,b.acento2||b.fondo,b.fondo].forEach(c=>{const s=el("span");s.style.background=c;i.appendChild(s)});x.append(i,el("b","",nm));
  x.onclick=()=>{dis=id;pal=0;foto="";inicial();pintarDis();pintarPal();armar();heroTexto();cambio(true)};w.appendChild(x)})}
-function pintarPal(){const w=$("#pal");w.replaceChildren();const P=modo!=="por"?PAL_INV:PAL_POR,b=T[dis].base;
+function pintarPal(){const w=$("#pal");w.replaceChildren();const P=dis==="estrella"?[["Del diseño",null]]:(modo!=="por"?PAL_INV:PAL_POR),b=T[dis].base;
  P.forEach(([nm,c],j)=>{const cs=c||[b.color,b.color2||b.color,b.acento,b.acento2||b.acento,b.fondo];const x=el("button","pc");x.type="button";x.title=nm;x.setAttribute("aria-label","Colores "+nm);x.setAttribute("aria-pressed",j===pal);
   [cs[0],cs[2]].forEach(v=>{const s=el("span");s.style.background=v;x.appendChild(s)});x.onclick=()=>{pal=j;pintarPal();cambio()};w.appendChild(x)})}
 
@@ -198,6 +204,7 @@ const mapa=d=>d?"https://www.google.com/maps/dir/?api=1&destination="+encodeURIC
 function hora12(h){if(!h)return "";const [a,b]=h.split(":").map(Number);return (a%12||12)+":"+String(b).padStart(2,"0")+" "+(a<12?"am":"pm")}
 function red(v,dom){v=(v||"").trim();if(!v)return "";if(/^https?:\/\//i.test(v))return v;v=v.replace(/^@/,"").replace(/^(www\.)?(facebook|instagram)\.com\//i,"");return "https://"+dom+"/"+encodeURIComponent(v)}
 function config(){const c=clon(T[dis].base);c.demo=true;
+ if(dis==="estrella"){const tar=D.que==="Tarjeta navideña";c.modo=tar?"tarjeta":"posada";c.mensajeTitulo=D.titulo;c.de=D.de;c.frase=D.frase;c.fecha=tar?"":D.fecha;c.lugar=tar?"":D.lugar;c.confirmar=tar?"":"525500000000";return c}
  const P=(modo!=="por"?PAL_INV:PAL_POR)[pal][1];if(P){c.color=P[0];if("color2" in c)c.color2=P[1];c.acento=P[2];if("acento2" in c)c.acento2=P[3];c.fondo=P[4]}
  if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";c.modo=tar?"tarjeta":"posada";c.tipo=tar?"Te mandamos un abrazo":c.tipo;c.titulo=D.titulo;c.de=D.de;c.frase=D.frase;
   c.abrir=tar?"Abrir tarjeta":"Abrir invitación";c.fecha=tar?"":(D.fecha||c.fecha.slice(0,10))+"T"+(D.hora||"19:00")+":00";
@@ -230,7 +237,9 @@ $("#bSobre").onclick=()=>{sobre=true;pintar();sobre=false};
 // ---- Mensaje de WhatsApp ----
 const FMT=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo!=="por"?PAL_INV:PAL_POR)[pal][0];
- if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta de Navidad":"invitación de posada")+" en su página y la quiero (promoción desde $80).","","• Colores: "+pn.toLowerCase(),"• Título: "+D.titulo,"• De parte de: "+D.de);
+ if(dis==="estrella"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta":"invitación de posada")+" «El camino de la estrella» en su página y la quiero.","","• Título: "+D.titulo,"• De parte de: "+D.de);
+  if(!tar){if(D.fecha)L.push("• Cuándo: "+D.fecha);if(D.lugar)L.push("• Dónde: "+D.lugar)}if(D.frase)L.push("• Mensaje: "+D.frase)}
+ else if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta de Navidad":"invitación de posada")+" en su página y la quiero (promoción desde $80).","","• Colores: "+pn.toLowerCase(),"• Título: "+D.titulo,"• De parte de: "+D.de);
   if(!tar){let f="";try{f=D.fecha?FMT.format(new Date(D.fecha+"T12:00:00")):""}catch(e){}L.push("• Fecha: "+f+(D.hora?", "+hora12(D.hora):""),"• Lugar: "+[D.lugar,D.dir].filter(Boolean).join(", "))}else if(D.dir)L.push("• Dirección: "+D.dir);
   if(D.frase)L.push("• Mensaje: "+D.frase);const r=[D.fb,D.ig].filter(x=>x&&x.trim());if(r.length)L.push("• Redes: "+r.join(", "));
   if(porta)L.push("• Extra: la quiero impresa con QR y NFC (+$150, con envío).")}
@@ -258,7 +267,7 @@ function ponModo(m,desdeHash){modo=m;dis=DIS[m][0][0];pal=0;foto="";
  inicial();pintarDis();pintarPal();armar();cambio(true)}
 $("#tNav").onclick=()=>ponModo("nav");$("#tInv").onclick=()=>ponModo("inv");$("#tPor").onclick=()=>ponModo("por");
 $("#bVer").onclick=()=>$("#vista").scrollIntoView({behavior:"smooth"});
-function deHash(){const h=location.hash.slice(1);ponModo(h==="portal"||h==="menu"?"por":(h===""||h==="navidad")?"nav":"inv",true);if(h==="menu"){dis="menu";inicial();pintarDis();pintarPal();armar();cambio(true)}
+function deHash(){const h=location.hash.slice(1);ponModo(h==="portal"||h==="menu"?"por":(h===""||h==="navidad"||h==="estrella")?"nav":"inv",true);if(h==="estrella"){dis="estrella";inicial();pintarDis();pintarPal();armar();heroTexto();cambio(true)}if(h==="menu"){dis="menu";inicial();pintarDis();pintarPal();armar();cambio(true)}
  else if(h==="boda"||h==="cuento"||h==="juguetes"||h==="selva"){dis=h;inicial();pintarDis();pintarPal();armar();heroTexto();cambio(true)}}
 addEventListener("hashchange",deHash);deHash();
 })();
