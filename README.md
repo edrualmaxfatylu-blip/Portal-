@@ -24,7 +24,8 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 - `endorfina/`: Endorfina espresso. Antes en el repositorio `Endorfinas-cafe`.
 - `casa-maestra/`: Endorfina Casa Maestra. Antes en `endorfina-casa-maestra`. Le faltan horario, WhatsApp y menú.
 - `fotografo/`: portal de Edgar Ruiz, fotógrafo, en blanco y negro (portafolio, servicios a cotizar, menú, tarjeta con QR y NFC).
-  También sirve de muestra en los anuncios para fotógrafos. Todo se edita en `CONFIG`; las fotos van en `fotografo/fotos/` en WebP.
+  Es el ejemplo del **portal premium** (diseño a la medida, precio a cotizar) que sale en la portada (`#premium`)
+  y en los anuncios para fotógrafos. Todo se edita en `CONFIG`; las fotos van en `fotografo/fotos/` en WebP.
   El QR se genera dentro de la página (sin librerías) con la dirección de `CONFIG.url`.
 - `el-cerdito/`: Carnitas El Cerdito. Antes en el repositorio `index.html`. Sus datos van en `NEGOCIO`
   al final del archivo; lo que está vacío no se muestra.

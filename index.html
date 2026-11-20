@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#171532">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23171532'/%3E%3Cpath d='M15 37V23a9 9 0 0 1 18 0v14' fill='none' stroke='%23fff' stroke-width='4.2' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='26' r='3.2' fill='%23ff6b4a'/%3E%3Ccircle cx='36.5' cy='11.5' r='2.6' fill='%23b9b4ff'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 /* Una columna para teléfono; Negocios va en banda medianoche (tono empresarial), Invitaciones y Navidad en crema (tono cálido). */
 :root{
@@ -121,6 +121,21 @@ section{scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
 .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .btn-row .btn{min-height:48px;padding:0 12px;font-size:.95rem}
 .wa-ico{width:20px;height:20px;flex:none}
+
+
+/* Premium (blanco y negro) */
+.premium{background:#0a0a0a;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:26px;overflow:hidden}
+.premium .foto{position:relative;display:block;aspect-ratio:1200/630;background:#111}
+.premium .foto img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1)}
+.premium .foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#0a0a0a 100%)}
+.premium .sello{position:absolute;left:14px;top:14px;z-index:1;font:700 .66rem/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:#fff;color:#0a0a0a;padding:7px 10px;border-radius:999px}
+.premium h3 em{font-family:"Instrument Serif",Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em}
+.premium .price{background:#fff;color:#0a0a0a}
+.premium .checks li::before{background-color:#fff;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%230a0a0a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.premium .intro{color:#bdbcb6}
+.choice.prem{background:#0a0a0a;color:#fff;border-color:#0a0a0a}
+.choice.prem small{color:#bdbcb6}.choice.prem .go{color:#fff}
+.choice.prem .tag{background:#fff;color:#0a0a0a}
 
 /* Pasos */
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
@@ -232,6 +247,11 @@ footer .links a{font-weight:600;color:var(--fg)}
       <span><span class="tag">El más pedido</span><b>Portal para mi negocio</b><small>Menú, servicios y promociones · <span data-precio></span></small></span>
       <span class="go" aria-hidden="true">→</span>
     </a>
+    <a class="choice prem" href="#premium">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="18" fill="#fff"/><rect x="13" y="22" width="38" height="26" rx="5" fill="#0a0a0a"/><rect x="24" y="16" width="14" height="8" rx="2" fill="#0a0a0a"/><circle cx="32" cy="35" r="8.5" fill="#fff"/><circle cx="32" cy="35" r="4.5" fill="#0a0a0a"/><circle cx="44" cy="28" r="2" fill="#fff"/></svg>
+      <span><span class="tag">Premium</span><b>Portal premium para profesionales</b><small>Diseño a la medida · A cotizar</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
     <a class="choice" href="#invitaciones">
       <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="2" y="2" width="60" height="60" rx="18" fill="#ffe3da"/><rect x="12" y="20" width="40" height="28" rx="4" fill="#fff" stroke="#171532" stroke-width="3"/><path d="M12 22l20 14 20-14" fill="none" stroke="#171532" stroke-width="3" stroke-linejoin="round"/><path d="M32 16c-3-4-9-1-6 4l6 5 6-5c3-5-3-8-6-4z" fill="#ff6b4a" stroke="#171532" stroke-width="2.4" stroke-linejoin="round"/></svg>
       <span><b>Invitación para mi evento</b><small>Bodas, XV años, cumpleaños y más</small></span>
@@ -280,6 +300,26 @@ footer .links a{font-weight:600;color:var(--fg)}
             <a class="btn btn-line" href="https://portalab.com.mx/plantillas/menu/" target="_blank" rel="noopener">Ver un menú</a>
           </div>
           <a class="btn btn-line" data-arma="#portal">Arma el tuyo gratis</a>
+        </div>
+      </article>
+
+      <article class="premium" id="premium">
+        <a class="foto" href="https://portalab.com.mx/fotografo/" target="_blank" rel="noopener" aria-label="Ver el ejemplo: portal de fotógrafo">
+          <span class="sello">Diseño premium</span>
+          <img src="fotografo/fotos/og.jpg" alt="Portal premium de fotógrafo en blanco y negro" loading="lazy" width="1200" height="630">
+        </a>
+        <div class="card-body">
+          <div class="price-row"><h3>Portal <em>premium</em></h3><span class="price">A cotizar</span></div>
+          <p class="intro">Para fotógrafos y profesionales que quieren una página a su medida: diseño propio, animaciones y una presentación que se nota.</p>
+          <ul class="checks">
+            <li>Diseño a la medida, sin plantilla</li>
+            <li>Portafolio con filtros y fotos a pantalla completa</li>
+            <li>Menú elegante y tarjeta con QR y NFC</li>
+            <li>Servicios que se cotizan por WhatsApp en un toque</li>
+            <li>Fotos optimizadas para que cargue rápido</li>
+          </ul>
+          <a class="btn btn-wa" data-wa="Hola, me interesa un portal premium para profesionales.">Cotizar mi portal premium</a>
+          <a class="btn btn-line" href="https://portalab.com.mx/fotografo/" target="_blank" rel="noopener">Ver ejemplo: fotógrafo</a>
         </div>
       </article>
 
