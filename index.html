@@ -148,6 +148,8 @@ section{scroll-margin-top:calc(60px + env(safe-area-inset-top,0px))}
 .destacada p{color:#6c5c79}
 .destacada .btn-tinta{background:#3b2f4a;color:#fff8f0}
 .destacada .btn-line{color:#3b2f4a}
+.destacada .premium-p{background:#3b2f4a;color:#fff8f0}
+.destacada .checks li::before{background-color:#3b2f4a}
 
 /* Pasos */
 .steps{list-style:none;margin:0;padding:0;display:grid;gap:10px}
@@ -403,16 +405,22 @@ footer .links a{font-weight:600;color:var(--fg)}
       </div>
       <article class="destacada" id="estrella">
         <a class="poster" href="https://portalab.com.mx/estrella/" target="_blank" rel="noopener" aria-label="Jugar la tarjeta El camino de la estrella">
-          <span class="sello">Nueva · se juega</span>
+          <span class="sello">Premium · interactiva</span>
           <img src="estrella/og.jpg" alt="Tarjeta El camino de la estrella: árbol de escalones en una isla flotante" width="1200" height="630" loading="lazy">
         </a>
         <div class="card-body">
-          <h3>El camino de la estrella</h3>
-          <p>Una tarjeta navideña que se juega: guía al peregrino por islas flotantes, gira el árbol de escalones y rompe la piñata para llegar al mensaje. Con el nombre de cada invitado, o como invitación de posada.</p>
+          <div class="price-row"><h3>El camino de la estrella</h3><span class="price premium-p">A cotizar</span></div>
+          <p>Nuestra tarjeta interactiva premium, la única que se juega. Tus invitados guían al peregrino por islas flotantes, giran el árbol de escalones y rompen la piñata hasta llegar a tu mensaje.</p>
+          <ul class="checks">
+            <li>Diseño isométrico animado, hecho a mano</li>
+            <li>Con el nombre de cada invitado en su enlace</li>
+            <li>Como felicitación o invitación de posada con confirmación</li>
+            <li>Se abre con enlace, QR o NFC, sin apps</li>
+          </ul>
           <a class="btn btn-tinta" href="https://portalab.com.mx/estrella/" target="_blank" rel="noopener">Juégala</a>
           <div class="btn-row">
             <a class="btn btn-line" data-arma="#estrella">Hazla con tu nombre</a>
-            <a class="btn btn-wa" data-wa="Hola, quiero la tarjeta El camino de la estrella.">La quiero</a>
+            <a class="btn btn-wa" data-wa="Hola, quiero cotizar la tarjeta interactiva premium El camino de la estrella.">Cotízala</a>
           </div>
         </div>
       </article>
@@ -492,7 +500,7 @@ const CONFIG = {
 
   // Tarjetas de Navidad
   navidad: [
-    { nombre: "El camino de la estrella", tema: "estrella", detalle: "Nueva: una tarjeta que se juega. Islas flotantes, un árbol que gira y una piñata.", enlace: "https://portalab.com.mx/estrella/", arma: "#estrella" },
+    { nombre: "El camino de la estrella", tema: "estrella", detalle: "Premium e interactiva: se juega. A cotizar.", enlace: "https://portalab.com.mx/estrella/", arma: "#estrella" },
     { nombre: "Tarjeta navideña",     tema: "familia", detalle: "Tu foto y tu mensaje para familia, amigos o clientes.", enlace: "",                                 arma: "#navidad" },
     { nombre: "Invitación de posada", tema: "empresa", detalle: "Con fecha, lugar, mapa y confirmación.",               enlace: "https://portalab.com.mx/navidad/", arma: "#navidad" }
   ],

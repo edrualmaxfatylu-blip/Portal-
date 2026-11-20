@@ -237,7 +237,7 @@ $("#bSobre").onclick=()=>{sobre=true;pintar();sobre=false};
 // ---- Mensaje de WhatsApp ----
 const FMT=new Intl.DateTimeFormat("es-MX",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
 function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo!=="por"?PAL_INV:PAL_POR)[pal][0];
- if(dis==="estrella"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta":"invitación de posada")+" «El camino de la estrella» en su página y la quiero.","","• Título: "+D.titulo,"• De parte de: "+D.de);
+ if(dis==="estrella"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta":"invitación de posada")+" «El camino de la estrella» (tarjeta interactiva premium) en su página y quiero que me la coticen.","","• Título: "+D.titulo,"• De parte de: "+D.de);
   if(!tar){if(D.fecha)L.push("• Cuándo: "+D.fecha);if(D.lugar)L.push("• Dónde: "+D.lugar)}if(D.frase)L.push("• Mensaje: "+D.frase)}
  else if(dis==="navidad"){const tar=D.que==="Tarjeta navideña";L.push("Hola portalab, armé mi "+(tar?"tarjeta de Navidad":"invitación de posada")+" en su página y la quiero (promoción desde $80).","","• Colores: "+pn.toLowerCase(),"• Título: "+D.titulo,"• De parte de: "+D.de);
   if(!tar){let f="";try{f=D.fecha?FMT.format(new Date(D.fecha+"T12:00:00")):""}catch(e){}L.push("• Fecha: "+f+(D.hora?", "+hora12(D.hora):""),"• Lugar: "+[D.lugar,D.dir].filter(Boolean).join(", "))}else if(D.dir)L.push("• Dirección: "+D.dir);
@@ -255,6 +255,9 @@ function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo!=="po
 
 // ---- Pestañas ----
 function heroTexto(){const m=modo;
+ {const pr=document.querySelector("#tNav .pr");if(pr)pr.textContent=dis==="estrella"?"Premium · a cotizar":"Desde $80"}
+ if(m==="nav"&&dis==="estrella"){$("#h1").replaceChildren(document.createTextNode("El camino de la estrella. "),el("em","","Premium, a cotizar."));
+  $("#lead").textContent="Nuestra tarjeta interactiva premium: la única que se juega. Tus invitados guían al peregrino, giran el árbol y rompen la piñata hasta llegar a tu mensaje, con el nombre de cada quien. Pruébala gratis aquí y cotízala por WhatsApp.";return}
  if(m==="nav"){$("#h1").replaceChildren(document.createTextNode("Tu tarjeta o invitación de Navidad. "),el("em","","Desde $80."));
   $("#lead").textContent="Arma tu tarjeta navideña o la invitación de tu posada con botón de WhatsApp, ubicación y tus redes. Mírala gratis en tu celular y pídela desde $80. ¿La quieres impresa con QR y NFC? Son $150 más, con envío.";return}
  $("#h1").replaceChildren(document.createTextNode(m==="inv"?"Arma tu invitación. ":"Arma el portal de tu negocio. "),el("em","",m==="inv"?"Nosotros la terminamos.":"Nosotros lo terminamos."));
