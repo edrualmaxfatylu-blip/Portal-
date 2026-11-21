@@ -7,7 +7,7 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 - `boda/`, `cuento/`, `juguetes/`, `selva/`: invitaciones de demostración
 - `estrella/`: «El camino de la estrella», tarjeta navideña que se juega (estilo isométrico, islas flotantes,
   árbol de escalones que gira, piñata y casita que se despliega). `modo:"tarjeta"` o `"posada"`; nombre del invitado con
-  `#para=Nombre`; con `#reel` se juega sola (para grabar reels). Sale destacada en la portada (`#estrella`) y en el simulador (`arma/#estrella`). Al final muestra «¿Quieres una tarjeta así?» con el WhatsApp de portalab (`quieresUna:false` lo quita).
+  `#para=Nombre`; con `#reel` se juega sola (para grabar reels). Sale destacada en la portada (`#estrella`) y en el simulador (`arma/#estrella`). Precio: $120 pesos MXN. Al final muestra «¿Quieres una tarjeta así?» con el precio y el WhatsApp de portalab (`quieresUna:false` lo quita).
 - `temporada/fiestas/`, `temporada/reyes/`, `temporada/tarjeta/`: invitación de temporada ($179), Rosca de Reyes ($99) y tarjeta de felicitación (desde $80), con cierre «¿Quieres una así?» (`CONFIG.promo`).
 - `navidad/`: tarjeta navideña o invitación de posada (`modo:"tarjeta"` o `"posada"`). Promoción de temporada: desde $80, impresa con QR y NFC $150 más con envío.
 - `logo.svg`, `icono.svg`, `apple-touch-icon.png`: logo e ícono

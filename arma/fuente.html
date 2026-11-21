@@ -255,8 +255,8 @@ function mensaje(){const L=[],nm=DIS[modo].find(x=>x[0]===dis)[1],pn=(modo!=="po
 
 // ---- Pestañas ----
 function heroTexto(){const m=modo;
- {const pr=document.querySelector("#tNav .pr");if(pr)pr.textContent=dis==="estrella"?"Premium · a cotizar":"Desde $80"}
- if(m==="nav"&&dis==="estrella"){$("#h1").replaceChildren(document.createTextNode("El camino de la estrella. "),el("em","","Premium, a cotizar."));
+ {const pr=document.querySelector("#tNav .pr");if(pr)pr.textContent=dis==="estrella"?"Premium · $120 pesos MXN":"Desde $80 pesos MXN"}
+ if(m==="nav"&&dis==="estrella"){$("#h1").replaceChildren(document.createTextNode("El camino de la estrella. "),el("em","","Premium, $120 pesos MXN."));
   $("#lead").textContent="Nuestra tarjeta interactiva premium: la única que se juega. Tus invitados guían al peregrino, giran el árbol y rompen la piñata hasta llegar a tu mensaje, con el nombre de cada quien. Pruébala gratis aquí y cotízala por WhatsApp.";return}
  if(m==="nav"){$("#h1").replaceChildren(document.createTextNode("Tu tarjeta o invitación de Navidad. "),el("em","","Desde $80."));
   $("#lead").textContent="Arma tu tarjeta navideña o la invitación de tu posada con botón de WhatsApp, ubicación y tus redes. Mírala gratis en tu celular y pídela desde $80. ¿La quieres impresa con QR y NFC? Son $150 más, con envío.";return}
