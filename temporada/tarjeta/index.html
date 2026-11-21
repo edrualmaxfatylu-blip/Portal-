@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta property="og:type" content="website"><meta property="og:title" content="¡Tienes una tarjeta de felicitación!"><meta property="og:description" content="Ábrela y mírala armarse frente a tus ojos."><meta property="og:url" content="https://portalab.com.mx/temporada/tarjeta/"><meta property="og:image" content="https://portalab.com.mx/og.png">
+<title>¡Felices fiestas! · Tarjeta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#f5e8d3}
+body{min-height:100vh;font:16px/1.55 "Instrument Sans","Inter",system-ui,sans-serif;color:#3b2414;overflow-x:hidden;
+  background:radial-gradient(circle at 15% 8%,rgba(242,183,5,.18),transparent 35%),radial-gradient(circle at 85% 60%,rgba(214,40,40,.07),transparent 40%),
+  repeating-linear-gradient(97deg,rgba(140,90,40,.035) 0 2px,transparent 2px 9px),#f5e8d3;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#escala{width:390px;margin:0 auto;transform-origin:50% 0}
+.acciones{max-width:390px;margin:0 auto;padding:6px 24px 40px;display:grid;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 24px;border-radius:999px;border:0;font:700 1.02rem "Instrument Sans","Inter",sans-serif;cursor:pointer;text-decoration:none}
+.btn-wa{background:#1faa59;color:#fff;box-shadow:0 5px 0 #158343}
+.btn-sec{background:transparent;border:2px solid #3b2414;color:#3b2414}
+.pie{margin-top:10px;text-align:center;font-size:.82rem;color:#7a5a42;display:flex;align-items:center;justify-content:center;gap:7px}
+.pie a{display:inline-flex;align-items:center;gap:6px;color:#171532;font-weight:800;text-decoration:none}
+.pie a i{font-style:normal;color:#ff6b4a}
+.demo{position:fixed;top:calc(10px + env(safe-area-inset-top));right:10px;z-index:60;background:#171532;color:#fff;font:700 .7rem sans-serif;letter-spacing:.1em;padding:5px 10px;border-radius:999px}
+.oculto{display:none!important}
+.tf-stage{position:relative;width:390px;height:700px;margin:0 auto;color:#3b2414;font-family:"Instrument Sans","Inter",system-ui,sans-serif}
+.tf-stage svg{display:block}
+.tf-para{position:absolute;left:0;right:0;top:26px;text-align:center;font:700 .78rem/1 ui-monospace,"DejaVu Sans Mono",monospace;letter-spacing:.18em;text-transform:uppercase;color:#d62828}
+.tf-panel{position:absolute;left:20px;top:118px;width:350px;height:204px}
+.tf-pz{position:absolute;left:0;top:0;width:350px;height:204px}
+.tf-seam{position:absolute;left:0;top:0;width:350px;height:204px}
+.tf-marco{position:absolute;inset:-5px;border:5px solid #4a2c17;border-radius:10px;box-shadow:0 16px 34px rgba(40,20,10,.28);pointer-events:none}
+.tf-flash{position:absolute;inset:0;background:radial-gradient(circle,rgba(255,240,190,.95),rgba(255,240,190,0) 70%);pointer-events:none}
+.tf-coronas{position:absolute;left:0;right:0;top:60px;height:64px;display:flex;justify-content:center;align-items:flex-end;gap:6px}
+.tf-coronas svg{width:56px;height:auto}
+.tf-coronas svg:nth-child(2){width:70px}
+.tf-estante{position:absolute;left:26px;right:26px;top:452px;height:14px;border-radius:6px;border:3px solid #4a2c17;background:repeating-linear-gradient(90deg,transparent 0 30px,rgba(90,50,20,.18) 30px 32px),linear-gradient(#dba56b,#b9783c);transform-origin:50% 50%}
+.tf-toy{position:absolute;height:auto}
+#trompo{left:44px;top:363px;width:66px;transform-origin:50% 95%}
+#caballito{left:131px;top:342px;width:128px}
+#balero{left:280px;top:352px;width:70px}
+.tf-title{position:absolute;left:0;right:0;top:478px;text-align:center;font:800 46px/1 "Fraunces","Lora",Georgia,serif;letter-spacing:-.02em;white-space:nowrap}
+.tf-title span,.tf-title em{display:inline-block}
+.tf-title em{font-style:italic;font-weight:700;color:#d62828}
+.tf-msg{position:absolute;left:35px;right:35px;top:542px;text-align:center;font-size:16.5px;line-height:1.5;color:#7a5a42}
+.tf-firma{position:absolute;left:0;right:0;top:628px;text-align:center}
+.tf-firma small{display:block;font-size:14px;color:#7a5a42}
+.tf-firma b{font:italic 700 26px/1.2 "Fraunces","Lora",Georgia,serif;color:#2a8f4b}
+.tf-dust{position:absolute;inset:0;pointer-events:none}
+.tf-sp{position:absolute;left:0;top:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:radial-gradient(circle,#fff6c9,#f7c948 50%,rgba(247,201,72,0) 72%)}
+
+
+/* ===== cierre de marca portalab (se oculta si promo.titulo está vacío) ===== */
+.promo{margin-top:30px;padding:26px 22px 22px;border-radius:26px;background:#171532;color:#fff;text-align:center;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(23,21,50,.25)}
+.promo::before{content:"";position:absolute;width:220px;height:220px;right:-80px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(185,180,255,.45),transparent 70%)}
+.promo::after{content:"";position:absolute;width:200px;height:200px;left:-80px;bottom:-100px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,74,.35),transparent 70%)}
+.promo>*{position:relative}
+.promo .logo{display:inline-flex;align-items:center;gap:8px;font:800 1.1rem "Instrument Sans",system-ui,sans-serif;letter-spacing:-.02em}
+.promo .logo i{font-style:normal;color:#ff6b4a}
+.promo h3{margin:14px 0 8px;font:800 1.5rem/1.15 "Fraunces","Lora",Georgia,serif;letter-spacing:-.02em}
+.promo p{margin:0 0 18px;color:#d9d6f5;font-size:.98rem;line-height:1.5}
+.promo .btn{width:100%}
+.promo .btn-wa{background:#1faa59;color:#fff}
+.promo .btn-web{margin-top:12px;min-height:50px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7);font-size:1rem}
+</style>
+</head>
+<body>
+<script>
+/* =========================================================
+   CONFIG — lo único que se edita por cliente.
+   Campo vacío ("") = se oculta.
+   El enlace puede traer #de=Nombre&para=Nombre para personalizar cada envío.
+   ========================================================= */
+const CONFIG = {
+  demo: true,                               // true = muestra la etiqueta DEMO; false al entregar
+  de: "Familia López",                      // quién manda la tarjeta (firma)
+  para: "Familia Ruiz",                     // a quién va dirigida (puede venir en el enlace)
+  titulo1: "¡Felices",
+  titulo2: "fiestas!",
+  mensaje: "Que estas fechas llenen tu casa de luz, abrazos y alegría. ¡Te queremos mucho!",
+  whatsappRespuesta: "525500000000",        // número de quien manda, para que le respondan (52 + 10 dígitos)
+  textoRespuesta: "¡Gracias por tu tarjeta! Felices fiestas para ti también 🎄",
+  creditoUrl: "https://portalab.com.mx",
+  // Cierre «¿Quieres una así?»: lo ve quien recibe la demo. Deja titulo vacío ("") para ocultarlo al entregar.
+  promo: {
+    titulo: "¿Quieres tu tarjeta como esta?",
+    texto: "Con tu nombre y tu mensaje, lista para mandar por WhatsApp. Desde $80 pesos MXN.",
+    whatsapp: "525533497852",                    // WhatsApp de portalab
+    mensaje: "Hola Edgar, vi la tarjeta de felicitación y quiero una como esta",
+    pagina: "https://portalab.com.mx/"
+  }
+};
+</script>
+<div id="demo" class="demo">DEMO</div>
+<div style="width:100%;overflow:hidden"><div id="escala"><div id="tarjeta"></div></div></div>
+<div class="acciones">
+  <a class="btn btn-wa" id="btnResp" target="_blank" rel="noopener">💌 Responder con cariño</a>
+  <button class="btn btn-sec" id="btnOtra">↻ Verla armarse otra vez</button>
+  <!-- ============ cierre de marca: quien la ve, la pide ============ -->
+  <section class="promo aparece" id="promo">
+    <div class="logo"><svg width="28" height="28" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#fff"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#171532" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><span>porta<i>lab</i></span></div>
+    <h3 id="promoTitulo"></h3>
+    <p id="promoTexto"></p>
+    <a class="btn btn-wa" id="promoWa" target="_blank" rel="noopener">💬 Pídela por WhatsApp</a>
+    <a class="btn btn-web" id="promoWeb" target="_blank" rel="noopener">Ver más en portalab.com.mx</a>
+  </section>
+
+  <div class="pie">hecho por
+    <a id="credito" target="_blank" rel="noopener"><svg width="24" height="24" viewBox="0 0 48 48"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><span>porta<i>lab</i></span></a>
+  </div>
+</div>
+<script>
+/* Tarjeta de felicitación que se arma sola — núcleo compartido por la página y el video.
+   buildCard(root, cfg) arma el DOM dentro de root y devuelve render(t): dibuja el instante t (segundos). */
+function buildCard(root, cfg){
+  root.innerHTML = `
+  <div class="tf-stage">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+      <linearGradient id="wd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e6b177"/><stop offset="1" stop-color="#bf7f41"/></linearGradient>
+      <pattern id="gr" width="46" height="13" patternUnits="userSpaceOnUse"><path d="M0 6 Q11 2 23 6 T46 6" fill="none" stroke="#7d4a20" stroke-opacity=".28" stroke-width="1.3"/><path d="M8 11 Q20 9 30 11" fill="none" stroke="#7d4a20" stroke-opacity=".15" stroke-width="1"/></pattern>
+    </defs></svg>
+    <div class="tf-para" id="tfPara"></div>
+    <div class="tf-panel" id="tfPanel"></div>
+    <div class="tf-coronas" id="coronas"></div>
+    <div class="tf-estante" id="tfEst"></div>
+    <svg class="tf-toy" id="trompo" viewBox="0 0 120 160" aria-hidden="true"></svg>
+    <svg class="tf-toy" id="caballito" viewBox="0 0 200 170" aria-hidden="true"></svg>
+    <svg class="tf-toy" id="balero" viewBox="0 0 140 200" aria-hidden="true"></svg>
+    <div class="tf-title"><span id="tfW1"></span> <em id="tfW2"></em></div>
+    <p class="tf-msg" id="tfMsg"></p>
+    <div class="tf-firma" id="tfFirma"><small>Con cariño,</small><b id="tfDe"></b></div>
+    <div class="tf-dust" id="tfDust"></div>
+  </div>`;
+  const $ = id => root.querySelector('#'+id);
+
+  /* ---------- juguetes de madera ---------- */
+  {
+  const L = "#4a2c17"; // contorno
+  const P = {rosa:"#e4007c",turq:"#0f9aa8",amar:"#f2b705",rojo:"#d62828",verde:"#2a8f4b",blanco:"#fffaf1"};
+
+  /* ---- piezas de madera (SVG propio) ---- */
+  const madera = d => `<path d="${d}" fill="url(#wd)"/><path d="${d}" fill="url(#gr)"/><path d="${d}" fill="none" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>`;
+  const pinta = (d,c) => `<path d="${d}" fill="${c}" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>`;
+  const punto = (x,y,r,c,borde) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c}"${borde?` stroke="${L}" stroke-width="2.5"`:""}/>`;
+
+  function corona(banda, gema, extra){
+    return madera("M14 86 L14 38 L34 62 L47 22 L60 54 L73 22 L86 62 L106 38 L106 86 Z")
+      + punto(14,33,6.5,gema,1)+punto(47,17,6.5,gema,1)+punto(73,17,6.5,gema,1)+punto(106,33,6.5,gema,1)
+      + punto(34,72,3,extra)+punto(60,68,3,extra)+punto(86,72,3,extra)+punto(47,44,2.5,P.blanco)+punto(73,44,2.5,P.blanco)
+      + pinta("M8 76 H112 V96 Q112 102 106 102 H14 Q8 102 8 96 Z",banda)
+      + punto(30,89,5,P.blanco)+punto(60,89,6,gema,1)+punto(90,89,5,P.blanco)
+      + punto(30,89,2,banda)+punto(90,89,2,banda)
+      + punto(45,89,2,P.blanco)+punto(75,89,2,P.blanco);
+  }
+  const coronas = [corona(P.turq,P.amar,P.rosa),corona(P.rosa,P.amar,P.turq),corona(P.verde,P.rojo,P.amar)];
+  $("coronas").innerHTML = coronas.map(c=>`<svg viewBox="0 0 120 108" class="flota">${c}</svg>`).join("");
+
+  // trompo
+  const cuerpo = "M14 54 Q14 32 60 32 Q106 32 106 54 Q106 78 60 138 Q14 78 14 54 Z";
+  $("trompo").innerHTML = `<defs><clipPath id="trc"><path d="${cuerpo}"/></clipPath></defs>
+    <ellipse cx="60" cy="155" rx="26" ry="4" fill="#4a2c17" opacity=".18"/>
+    ${madera("M52 16 Q60 4 68 16 L66 34 H54 Z")}
+    <path d="${cuerpo}" fill="url(#wd)"/><path d="${cuerpo}" fill="url(#gr)"/>
+    <g clip-path="url(#trc)">
+      <rect x="0" y="40" width="120" height="13" fill="${P.rosa}"/>
+      <rect x="0" y="62" width="120" height="10" fill="${P.turq}"/>
+      <rect x="0" y="80" width="120" height="9" fill="${P.amar}"/>
+      <g class="franjas">${[0,1,2,3,4,5,6].map(i=>`<circle cx="${i*40+10}" cy="46.5" r="3.2" fill="${P.blanco}"/><circle cx="${i*40+30}" cy="67" r="2.6" fill="${P.blanco}"/><path d="M${i*40+16} 40v13M${i*40+36} 80v9" stroke="${L}" stroke-opacity=".35" stroke-width="2"/>`).join("")}</g>
+    </g>
+    <path d="${cuerpo}" fill="none" stroke="${L}" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M56 133 L60 152 L64 133 Z" fill="#9aa4ad" stroke="${L}" stroke-width="2.5" stroke-linejoin="round"/>`;
+
+  // balero
+  $("balero").innerHTML = `
+    ${madera("M64 118 H76 V188 Q76 196 70 196 Q64 196 64 188 Z")}
+    ${madera("M67 100 H73 V118 H67 Z")}
+    ${punto(70,150,3,P.rojo)}${punto(70,170,3,P.turq)}
+    <g class="barril">
+      <path d="M70 150 Q40 120 62 78" fill="none" stroke="#7a5a42" stroke-width="2.2"/>
+      ${madera("M40 30 Q40 12 70 12 Q100 12 100 30 V62 Q100 80 70 80 Q40 80 40 62 Z")}
+      <path d="M40 34 H100 V44 H40Z" fill="${P.rojo}" stroke="${L}" stroke-width="2.5"/>
+      <path d="M40 52 H100 V60 H40Z" fill="${P.amar}" stroke="${L}" stroke-width="2.5"/>
+      ${punto(52,39,2.5,P.blanco)}${punto(70,39,2.5,P.blanco)}${punto(88,39,2.5,P.blanco)}
+      <ellipse cx="70" cy="74" rx="9" ry="4" fill="#4a2c17"/>
+      <path d="M40 30 Q40 12 70 12 Q100 12 100 30 V62 Q100 80 70 80 Q40 80 40 62 Z" fill="none" stroke="${L}" stroke-width="3"/>
+    </g>`;
+
+  // caballito
+  $("caballito").innerHTML = `
+    <ellipse cx="100" cy="166" rx="70" ry="4" fill="#4a2c17" opacity=".15"/>
+    <path d="M42 68 Q20 70 22 100" fill="none" stroke="${P.amar}" stroke-width="7" stroke-linecap="round"/>
+    <path d="M42 68 Q20 70 22 100" fill="none" stroke="${L}" stroke-width="2" stroke-linecap="round" stroke-dasharray="0 9"/>
+    ${madera("M54 98 H68 V130 H54 Z")}${madera("M132 98 H146 V130 H132 Z")}
+    ${madera("M28 126 H172 Q176 126 176 130 V136 Q176 140 172 140 H28 Q24 140 24 136 V130 Q24 126 28 126 Z")}
+    ${madera("M40 72 Q40 56 56 56 H138 Q154 56 154 72 V90 Q154 104 140 104 H54 Q40 104 40 90 Z")}
+    ${madera("M134 62 L148 24 Q152 12 166 14 L186 21 Q194 25 189 34 L178 41 L162 45 L156 72 Z")}
+    ${madera("M156 17 L159 3 L167 14 Z")}
+    ${punto(171,26,3.2,L)}
+    ${[0,1,2,3,4].map(i=>punto(146-i*2.6+0, 26+i*9, 5, i%2?P.turq:P.rosa,1)).join("")}
+    ${pinta("M76 56 H118 V84 Q97 94 76 84 Z",P.turq)}
+    ${punto(86,68,3,P.amar)}${punto(97,74,3,P.amar)}${punto(108,68,3,P.amar)}
+    ${punto(58,80,6,P.rosa,1)}${punto(58,80,2.5,P.amar)}${punto(136,82,5,P.amar,1)}
+    ${punto(52,148,16,P.rosa,1)}${punto(52,148,5,P.amar,1)}${punto(148,148,16,P.rosa,1)}${punto(148,148,5,P.amar,1)}`;
+
+  }
+
+  /* ---------- sombras ---------- */
+  const escena = (function(){
+  const S = "#1a100a"; // color de las sombras
+
+  /* ---------- siluetas (dibujos propios) ---------- */
+  // Rey: figura local de 50×100, pies en y=100
+  const coronas = {
+    picos: "M16 24 L17 12 L21 18 L25 8 L29 18 L33 12 L34 24 Z",
+    turbante: "M14 26 Q13 10 25 10 Q37 10 36 26 Z M23.5 10 L25 2 L26.5 10 Z",
+    alta: "M17 25 L21 6 L25 14 L29 4 L33 25 Z"
+  };
+  const regalos = {
+    cofre: '<path d="M40 52 H56 V64 H40 Z M39 48 H57 V53 H39 Z"/>',
+    jarron: '<path d="M44 46 H52 L51 50 Q57 54 54 62 Q48 66 42 62 Q39 54 45 50 Z"/>',
+    caliz: '<path d="M40 44 H56 Q56 54 49 56 V62 H53 V65 H43 V62 H47 V56 Q40 54 40 44 Z"/>'
+  };
+  function rey(x, alto, corona, regalo, baculo){
+    const s = alto/100;
+    return `<g class="rey"><g transform="translate(${x} ${192-alto}) scale(${s})" fill="${S}">
+      <path d="M14 40 Q10 70 4 100 H46 Q40 70 36 40 Q25 34 14 40 Z"/>
+      <path d="M15 40 Q-2 66 -8 99 L10 100 Z"/>
+      <circle cx="25" cy="31" r="8.5"/>
+      <path d="M18 33 Q25 50 32 33 Z"/>
+      <path d="${coronas[corona]}"/>
+      <path d="M33 43 Q44 46 47 54 L43 57 Q37 51 31 50 Z"/>
+      ${regalos[regalo]}
+      ${baculo ? '<path d="M6 36 L4 100" stroke="'+S+'" stroke-width="3.5" stroke-linecap="round"/><circle cx="6.5" cy="34" r="3.5"/>' : ''}
+    </g></g>`;
+  }
+  const arbol = `<g class="arbol" fill="${S}"><g transform="translate(14 0)">
+      <rect x="174" y="176" width="12" height="16"/>
+      <path d="M180 58 L205 98 H192 L214 132 H198 L222 170 H138 L162 132 H146 L168 98 H155 Z"/>
+      <g class="luz"><path d="M180 40 l4.4 9.6 10.4 1-7.8 7 2.3 10.2L180 62.6l-9.3 5.2 2.3-10.2-7.8-7 10.4-1z" fill="#ffd36b"/>
+      ${[[170,104],[190,116],[160,146],[200,150],[178,134],[184,160],[166,124]].map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="2.6" fill="${["#ffd36b","#ff8a5c","#ffd36b","#7fe0e8"][i%4]}" class="brilla" style="animation-delay:${-i*.4}s"/>`).join("")}</g>
+    </g></g>`;
+  const santa = `<g class="santa"><g transform="translate(262 92)" fill="${S}">
+      <path d="M12 100 Q4 60 32 48 Q60 60 52 100 Z"/>
+      <circle cx="32" cy="36" r="10"/>
+      <path d="M22 32 Q25 12 42 10 Q54 12 57 24 Q48 19 41 21 Q40 28 42 32 Z"/>
+      <circle cx="58" cy="26" r="4.6"/>
+      <path d="M22 37 Q32 62 42 37 Z"/>
+      <path d="M8 48 Q-14 36 -9 62 Q-3 80 13 71 Q19 60 8 48 Z"/>
+      <path d="M8 46 L13 39 L16 47 Z"/>
+      <g class="saludo"><path d="M50 62 Q60 52 61 40 L66 41 Q66 56 55 68 Z"/><circle cx="64" cy="38" r="5"/></g>
+      <rect x="18" y="98" width="11" height="2"/><rect x="35" y="98" width="11" height="2"/>
+    </g></g>`;
+
+  function escena(){
+    // cielo de noche que se vuelve atardecer en el horizonte
+    const chispas = Array.from({length:22},(_,i)=>{const x=(i*53)%350+5, y=(i*37)%110+8, r=i%3?1.2:1.9;return `<circle cx="${x}" cy="${y}" r="${r}" fill="#fff" class="brilla" style="animation-delay:${-(i%7)*.33}s"/>`}).join("");
+    return `<svg viewBox="0 0 360 210" role="img" aria-label="Sombras de los tres Reyes, un árbol de Navidad y Santa">
+      <defs>
+        <linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#171a3f"/><stop offset=".45" stop-color="#4b2f63"/><stop offset=".78" stop-color="#d9714a"/><stop offset="1" stop-color="#f6b54a"/></linearGradient>
+        <radialGradient id="halo" cx="96" cy="34" r="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#ffe9a8" stop-opacity=".75"/><stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="360" height="210" fill="url(#cielo)"/>
+      ${chispas}
+      <g class="luz"><circle cx="96" cy="34" r="60" fill="url(#halo)"/>
+        <g class="estrellaG">${Array.from({length:8},(_,i)=>{const a=i*Math.PI/4, r1=i%2?16:24;return `<path d="M96 34 L${(96+Math.cos(a-.12)*6).toFixed(1)} ${(34+Math.sin(a-.12)*6).toFixed(1)} L${(96+Math.cos(a)*r1).toFixed(1)} ${(34+Math.sin(a)*r1).toFixed(1)} L${(96+Math.cos(a+.12)*6).toFixed(1)} ${(34+Math.sin(a+.12)*6).toFixed(1)} Z" fill="#fff4cc"/>`}).join("")}</g>
+        <circle cx="96" cy="34" r="5" fill="#fff"/>
+        <path d="M96 40 Q88 120 70 192" stroke="#fff4cc" stroke-opacity=".18" stroke-width="18" fill="none"/>
+      </g>
+      <path d="M0 182 Q70 170 140 180 T260 178 T360 176 V210 H0 Z" fill="${S}"/>
+      <g class="reyes">${rey(10,84,"turbante","jarron",true)}${rey(54,96,"alta","cofre",false)}${rey(100,88,"picos","caliz",false)}</g>
+      ${arbol}
+      ${santa}
+    </svg>`;
+  }
+    return escena;
+  })();
+
+  /* ---------- rompecabezas de 4 piezas ---------- */
+  const W=350, H=204, MX=175, MY=102;
+  const kV=(x,y0,y1,d)=>{const s=Math.sign(y1-y0),yc=(y0+y1)/2;return `L${x} ${yc-s*12} C${x+d*4} ${yc-s*17} ${x+d*19} ${yc-s*19} ${x+d*19} ${yc} C${x+d*19} ${yc+s*19} ${x+d*4} ${yc+s*17} ${x} ${yc+s*12} L${x} ${y1} `};
+  const kH=(y,x0,x1,d)=>{const s=Math.sign(x1-x0),xc=(x0+x1)/2;return `L${xc-s*12} ${y} C${xc-s*17} ${y+d*4} ${xc-s*19} ${y+d*19} ${xc} ${y+d*19} C${xc+s*19} ${y+d*19} ${xc+s*17} ${y+d*4} ${xc+s*12} ${y} L${x1} ${y} `};
+  const piezas = [
+    {d:`M0 0 L${MX} 0 `+kV(MX,0,MY,1)+kH(MY,MX,0,1)+'Z', o:[87,51],  from:[-250,-230,-28]},
+    {d:`M${MX} 0 L${W} 0 L${W} ${MY} `+kH(MY,W,MX,-1)+kV(MX,MY,0,1)+'Z', o:[262,51], from:[250,-250,22]},
+    {d:`M0 ${MY} `+kH(MY,0,MX,1)+kV(MX,MY,H,-1)+`L0 ${H} Z`, o:[87,153], from:[-250,260,20]},
+    {d:`M${MX} ${MY} `+kH(MY,MX,W,-1)+`L${W} ${H} L${MX} ${H} `+kV(MX,H,MY,-1)+'Z', o:[262,153], from:[250,280,-24]}
+  ];
+  const panel=$('tfPanel');
+  piezas.forEach((p,i)=>{
+    const d=document.createElement('div'); d.className='tf-pz'; d.style.clipPath=`path('${p.d}')`; d.style.transformOrigin=`${p.o[0]}px ${p.o[1]}px`;
+    d.innerHTML=escena()+`<svg class="tf-seam" viewBox="0 0 ${W} ${H}"><path d="${p.d}" fill="none" stroke="#fff6dc" stroke-width="3"/></svg>`;
+    const sv=d.querySelector('svg'); sv.setAttribute('preserveAspectRatio','none'); sv.style.cssText=`width:${W}px;height:${H}px`;
+    panel.appendChild(d); p.el=d; p.seam=d.querySelector('.tf-seam');
+  });
+  const marco=document.createElement('div'); marco.className='tf-marco'; panel.appendChild(marco);
+  const flash=document.createElement('div'); flash.className='tf-flash'; panel.appendChild(flash);
+
+  // chispas del "clic" final
+  const dust=[]; for(let i=0;i<18;i++){const d=document.createElement('div');d.className='tf-sp';$('tfDust').appendChild(d);const a=i/18*Math.PI*2;dust.push({d,a,v:110+((i*37)%5)*22})}
+
+  /* ---------- textos (siempre textContent) ---------- */
+  $('tfPara').textContent = cfg.para ? 'Para: '+cfg.para : '';
+  $('tfW1').textContent = cfg.titulo1||''; $('tfW2').textContent = cfg.titulo2||'';
+  $('tfMsg').textContent = cfg.mensaje||'';
+  $('tfDe').textContent = cfg.de||''; if(!cfg.de) $('tfFirma').style.display='none';
+
+  /* ---------- línea de tiempo ---------- */
+  const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x)), seg=(t,a,b)=>clamp((t-a)/(b-a));
+  const eo=x=>1-Math.pow(1-x,3), eb=x=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+  const crowns=[...$('coronas').children], tr=$('trompo'), ca=$('caballito'), ba=$('balero');
+  const franjas=tr.querySelector('.franjas'), barril=ba.querySelector('.barril');
+  if(barril) barril.style.transformOrigin='70px 150px';
+
+  function sombras(el,p,t){
+    const q=s=>el.querySelector(s), qa=s=>el.querySelectorAll(s);
+    const pr=eo(seg(p,0,.7)), pa=eb(seg(p,.2,.8)), ps=eb(seg(p,.4,1));
+    q('.reyes').style.transform=`translateX(${-140*(1-pr)}px)`; q('.reyes').style.opacity=pr;
+    const ar=q('.arbol'); ar.style.transformOrigin='194px 192px'; ar.style.transform=`scale(1,${pa})`; ar.style.opacity=seg(p,.2,.4);
+    q('.santa').style.transform=`translateX(${120*(1-ps)}px)`; q('.santa').style.opacity=seg(p,.4,.6);
+    qa('.luz').forEach(l=>l.style.opacity=seg(p,0,.5));
+    qa('.rey').forEach((r,i)=>r.style.transform=`translateY(${-2.5*Math.abs(Math.sin(t*2.9+i))}px)`);
+    const sa=q('.saludo'); sa.style.transformOrigin='322px 152px'; sa.style.transform=`rotate(${-14*Math.abs(Math.sin(t*2.6))}deg)`;
+    qa('.brilla').forEach((b,i)=>b.style.opacity=.35+.65*Math.abs(Math.sin(t*1.4+i*.7)));
+    const g=q('.estrellaG'); g.style.transformOrigin='96px 34px'; g.style.transform=`rotate(${t*26}deg)`;
+  }
+
+  return function render(t){
+    const pp=eo(seg(t,0,.6)); $('tfPara').style.opacity=pp; $('tfPara').style.transform=`translateY(${(1-pp)*10}px)`;
+    // piezas que llegan y encajan
+    piezas.forEach((p,i)=>{
+      const a=.35+i*.4, k=eb(seg(t,a,a+.75)), f=p.from;
+      p.el.style.opacity=seg(t,a,a+.15);
+      p.el.style.transform=`translate(${f[0]*(1-k)}px,${f[1]*(1-k)}px) rotate(${f[2]*(1-k)}deg) scale(${.75+.25*k})`;
+      p.seam.style.opacity=1-seg(t,2.55,3.0);
+    });
+    marco.style.opacity=seg(t,2.4,2.8);
+    const fl=t-2.5; flash.style.opacity=fl<0?0:.8*Math.min(1,fl*8)*(1-seg(fl,.1,.7));
+    const dt=t-2.5; dust.forEach(s=>{ if(dt<0||dt>1){s.d.style.opacity=0;return}
+      const r=60+s.v*dt; s.d.style.opacity=1-dt; s.d.style.transform=`translate(${195+Math.cos(s.a)*r*1.5}px,${220+Math.sin(s.a)*r*.8}px) scale(${1-dt*.5})`; });
+    piezas.forEach(p=>sombras(p.el,seg(t,2.7,4.7),t));
+    // coronas caen sobre el cuadro
+    crowns.forEach((c,i)=>{const a=3.1+i*.25,k=eb(seg(t,a,a+.6)); c.style.opacity=seg(t,a,a+.1);
+      c.style.transform=`translateY(${-260*(1-k)+(k>=1?Math.sin(t*2+i)*-4:0)}px) rotate(${(k>=1?Math.sin(t*1.7+i)*2:0)}deg)`});
+    // estante y juguetes
+    const es=eo(seg(t,3.5,4.0)); $('tfEst').style.transform=`scaleX(${es})`; $('tfEst').style.opacity=seg(t,3.5,3.6);
+    let k=eb(seg(t,3.8,4.5)); tr.style.opacity=seg(t,3.8,3.9);
+    tr.style.transform=`translateX(${-220*(1-k)}px) rotate(${Math.sin(t*5.7)*7*k}deg)`;
+    if(franjas) franjas.style.transform=`translateX(${-((t*80)%40)}px)`;
+    k=eb(seg(t,4.05,4.75)); ca.style.opacity=seg(t,4.05,4.15);
+    ca.style.transform=`translateY(${260*(1-k)}px) translateX(${Math.sin(t*2.1)*7*k}px) rotate(${Math.sin(t*2.1)*1.5*k}deg)`;
+    k=eb(seg(t,4.3,5.0)); ba.style.opacity=seg(t,4.3,4.4); ba.style.transform=`translateX(${220*(1-k)}px)`;
+    if(barril) barril.style.transform=`rotate(${Math.sin(t*2.6)*13}deg)`;
+    // título, mensaje y firma
+    k=eb(seg(t,4.8,5.3)); $('tfW1').style.opacity=seg(t,4.8,4.9); $('tfW1').style.transform=`scale(${.4+.6*k})`;
+    k=eb(seg(t,5.05,5.55)); $('tfW2').style.opacity=seg(t,5.05,5.15); $('tfW2').style.transform=`scale(${.4+.6*k}) rotate(${-3*k}deg)`;
+    k=eo(seg(t,5.6,6.2)); $('tfMsg').style.opacity=k; $('tfMsg').style.transform=`translateY(${(1-k)*14}px)`;
+    k=eo(seg(t,6.1,6.7)); $('tfFirma').style.opacity=k; $('tfFirma').style.transform=`translateY(${(1-k)*14}px)`;
+  };
+}
+
+(function(){
+  const C=Object.assign({},CONFIG), $=id=>document.getElementById(id);
+  // personalización por enlace: #de=...&para=...
+  location.hash.replace(/^#/,"").split("&").forEach(p=>{const i=p.indexOf("=");if(i>0){const k=p.slice(0,i);if(k==="de"||k==="para"){try{C[k]=decodeURIComponent(p.slice(i+1).replace(/\+/g," "))}catch(e){}}}});
+  if(!C.demo) $("demo").classList.add("oculto");
+  const render=buildCard($("tarjeta"),C);
+  // escala para pantallas angostas
+  function ajusta(){const w=Math.min(window.innerWidth,480);const s=Math.min(1.15,w/390);$("escala").style.transform=`scale(${s})`;$("escala").style.height=(700*s)+"px";$("escala").style.marginBottom="0"}
+  ajusta(); addEventListener("resize",ajusta);
+  // botones
+  if(C.whatsappRespuesta){ $("btnResp").href=`https://wa.me/${C.whatsappRespuesta}?text=${encodeURIComponent(C.textoRespuesta||"")}`; } else $("btnResp").classList.add("oculto");
+  $("credito").href=C.creditoUrl;
+  // cierre de marca portalab
+  (function(){
+    const P = CONFIG.promo || {}, g = id => document.getElementById(id);
+    if(!P.titulo){ g("promo").classList.add("oculto"); return; }
+    g("promoTitulo").textContent = P.titulo;
+    g("promoTexto").textContent = P.texto || "";
+    if(P.whatsapp) g("promoWa").href = "https://wa.me/" + P.whatsapp + "?text=" + encodeURIComponent(P.mensaje || "");
+    else g("promoWa").classList.add("oculto");
+    if(P.pagina) g("promoWeb").href = P.pagina; else g("promoWeb").classList.add("oculto");
+  })();
+
+  // animación
+  const quieta = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let t0=performance.now();
+  if(quieta){ render(8); }
+  else { (function loop(now){ render((now-t0)/1000); requestAnimationFrame(loop); })(t0); }
+  $("btnOtra").addEventListener("click",()=>{ t0=performance.now(); if(quieta) render(8); scrollTo({top:0,behavior:"smooth"}); });
+})();
+</script>
+<script>
+// Demostración: los botones de WhatsApp con el número de muestra (55 0000 0000)
+// llevan al WhatsApp de portalab. En una invitación entregada (demo:false) no hace nada.
+(function(){
+ if(typeof CONFIG==="undefined"||!CONFIG||!CONFIG.demo)return;
+ var RE=/^https:\/\/wa\.me\/(?:52)?5500000000(?=[?\/#]|$)/;
+ function fix(u){return typeof u==="string"&&RE.test(u)?"https://wa.me/525533497852?text="+encodeURIComponent("Hola, vi la demostración «"+document.title+"» en portalab.com.mx y quiero una así."):u}
+ var abrir=window.open;window.open=function(u){var a=[].slice.call(arguments);a[0]=fix(u);return abrir.apply(window,a)};
+ document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(a){var n=fix(a.href);if(n!==a.href)a.href=n}},true);
+})();
+</script>
+</body>
+</html>
