@@ -69,6 +69,33 @@ details{background:var(--card);border:1px solid var(--line);border-radius:18px;o
 summary{cursor:pointer;padding:16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--lab);font-weight:700;font-size:1.2rem;line-height:1.2}details[open] summary::after{content:"−"}
 details p{margin:0;padding:0 16px 16px;color:var(--mut)}
+/* ---- Toque rápido: lo que el cliente hace al acercar el teléfono ---- */
+.tq{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.tq a,.tq button{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:14px;min-height:108px;padding:16px;border-radius:22px;background:var(--card);border:1px solid var(--line);text-decoration:none;text-align:left;cursor:pointer;font-weight:700;line-height:1.2;transition:transform .15s;box-shadow:0 12px 24px -20px rgba(23,21,50,.45)}
+.tq a:active,.tq button:active{transform:scale(.97)}
+.tq i{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:var(--tint);color:var(--lab);font-style:normal}
+.tq i svg{width:22px;height:22px}
+.tq small{display:block;font-weight:500;font-size:.8rem;color:var(--mut);margin-top:3px}
+.tq .big{grid-column:1/-1;flex-direction:row;align-items:center;min-height:86px;background:var(--c);color:#fff;border-color:transparent}
+.tq .big i{background:var(--a);color:var(--c);transform:rotate(-4deg)}
+.tq .big small{color:rgba(255,255,255,.75)}
+.tq .big .fl{margin-left:auto;font-size:1.4rem;opacity:.8}
+.tq .solo{grid-column:1/-1}
+@media (prefers-color-scheme:dark){.tq .big{border-color:color-mix(in srgb,var(--a) 50%,transparent)}}
+/* hoja de pago */
+.velo{position:fixed;inset:0;z-index:20;background:rgba(13,11,34,.55);opacity:0;pointer-events:none;transition:opacity .25s}
+.velo.si{opacity:1;pointer-events:auto}
+.hpago{position:fixed;left:0;right:0;bottom:0;z-index:21;max-width:480px;margin:0 auto;background:var(--card);border-radius:28px 28px 0 0;padding:12px 20px calc(22px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .35s cubic-bezier(.2,.8,.2,1);box-shadow:0 -20px 50px -20px rgba(13,11,34,.5)}
+.hpago.si{transform:none}
+.hpago .asa{width:44px;height:5px;border-radius:9px;background:var(--line);margin:0 auto 14px}
+.hpago h3{font:800 1.5rem/1.1 var(--tit);letter-spacing:-.02em;margin:0 0 4px}
+.hpago .sub{color:var(--mut);margin:0 0 14px;font-size:.94rem}
+.hpago .num{font:800 1.45rem/1.2 var(--tit);letter-spacing:.02em;word-break:break-all;font-variant-numeric:tabular-nums;margin:2px 0 0}
+.hpago .cp{background:var(--a);color:var(--c);margin-top:14px}
+.hpago .cp.ok{filter:brightness(.92)}
+.hpago .wa{margin-top:10px}
+.hpago .x{position:absolute;right:14px;top:12px;width:40px;height:40px;border-radius:50%;border:0;background:var(--tint);color:var(--ink);font-size:1.3rem;cursor:pointer}
+.hpago .paso{font-size:.84rem;color:var(--mut);text-align:center;margin:12px 0 0}
 /* ---- Pie ---- */
 footer{text-align:center;color:var(--mut);font-size:.84rem;margin:52px 0 0;display:grid;gap:10px;justify-items:center}
 .credito{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--mut)}
@@ -92,6 +119,7 @@ footer{text-align:center;color:var(--mut);font-size:.84rem;margin:52px 0 0;displ
 </div></header>
 
 <main class="w">
+<div class="tq" id="tq" hidden></div>
 <nav class="nav" id="nav" aria-label="Secciones"></nav>
 <div class="aviso" id="aviso" hidden><b>!</b><p id="avisoT"></p></div>
 
@@ -105,6 +133,15 @@ footer{text-align:center;color:var(--mut);font-size:.84rem;margin:52px 0 0;displ
 
 <footer><span id="pieN"></span><a class="credito" id="credito" href="https://portalab.com.mx/" target="_blank" rel="noopener"><span id="pie"></span><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><strong>porta<em>lab</em></strong></a></footer>
 </main>
+<div class="velo" id="velo"></div>
+<div class="hpago" id="hpago" role="dialog" aria-modal="true" aria-labelledby="hpT" aria-hidden="true">
+<div class="asa"></div><button class="x" id="hpX" type="button" aria-label="Cerrar">×</button>
+<h3 id="hpT">Pagar por transferencia</h3><p class="sub" id="hpS"></p>
+<div class="card" id="hpD"></div>
+<button class="btn cp" id="hpC" type="button"></button>
+<a class="btn wa" id="hpW" target="_blank" rel="noopener"></a>
+<p class="paso" id="hpP">1. Copia · 2. Transfiere desde tu banco · 3. Manda tu comprobante</p>
+</div>
 <div class="fab" id="fab"><a class="btn wa" id="w2" target="_blank" rel="noopener"></a></div>
 
 <script>
@@ -137,6 +174,9 @@ const CONFIG={
  mapa:"https://maps.google.com/?q=Naucalpan+Estado+de+Mexico",
  pagos:{aceptamos:"Efectivo, tarjeta y transferencia", nota:"Para apartar tu cita puedes transferir el anticipo.",
   banco:"Banco Ejemplo", titular:"Nombre Ejemplo", cuentaEtiqueta:"CLABE", cuenta:"000000000000000000"},   // {} = oculta
+ resenas:"https://www.google.com/maps/search/?api=1&query=Naucalpan",   // enlace de Google para dejar reseña. Vacío = oculta el botón
+ comprobante:"Hola, ya te transferí. Te mando mi comprobante 🧾",   // mensaje del botón «Ya pagué»
+ rapido:true,                               // botones grandes de toque rápido debajo de la portada (pagar, reseña, llegar, compartir)
  redes:[["Instagram","https://instagram.com/"],["Facebook","https://facebook.com/"]],   // [texto, enlace]. [] = oculta
  preguntas:[["¿Necesito cita?","No es obligatoria, pero con cita te atendemos a la hora exacta."],["¿Atienden a domicilio?","Sí, para peinados y maquillaje de evento."]],   // [] = oculta
  pie:"Portal digital hecho por",
@@ -198,6 +238,39 @@ if(P.cuenta)[["Banco",P.banco],["Titular",P.titular],[P.cuentaEtiqueta||"Cuenta"
 
 // ---- Redes ----
 var RD=(C.redes||[]).filter(function(r){return r&&r[0]&&r[1]});RD.forEach(function(r){var a=el("a","btn ln",r[0]);a.href=r[1];a.target="_blank";a.rel="noopener";$("#rds").appendChild(a)});
+
+// ---- Toque rápido y hoja de pago ----
+var IC={pago:'<path d="M3 7h18v10H3zM3 10h18M7 14h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+ star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="currentColor"/>',
+ pin:'<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="9.5" r="2.5" fill="currentColor"/>',
+ redes:'<path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>',
+ share:'<path d="M12 15V4M8 8l4-4 4 4M5 12v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>'};
+function tile(cls,ic,t,sub,href){var a=el(href?"a":"button",cls);if(href){a.href=href;a.target="_blank";a.rel="noopener"}else a.type="button";
+ var i=el("i");i.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[ic]+'</svg>';var d=el("span");d.appendChild(document.createTextNode(t));if(sub)d.appendChild(el("small","",sub));
+ a.appendChild(i);a.appendChild(d);if(cls==="big")a.appendChild(el("span","fl","›"));$("#tq").appendChild(a);return a}
+var hp=$("#hpago"),velo=$("#velo"),ultimo=null;
+function abrirPago(){ultimo=document.activeElement;hp.classList.add("si");velo.classList.add("si");hp.setAttribute("aria-hidden","false");setTimeout(function(){$("#hpC").focus()},60)}
+function cerrarPago(){hp.classList.remove("si");velo.classList.remove("si");hp.setAttribute("aria-hidden","true");if(ultimo&&ultimo.focus)ultimo.focus();if(location.hash==="#pagar")history.replaceState(null,"",location.pathname+location.search)}
+velo.onclick=cerrarPago;$("#hpX").onclick=cerrarPago;document.addEventListener("keydown",function(e){if(e.key==="Escape"&&hp.classList.contains("si"))cerrarPago()});
+if(P.cuenta){
+ $("#hpS").textContent=P.nota||("Le pagas a "+(P.titular||C.nombre)+". Toca para copiar y transfiere desde tu app del banco.");
+ [["Banco",P.banco],["Titular",P.titular],[P.cuentaEtiqueta||"Cuenta",P.cuenta,1]].forEach(function(r){if(!r[1])return;var d=el("div","row"),i=el("div");i.appendChild(el("span","",r[0]));i.appendChild(el("b",r[2]?"num":"",r[1]));d.appendChild(i);$("#hpD").appendChild(d)});
+ var cpT="Copiar "+(P.cuentaEtiqueta||"cuenta");$("#hpC").textContent=cpT;$("#hpC").onclick=function(){copy(String(P.cuenta).replace(/\s/g,""),$("#hpC"),cpT)};
+ if(C.whatsapp)boton($("#hpW"),"Ya pagué · mandar comprobante",C.comprobante||"Hola, ya te transferí. Te mando mi comprobante.");else{$("#hpW").hidden=true;$("#hpP").textContent="1. Copia · 2. Transfiere desde tu banco"}
+}
+if(C.rapido!==false){
+ if(P.cuenta)tile("big","pago","Pagar por transferencia","Sin dictar números: copia y listo").onclick=abrirPago;
+ if(C.resenas)tile("","star","Califícanos","Déjanos tu reseña en Google",C.resenas);
+ if(C.mapa)tile("","pin","Cómo llegar","Abrir en el mapa",C.mapa);
+ var RDq=(C.redes||[]).filter(function(r){return r&&r[0]&&r[1]});
+ if(RDq.length===1)tile("","redes","Síguenos",RDq[0][0],RDq[0][1]);else if(RDq.length>1)tile("","redes","Síguenos",RDq.map(function(r){return r[0]}).join(" · ")).onclick=function(){$("#redes").scrollIntoView()};
+ tile("","share","Compartir","Mándalo a un amigo").onclick=function(){var b=this,u=location.href.split("#")[0],t=C.nombre;
+  if(navigator.share)navigator.share({title:t,text:t+(C.giro?" · "+C.giro:""),url:u}).catch(function(){});else{var s=b.querySelector("small"),o=s.textContent,listo=function(){s.textContent="Enlace copiado";setTimeout(function(){s.textContent=o},1800)};
+   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(listo,listo);else listo()}};
+ var n=$("#tq").children.length,chicos=n-(P.cuenta?1:0);if(chicos%2===1)$("#tq").lastChild.classList.add("solo");
+ $("#tq").hidden=!n;
+}
+if(P.cuenta&&location.hash==="#pagar")setTimeout(abrirPago,350);   // una placa en la caja puede abrir directo el pago: …/#pagar
 
 // ---- Preguntas ----
 var Q=(C.preguntas||[]).filter(function(q){return q&&q[0]});Q.forEach(function(q){var d=el("details");d.appendChild(el("summary","",q[0]));d.appendChild(el("p","",q[1]));$("#pqs").appendChild(d)});

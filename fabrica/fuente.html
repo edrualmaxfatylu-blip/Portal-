@@ -56,6 +56,11 @@ button,input,select,textarea{font:inherit;color:inherit}
 .intro{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px}
 .intro>b{flex:none;width:38px;height:38px;border-radius:12px;background:var(--co);color:#171532;font:800 1.05rem var(--tit);display:grid;place-items:center;transform:rotate(-4deg)}
 .intro p{margin:2px 0 0;color:var(--mut);font-size:.92rem}.intro strong{font:800 1.05rem/1.25 var(--tit)}
+.giros{background:var(--lil);border-radius:20px;padding:16px 16px 14px;margin-bottom:12px}
+.giros b{display:block;font:800 1.02rem var(--tit)}.giros p{margin:4px 0 12px;color:var(--mut);font-size:.88rem}
+.giros div{display:flex;flex-wrap:wrap;gap:8px}
+.giros button{border:1.5px solid var(--ink);background:var(--card);color:var(--ink);border-radius:999px;padding:9px 14px;font:700 .9rem var(--txt);cursor:pointer;min-height:42px}
+.giros button:active{transform:scale(.97)}
 .grupo{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
 .grupo>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 18px;font:800 1.08rem var(--tit);letter-spacing:-.01em}
 .grupo>summary::-webkit-details-marker{display:none}
@@ -231,7 +236,8 @@ const NEG=[
  ["Galería",[["galeriaTitulo","Título"],["galeria","Foto","lista",[["foto","Foto","foto","",{max:1200}],["texto","Pie de foto"]]]]],
  ["Horario",[["horario","Horario","lista",[[0,"Días"],[1,"Horas"]]]]],
  ["Ubicación",[["direccion","Dirección","area"],["mapa","Enlace de Google Maps","url"]]],
- ["Pagos",[["pagos.aceptamos","Aceptamos"],["pagos.nota","Nota para transferencias"],["pagos.banco","Banco"],["pagos.titular","Titular"],["pagos.cuentaEtiqueta","Tipo de cuenta","text","CLABE, tarjeta, cuenta…"],["pagos.cuenta","Número","text","Vacío = no se muestran datos de transferencia."]]],
+ ["Pagos",[["pagos.aceptamos","Aceptamos"],["pagos.nota","Nota para transferencias"],["pagos.banco","Banco"],["pagos.titular","Titular"],["pagos.cuentaEtiqueta","Tipo de cuenta","text","CLABE, tarjeta, cuenta…"],["pagos.cuenta","Número","text","Vacío = no se muestran datos de transferencia."],["comprobante","Mensaje del botón «Ya pagué»","text","Le llega por WhatsApp cuando el cliente manda su comprobante."]]],
+ ["Toque rápido",[["rapido","Mostrar los botones grandes debajo de la portada (pagar, reseña, cómo llegar, compartir)","check"],["resenas","Enlace para dejar reseña en Google","url","En Google Maps: tu negocio → Pedir reseñas → Compartir. Vacío = sin botón."]],1],
  ["Redes",[["redes","Enlace","lista",[[0,"Texto del botón"],[1,"Dirección","url"]]]]],
  ["Preguntas",[["preguntas","Pregunta","lista",[[0,"Pregunta"],[1,"Respuesta","area"]]]]],
  ["Entrega",[["pie","Texto del crédito"],["demo","Mostrar la etiqueta «Demostración»","check"]]]
@@ -358,7 +364,26 @@ function cabecera(){$("#pNom").textContent=nombreDe(P)+" · "+T[P.plantilla].nom
  $("#bSobre").hidden=T[P.plantilla].tipo!=="invitacion"}
 
 // ============ Formulario ============
+// ============ Arranque rápido por giro (portal de negocio) ============
+// Llena textos, colores, servicios, horario y preguntas típicos de cada giro. Los precios quedan vacíos: se ponen los del cliente.
+const GIROS={
+ "Fonda o cocina":{giro:"Cocina económica",eslogan:"Comida casera como en casa",descripcion:"Comida corrida, guisados del día y para llevar. Pide por WhatsApp y te lo tenemos listo.",color:"#3b1f12",acento:"#f2a33a",fondo:"#fff6ea",etiquetas:["Para llevar","Comida corrida"],servicios:[["Comida corrida","Sopa, guisado, agua y tortillas."],["Guisados del día","Pregunta por el menú de hoy."],["Pedidos para llevar","Pide por WhatsApp y pasa por él."]],horario:[["Lunes a sábado","13:00 a 18:00"],["Domingo","Cerrado"]],preguntas:[["¿Tienen servicio a domicilio?","Escríbenos por WhatsApp y te decimos si llegamos a tu zona."],["¿Cuál es el menú de hoy?","Pregúntanos por WhatsApp: cambia todos los días."]]},
+ "Cafetería":{giro:"Cafetería",eslogan:"Tu café de todos los días",descripcion:"Café de especialidad, desayunos y postres. Ven a quedarte o pide para llevar.",color:"#2b1a14",acento:"#c8875a",fondo:"#fbf3ea",etiquetas:["Wifi","Para llevar"],servicios:[["Café y bebidas","Espresso, lattes, fríos y tés."],["Desayunos","Pregunta por el desayuno del día."],["Postres","Pan y postres para acompañar."]],horario:[["Lunes a viernes","8:00 a 20:00"],["Sábado y domingo","9:00 a 15:00"]],preguntas:[["¿Tienen leche vegetal?","Sí, pregunta por las opciones del día."],["¿Puedo pedir para llevar?","Sí, pide por WhatsApp y pasa por tu pedido."]]},
+ "Estética o barbería":{giro:"Estética y barbería",eslogan:"Tu mejor versión empieza aquí",descripcion:"Cortes, color y peinados con cita o sin cita. Escríbenos y te apartamos tu lugar.",color:"#171532",acento:"#ff6b4a",fondo:"#fff7ec",etiquetas:["Con cita o sin cita"],servicios:[["Corte de cabello","Dama, caballero y niños."],["Color y mechas","Tintes, mechas y balayage."],["Peinado para evento","Bodas, XV años y graduaciones."]],horario:[["Lunes a sábado","10:00 a 20:00"],["Domingo","Cerrado"]],preguntas:[["¿Necesito cita?","No es obligatoria, pero con cita te atendemos a la hora exacta."]]},
+ "Taller mecánico":{giro:"Taller mecánico",eslogan:"Tu coche en buenas manos",descripcion:"Afinación, frenos, suspensión y diagnóstico. Te damos presupuesto antes de empezar.",color:"#14212b",acento:"#f2c230",fondo:"#f4f6f8",etiquetas:["Presupuesto sin costo"],servicios:[["Afinación","Bujías, filtros y revisión general."],["Frenos","Balatas, discos y líquido."],["Diagnóstico","Revisamos qué tiene tu coche."]],horario:[["Lunes a viernes","9:00 a 18:00"],["Sábado","9:00 a 14:00"]],preguntas:[["¿Cobran el presupuesto?","No: revisamos y te decimos cuánto cuesta antes de empezar."]]},
+ "Tienda o abarrotes":{giro:"Tienda de abarrotes",eslogan:"Todo lo que necesitas a la vuelta",descripcion:"Abarrotes, bebidas, recargas y pedidos por WhatsApp. Te lo llevamos si estás cerca.",color:"#123524",acento:"#f25c3a",fondo:"#f6faf3",etiquetas:["Recargas","Pedidos por WhatsApp"],servicios:[["Abarrotes","Lo de todos los días."],["Bebidas frías","Refrescos, agua y cerveza."],["Recargas y servicios","Recargas de celular y pago de servicios."]],horario:[["Todos los días","7:00 a 22:00"]],preguntas:[["¿Hacen entregas?","Sí, en la colonia. Escríbenos tu pedido por WhatsApp."]]},
+ "Consultorio":{giro:"Consultorio",eslogan:"Tu salud, con atención cercana",descripcion:"Consulta general con cita. Escríbenos por WhatsApp para apartar tu horario.",color:"#0f2d3d",acento:"#3ec1b4",fondo:"#f2f8f9",etiquetas:["Con cita"],servicios:[["Consulta general","Revisión, diagnóstico y receta."],["Certificados médicos","Para escuela o trabajo."],["Seguimiento","Revisión de tratamiento."]],horario:[["Lunes a viernes","10:00 a 19:00"],["Sábado","10:00 a 14:00"]],preguntas:[["¿Necesito cita?","Sí, aparta tu horario por WhatsApp."]]}
+};
+function arranqueGiro(f){if(P.plantilla!=="negocio")return;
+ const w=el("div","giros");w.appendChild(el("b","","¿De qué es el negocio?"));w.appendChild(el("p","","Toca uno y se llena solo. Luego cambias el nombre, los precios y lo que quieras."));
+ const fila=el("div");Object.keys(GIROS).forEach(k=>{const b=el("button","",k);b.type="button";b.onclick=()=>{const g=GIROS[k],c=P.config;
+  ["giro","eslogan","descripcion","color","acento","fondo"].forEach(x=>{c[x]=g[x]});c.etiquetas=g.etiquetas.slice();
+  c.servicios=g.servicios.map(s=>({nombre:s[0],precio:"",descripcion:s[1],foto:""}));c.horario=g.horario.map(h=>h.slice());c.preguntas=g.preguntas.map(q=>q.slice());
+  armarForm();cambio();vistaPrevia(true);aviso("Listo: «"+k+"». Ahora pon el nombre, el WhatsApp y los precios del cliente")};fila.appendChild(b)});
+ w.appendChild(fila);f.appendChild(w)}
+
 function armarForm(){const f=$("#form");f.replaceChildren();const base=T[P.plantilla].base;
+ arranqueGiro(f);
  ESQ(P.plantilla).forEach(([g,campos,abierto])=>{const vis=campos.filter(c=>existe(base,c[0]));if(!vis.length)return;
   const d=el("details","grupo");if(abierto)d.open=true;const s=el("summary","",g);d.appendChild(s);
   const cu=el("div","cuerpo");const cols=vis.filter(c=>c[2]==="color");

@@ -7,7 +7,8 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
 - `boda/`, `cuento/`, `juguetes/`, `selva/`: invitaciones de demostración
 - `estrella/`: «El camino de la estrella», tarjeta navideña que se juega (estilo isométrico, islas flotantes,
   árbol de escalones que gira, piñata y casita que se despliega). `modo:"tarjeta"` o `"posada"`; nombre del invitado con
-  `#para=Nombre`; con `#reel` se juega sola (para grabar reels). Sale destacada en la portada (`#estrella`) y en el simulador (`arma/#estrella`).
+  `#para=Nombre`; con `#reel` se juega sola (para grabar reels). Sale destacada en la portada (`#estrella`) y en el simulador (`arma/#estrella`). Al final muestra «¿Quieres una tarjeta así?» con el WhatsApp de portalab (`quieresUna:false` lo quita).
+- `temporada/fiestas/`, `temporada/reyes/`, `temporada/tarjeta/`: invitación de temporada ($179), Rosca de Reyes ($99) y tarjeta de felicitación (desde $80), con cierre «¿Quieres una así?» (`CONFIG.promo`).
 - `navidad/`: tarjeta navideña o invitación de posada (`modo:"tarjeta"` o `"posada"`). Promoción de temporada: desde $80, impresa con QR y NFC $150 más con envío.
 - `logo.svg`, `icono.svg`, `apple-touch-icon.png`: logo e ícono
 - `og.png`, `arma/og.png`: imágenes que salen al compartir el enlace en WhatsApp o Facebook
@@ -51,6 +52,12 @@ Todo se publica en **https://portalab.com.mx/** con GitHub Pages.
   - `fuente.html` es el código de la fábrica; `index.html` se arma solo con `node fabrica/generar.js construir`.
   - Córrelo cada vez que cambies una plantilla para que la fábrica la tome.
 - `plantillas/negocio/`: plantilla de portal para negocios (servicios, galería, horario, ubicación, pagos, redes y preguntas).
+  - **Toque rápido** (`rapido:true`): botones grandes debajo de la portada: pagar por transferencia, reseña en Google
+    (`resenas`), cómo llegar, síguenos y compartir.
+  - **Pagar**: hoja con banco, titular y CLABE grande, botón «Copiar CLABE» y «Ya pagué · mandar comprobante»
+    (mensaje en `comprobante`). Con `#pagar` al final del enlace se abre directo: sirve para una placa en la caja.
+  - En la fábrica, «¿De qué es el negocio?» llena textos, colores, servicios, horario y preguntas típicos de 6 giros
+    (los precios quedan vacíos).
 - `plantillas/menu/`: menú digital con pedidos por WhatsApp. Con `#mesa=5` al final del enlace, el pedido dice de qué mesa viene.
 - `plantillas/salud/`: ficha médica para pulsera NFC (sangre, alergias, medicamentos, contactos y botón al 911).
 - `plantillas/mascota/`: placa de mascota con botón para avisar al dueño y mandarle la ubicación.
