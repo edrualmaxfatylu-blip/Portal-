@@ -72,6 +72,12 @@ body{font:16px/1.5 var(--sans);color:var(--tinta);-webkit-font-smoothing:antiali
 .hoja .frase{color:var(--suave);max-width:32ch;margin:0 auto 16px}
 .hoja .de{font:600 .95rem/1.4 var(--sans);margin-bottom:18px}
 .hoja .de span{display:block;font:500 .7rem/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--suave);margin-bottom:6px}
+.cuenta{margin:4px 0 18px}
+.cuenta p{font:600 .66rem/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--suave);margin-bottom:10px}
+.cuenta div{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.cuenta span{background:#fff;border:1px solid #f0e2d4;border-radius:16px;padding:10px 4px 8px}
+.cuenta b{display:block;font:italic 400 2rem/1 var(--serif);color:var(--tinta)}
+.cuenta small{font:600 .58rem/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--suave)}
 .datos{display:grid;gap:8px;margin:0 0 18px;text-align:left}
 .datos div{background:#fff;border:1px solid #f0e2d4;border-radius:16px;padding:12px 14px}
 .datos small{display:block;font:600 .64rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--suave);margin-bottom:5px}
@@ -119,6 +125,7 @@ body{font:16px/1.5 var(--sans);color:var(--tinta);-webkit-font-smoothing:antiali
     <p class="tipo" id="mTipo"></p>
     <h2 id="mTit"></h2>
     <p class="inv" id="mInv" hidden></p>
+    <div class="cuenta" id="cuenta" hidden><p id="cuentaT"></p><div><span><b id="cD">0</b><small>días</small></span><span><b id="cH">0</b><small>horas</small></span><span><b id="cM">0</b><small>min</small></span><span><b id="cS">0</b><small>seg</small></span></div></div>
     <p class="frase" id="mFrase"></p>
     <p class="de" id="mDe" hidden><span id="mDeT"></span><b id="mDeN"></b></p>
     <div class="datos" id="mDatos" hidden></div>
@@ -148,6 +155,9 @@ const CONFIG={
   mapa: "",                                 // enlace de Google Maps (opcional)
   confirmar: "",                            // WhatsApp para confirmar, ej. "525500000000"; vacío = sin botón
   mensajeConfirmar: "Hola, confirmo mi asistencia a la posada.",
+  cuentaRegresiva: "",                      // ej. "2026-12-25T00:00:00" = cuenta regresiva en el mensaje final; vacío = sin cuenta
+  cuentaTexto: "Faltan para Navidad",       // texto arriba de la cuenta regresiva
+  perros: [],                               // perritos en sombra que acompañan al peregrino: "chihuahua", "pastor"
   pie: "Hecha por",
   demo: false,                              // true = muestra "Demostración"; false al entregar
   color: "#d9475a", color2: "#3b2f4a", acento: "#f2c46d", acento2: "#5aa894", fondo: "#f6d6c8"   // muestra de colores en el simulador
@@ -287,15 +297,47 @@ function peregrino(svg, F){
   S("circle", { cx: 11, cy: -8, r: 8, fill: "#ffd36e", opacity: .65, filter: F.brillo }, cuerpo);
   S("rect", { x: 8, y: -12, width: 6, height: 8, rx: 2, fill: "#ffd36e", stroke: "#b07a63", "stroke-width": 1 }, cuerpo);
   g.cuerpo = cuerpo; g.pos = [0, 0]; g.dir = 1;
-  g.poner = (x, y) => { g.pos = [x, y]; g.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`); };
+  g.siguen = [];
+  g.colocar = (x, y) => { g.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`); g.siguen.forEach(f => f(x, y)); };
+  g.poner = (x, y) => { g.pos = [x, y]; g.setAttribute("transform", `translate(${x.toFixed(1)} ${y.toFixed(1)})`); g.siguen.forEach(f => f(x, y, true)); };
   return g;
+}
+/* ---------- perritos en sombra que siguen al peregrino ---------- */
+function perro(padre, tipo, color = "#3b2f4a"){
+  const g = S("g", {}, padre), c = S("g", { fill: color }, g);
+  S("ellipse", { cx: 0, cy: 0, rx: tipo === "pastor" ? 11 : 6, ry: 2.4, fill: "rgba(40,30,60,.2)" }, g);
+  if (tipo === "pastor"){
+    S("path", { d: "M-9.8 -6.2 Q-11.2 -10.6 -8 -11.4 Q0 -13 6.2 -12.4 L9.6 -17.8 L10.8 -23.6 L12.6 -19 L14.2 -23.2 L15.1 -18.4 L19.9 -15.9 L19.6 -14.9 L15.6 -14.3 L13 -13.1 L10.8 -9.2 Q10.2 -6.4 8 -6.4 Z" }, c);
+    S("path", { d: "M-9.6 -9.5 Q-15.5 -6.5 -14 -0.8 Q-12 -5.5 -8.8 -7.6 Z" }, c);
+    [-8, -5.8, 5, 7.4].forEach(x => S("rect", { x, y: -8, width: 1.7, height: 8, rx: .8 }, c));
+  } else {
+    S("ellipse", { cx: 0, cy: -5.6, rx: 5.2, ry: 3 }, c);
+    S("circle", { cx: 5.4, cy: -9.2, r: 3 }, c);
+    S("ellipse", { cx: 8.2, cy: -8.6, rx: 1.7, ry: 1.1 }, c);
+    S("path", { d: "M3.6 -11 L3.2 -15.8 L6 -11.8 Z" }, c); S("path", { d: "M6.2 -11.8 L8.2 -15.6 L8 -10.8 Z" }, c);
+    S("path", { d: "M-4.8 -6.6 Q-9 -10.5 -6.2 -12 Q-7.2 -9.5 -4 -7.8 Z" }, c);
+    [-3.8, -2.4, 2.4, 3.8].forEach(x => S("rect", { x, y: -4, width: .9, height: 4, rx: .45 }, c));
+  }
+  g.cuerpo = c; return g;
+}
+function acompanar(svg, per, color){
+  const lista = (C.perros || []).slice(0, 4); if (!lista.length) return;
+  const rastro = [];
+  const perros = lista.map((t, i) => { const d = perro(svg, t, color); svg.insertBefore(d, per); d.prev = null; d.lag = 7*(i + 1) + (i ? 2 : 0); return d; });
+  per.siguen.push((x, y, salto) => {
+    if (salto){ rastro.length = 0; for (let k = 40; k > 0; k--) rastro.push([x - k*1.5*per.dir, y + (k % 2 ? .3 : 0)]); }
+    rastro.push([x, y]); if (rastro.length > 200) rastro.splice(0, rastro.length - 200);
+    perros.forEach(d => { const p = rastro[Math.max(0, rastro.length - 1 - d.lag)];
+      if (d.prev && Math.abs(p[0] - d.prev[0]) > .05) d.cuerpo.setAttribute("transform", `scale(${p[0] < d.prev[0] ? -1 : 1} 1)`);
+      d.prev = p; d.setAttribute("transform", `translate(${p[0].toFixed(1)} ${p[1].toFixed(1)})`); });
+  });
 }
 async function caminar(per, puntos, ms = 340){
   for (const [x, y] of puntos){
     const [x0, y0] = per.pos, dir = x < x0 ? -1 : x > x0 ? 1 : per.dir;
     if (dir !== per.dir){ per.dir = dir; per.cuerpo.setAttribute("transform", `scale(${dir} 1)`); }
     const alto = y < y0 - 4 ? 16 : 7;
-    await tween(ms, (e, t) => per.setAttribute("transform", `translate(${lerp(x0, x, t).toFixed(1)} ${(lerp(y0, y, t) - Math.sin(Math.PI*t)*alto).toFixed(1)})`), t => t);
+    await tween(ms, (e, t) => per.colocar(lerp(x0, x, t), lerp(y0, y, t) - Math.sin(Math.PI*t)*alto), t => t);
     per.pos = [x, y];
   }
 }
@@ -323,6 +365,7 @@ const sobre = S("g", {}, s0);
   S("path", { d: estrellaD(m[0], m[1], 6.5, 2.8, 7), fill: "#ffd36e" }, g);
   if (MOV) S("animateTransform", { attributeName: "transform", type: "translate", values: "0 0; 0 -8; 0 0", dur: "3.2s", repeatCount: "indefinite" }, g);
 })();
+(C.perros || []).slice(0, 4).forEach((t, i) => { const d = perro(s0, t), b = P0(.55 + i*.62, 2.55, .5); d.setAttribute("transform", `translate(${b[0].toFixed(1)} ${b[1].toFixed(1)}) scale(1.35)`); });
 farolito(s0, 60, 330, "#ffd36e", F0); farolito(s0, 305, 300, "#f3a9ba", F0);
 
 function estrellaD(cx, cy, R, r, n){ let d = ""; for (let i = 0; i < n*2; i++){ const a = -Math.PI/2 + i*Math.PI/n, rr = i % 2 ? r : R; d += (i ? "L" : "M") + (cx + Math.cos(a)*rr).toFixed(1) + " " + (cy + Math.sin(a)*rr).toFixed(1); } return d + "Z"; }
@@ -356,7 +399,7 @@ S("line", { x1: mc[0], y1: mc[1] - 3, x2: mc[0] + 11, y2: mc[1] - 3, stroke: "#3
 S("rect", { x: mc[0] + 9, y: mc[1] - 15, width: 5, height: 12, rx: 2.5, fill: "#d9475a" }, brazo);
 const anillo = S("ellipse", { cx: mc[0], cy: mc[1] - 3, rx: 20, ry: 10, fill: "none", stroke: "#fff", "stroke-width": 2, opacity: .9 }, s1);
 if (MOV){ S("animate", { attributeName: "rx", values: "14;26;14", dur: "1.6s", repeatCount: "indefinite" }, anillo); S("animate", { attributeName: "ry", values: "7;13;7", dur: "1.6s", repeatCount: "indefinite" }, anillo); S("animate", { attributeName: "opacity", values: ".9;0;.9", dur: "1.6s", repeatCount: "indefinite" }, anillo); }
-const per1 = peregrino(s1, F1);
+const per1 = peregrino(s1, F1); acompanar(s1, per1);
 const ruta1a = [[1, 3, 0], [2, 3, 0], [3, 3, 0]].map(p => cima(P1, ...p));
 const ruta1b = [[3, 2, 1], [3, 1, 2], [3, 0, 3], [3, -1, 4], [3, -2, 4]].map(p => cima(P1, ...p));
 
@@ -385,7 +428,7 @@ regalo(P2, 4.2, 1.2, 0, "rosa", "#fff", s2); regalo(P2, 1.3, 4.3, 0, "oro", "#d9
 const punta = S("g", { opacity: .55 }, s2), pc = P2(.5, .5, 5.3);
 const halo2 = S("circle", { cx: pc[0], cy: pc[1], r: 26, fill: "#ffd36e", opacity: 0, filter: F2.halo }, punta);
 S("path", { d: estrellaD(pc[0], pc[1], 15, 6.5, 5), fill: "#f2c46d", stroke: "#fff", "stroke-width": 1.5 }, punta);
-const per2 = peregrino(s2, F2);
+const per2 = peregrino(s2, F2); acompanar(s2, per2);
 const ruta2 = [[2, 2, 1], [1, 1, 2], [0, 0, 3]].map(p => cima(P2, ...p));
 const anillo2 = S("circle", { cx: P2(.5, .5, 2)[0], cy: P2(.5, .5, 2)[1], r: 70, fill: "none", stroke: "#fff", "stroke-width": 2, opacity: 0 }, s2);
 
@@ -441,7 +484,7 @@ S("circle", { cx: PX, cy: PY, r: 32, fill: "none", stroke: "#fff1c4", "stroke-wi
 S("path", { d: estrellaD(PX, PY, 18, 8, 5), fill: "#fff1c4" }, centro);
 if (MOV) S("animateTransform", { attributeName: "transform", type: "rotate", values: `-3 ${PX} 0; 3 ${PX} 0; -3 ${PX} 0`, dur: "3.6s", repeatCount: "indefinite" }, pin);
 const confeti = S("g", {}, s3);
-const per3 = peregrino(s3, F3);
+const per3 = peregrino(s3, F3); acompanar(s3, per3, "#2b2350");
 
 /* =====================================================================
    TEXTOS
@@ -465,6 +508,16 @@ if (POSADA){
   [["Cuándo", C.fecha], ["Dónde", C.lugar]].forEach(([k, v]) => { if (vacio(v)) return; const d = document.createElement("div"), s = document.createElement("small"); s.textContent = k; d.append(s, document.createTextNode(v)); datos.appendChild(d); datos.hidden = false; });
   if (!vacio(C.confirmar)) boton("btn-wa", "Confirmar por WhatsApp", "https://wa.me/" + String(C.confirmar).replace(/\D/g, "") + "?text=" + encodeURIComponent(C.mensajeConfirmar + (para ? " (" + para + ")" : "")));
   if (!vacio(C.mapa) || !vacio(C.lugar)) boton("btn-borde", "Cómo llegar", !vacio(C.mapa) ? C.mapa : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(C.lugar));
+}
+if (!vacio(C.cuentaRegresiva)){
+  const meta = new Date(C.cuentaRegresiva);
+  if (!isNaN(meta)){
+    $("cuenta").hidden = false; $("cuentaT").textContent = C.cuentaTexto || "Faltan para Navidad";
+    const pinta = () => { let ms = meta - Date.now();
+      if (ms <= 0){ $("cuentaT").textContent = "¡Ya es Navidad!"; ["cD", "cH", "cM", "cS"].forEach(k => $(k).textContent = "0"); return; }
+      const s = Math.floor(ms/1000); $("cD").textContent = Math.floor(s/86400); $("cH").textContent = Math.floor(s%86400/3600); $("cM").textContent = Math.floor(s%3600/60); $("cS").textContent = s%60; };
+    pinta(); setInterval(pinta, 1000);
+  }
 }
 const otra = boton("btn-tinta", "Ver otra vez");
 otra.addEventListener("click", () => location.reload());
