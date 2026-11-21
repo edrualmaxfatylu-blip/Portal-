@@ -85,6 +85,17 @@ body{font:16px/1.5 var(--sans);color:var(--tinta);-webkit-font-smoothing:antiali
 .credito{display:inline-flex;align-items:center;gap:8px;margin-top:20px;font-size:.8rem;color:#5f5c7a;text-decoration:none}
 .credito svg{width:22px;height:22px}.credito b{font:800 .95rem/1 var(--sans);letter-spacing:-.03em;color:#171532}.credito b span{color:#ff6b4a}
 .demo{display:inline-block;margin-bottom:14px;font:600 .62rem/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;background:#ffefc2;color:#5a4300;padding:6px 10px;border-radius:999px}
+/* cierre «¿Quieres una así?» (publicidad de portalab) */
+.quiere{margin:22px 0 4px;padding:22px 20px 18px;border-radius:24px;background:#171532;color:#fff;position:relative;overflow:hidden;text-align:center}
+.quiere::before{content:"";position:absolute;width:200px;height:200px;right:-70px;top:-90px;border-radius:50%;background:radial-gradient(circle,rgba(185,180,255,.45),transparent 70%)}
+.quiere::after{content:"";position:absolute;width:180px;height:180px;left:-70px;bottom:-90px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,74,.35),transparent 70%)}
+.quiere>*{position:relative}
+.quiere .q-logo{display:inline-flex;align-items:center;gap:8px;font:800 1rem/1 var(--sans);letter-spacing:-.02em}
+.quiere .q-logo svg{width:24px;height:24px}.quiere .q-logo i{font-style:normal;color:#ff6b4a}
+.quiere h3{font:italic 400 1.7rem/1.1 var(--serif);margin:12px 0 6px}
+.quiere p{color:#d9d6f5;font-size:.95rem;line-height:1.45;margin:0 auto 14px;max-width:30ch}
+.quiere .btn{width:100%}
+.quiere .q-web{margin-top:10px;min-height:46px;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7);font-size:.95rem}
 @media (prefers-reduced-motion:reduce){.etapa{transition:none}.nieve{display:none}.pista i{animation:none}}
 </style>
 </head>
@@ -130,6 +141,13 @@ body{font:16px/1.5 var(--sans);color:var(--tinta);-webkit-font-smoothing:antiali
     <p class="de" id="mDe" hidden><span id="mDeT"></span><b id="mDeN"></b></p>
     <div class="datos" id="mDatos" hidden></div>
     <div class="acciones" id="mAcc"></div>
+    <div class="quiere" id="quiere" hidden>
+      <div class="q-logo"><svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#fff"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#171532" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg><span>porta<i>lab</i></span></div>
+      <h3 id="qTit"></h3>
+      <p id="qTxt"></p>
+      <a class="btn btn-wa" id="qWa" target="_blank" rel="noopener">💬 Pídela por WhatsApp</a>
+      <a class="btn q-web" href="https://portalab.com.mx/" target="_blank" rel="noopener">Ver más en portalab.com.mx</a>
+    </div>
     <a class="credito" href="https://portalab.com.mx/" id="credito"><span id="pie"></span>
       <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="13" fill="#171532"/><path d="M15 37V23a9 9 0 0 1 18 0v14" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round"/><circle cx="24" cy="26" r="3.2" fill="#ff6b4a"/><circle cx="36.5" cy="11.5" r="2.6" fill="#b9b4ff"/></svg>
       <b>porta<span>lab</span></b></a>
@@ -159,6 +177,12 @@ const CONFIG={
   cuentaTexto: "Faltan para Navidad",       // texto arriba de la cuenta regresiva
   perros: [],                               // perritos en sombra que acompañan al peregrino: "chihuahua", "pastor"
   pie: "Hecha por",
+  // Cierre «¿Quieres una así?» al final (publicidad de portalab). false = no se muestra.
+  quieresUna: true,
+  quieresTitulo: "¿Quieres una tarjeta así?",
+  quieresTexto: "Con el nombre de tu familia, tu mensaje y hasta tus perritos. Hecha a la medida por portalab.",
+  quieresWhatsapp: "525533497852",          // WhatsApp de portalab
+  quieresMensaje: "Hola Edgar, vi «El camino de la estrella» y quiero una así para mi familia.",
   demo: false,                              // true = muestra "Demostración"; false al entregar
   color: "#d9475a", color2: "#3b2f4a", acento: "#f2c46d", acento2: "#5aa894", fondo: "#f6d6c8"   // muestra de colores en el simulador
 };
@@ -518,6 +542,14 @@ if (!vacio(C.cuentaRegresiva)){
       const s = Math.floor(ms/1000); $("cD").textContent = Math.floor(s/86400); $("cH").textContent = Math.floor(s%86400/3600); $("cM").textContent = Math.floor(s%3600/60); $("cS").textContent = s%60; };
     pinta(); setInterval(pinta, 1000);
   }
+}
+/* cierre «¿Quieres una así?»: quien la recibe sabe quién la hizo y cómo pedir la suya */
+if (C.quieresUna && !REEL){
+  $("qTit").textContent = C.quieresTitulo || "¿Quieres una así?";
+  $("qTxt").textContent = C.quieresTexto || "";
+  const num = String(C.quieresWhatsapp || "525533497852").replace(/\D/g, "");
+  $("qWa").href = "https://wa.me/" + num + "?text=" + encodeURIComponent(C.quieresMensaje || "Hola, vi «El camino de la estrella» y quiero una así.");
+  $("quiere").hidden = false;
 }
 const otra = boton("btn-tinta", "Ver otra vez");
 otra.addEventListener("click", () => location.reload());
